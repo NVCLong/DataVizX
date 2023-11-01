@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 mongoose
-    .connect('mongodb+srv://backendatavizx:backendatavizx@cluster1.cm1bbkf.mongodb.net/', {
+    .connect('mongodb+srv://backendatavizx:backendatavizx@cluster1.cm1bbkf.mongodb.net/dataVizX', {
         dbName: process.env.DB_NAME,
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -23,7 +23,7 @@ mongoose.connection.on('error', (err) => {
 })
 
 mongoose.connection.on('disconnected', () => {
-    console.log('Mongoose is disconnected to Database');
+    console.log('Mongoose is disconnected to the Database');
 })
 
 process.on('SIGINT', async () => {
