@@ -1,7 +1,10 @@
 const express = require('express');
 const morgan = require('morgan');
 const createError = require('http-errors');
-require('dotenv').config;
+const dotenv = require('dotenv');
+dotenv.config({
+    path: `${__dirname}/config/.env.development`
+});
 require ('./helpers/init_mongodb')
 
 const AuthRoute = require('./routes/auth.route.js')
@@ -35,7 +38,7 @@ app.use((err, req, res, next) => {
     })
 })
 
-const PORT = process.env.PORT || 3636
+const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const createError = require('http-errors')
 const User = require('../models/user.model')
+const {authSchema} = require('../helpers/validation_schema')
+const {signAccessToken} = require('../helpers/jwt_helper')
 
 router.post('/register', async(req, res, next) => {
 
@@ -9,19 +11,22 @@ router.post('/register', async(req, res, next) => {
         const {email, password} = req.body
 
         // If email or password field is blank it will return an error
-        if(!email || !password) throw createError.BadRequest
+        // if(!email || !password) throw createError.BadRequest
+        const result = await authSchema.validateAsync(req.body)
+        // console.log(result)
 
         // Email must be unique
-        const doesExit = await User.findOne({email: email})
-        if (doesExit) throw createError.Conflict(`${email} is already registered!`)
+        const doesExit = await User.findOne({email: result.email})
+        if (doesExit) throw createError.Conflict(`${result.email} is already registered!`)
 
         // Save user to the database
-        const user = new User({email, password})
+        const user = new User(result)
         const savedUser = await user.save()
-
-        res.send(savedUser)
+        const accessToken = await signAccessToken(savedUser.id)
+        res.send({accessToken})
 
     } catch(error) {
+        if (error.isJoi === true) error.status = 422
     next(error)
     }
 })

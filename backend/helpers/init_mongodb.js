@@ -1,7 +1,10 @@
 const mongoose = require('mongoose')
-
+const dotenv = require('dotenv');
+dotenv.config({
+    path: `${__dirname}/config/.env.development`
+});
 mongoose
-    .connect('mongodb+srv://backendatavizx:backendatavizx@cluster1.cm1bbkf.mongodb.net/dataVizX', {
+    .connect(process.env.DATABASE_URL, {
         dbName: process.env.DB_NAME,
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -16,6 +19,7 @@ mongoose
 
 mongoose.connection.on('connected', () => {
     console.log('Mongoose is connected to Databse');
+    // console.log(process.env.DB_NAME);
 })
 
 mongoose.connection.on('error', (err) => {

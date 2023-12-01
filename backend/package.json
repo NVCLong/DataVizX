@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "@hapi/joi": "^17.1.1",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "http-errors": "^2.0.0",
@@ -11,7 +12,9 @@
     "nodemon": "^3.0.1"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "keygenerate": "node keygene.js"
+
   },
   "name": "datavizx",
   "version": "1.0.0",
@@ -25,7 +28,6 @@
     "array-flatten": "^1.1.1",
     "balanced-match": "^1.0.2",
     "basic-auth": "^2.0.1",
-    "bcrypt": "^5.1.1",
     "binary-extensions": "^2.2.0",
     "body-parser": "^1.20.1",
     "brace-expansion": "^1.1.11",
