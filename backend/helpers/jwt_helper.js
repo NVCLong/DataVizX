@@ -6,6 +6,7 @@ dotenv.config({
 });
 
 module.exports = {
+    // sign access token to an user
     signAccessToken: (userID) => {
         return new Promise((resolve, reject) => {
             const payload = {}
@@ -16,9 +17,12 @@ module.exports = {
                 audience: userID,
             }
         JWT.sign(payload, secret, options, (err, token) => {
-            if (err) reject(err)
-            resolve(token)
-        })
+            if (err) {
+                console.log(err.message)
+                return reject(createError.InternalServerError())
+                }
+                resolve(token)
+            })
         })
     }
 }

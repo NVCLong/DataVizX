@@ -1,0 +1,27 @@
+GET http://localhost:3000
+
+###Login route
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "lavu@student.hcmiu.edu.vn",
+    "password" : "abdcbc"
+}
+###Register route
+
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "lavu@student.hcmiu.edu.vn",
+    "password" : "abdcbc"
+}
+###Refresh-token route
+
+POST http://localhost:3000/auth/refresh-token
+
+###Logout route
+
+DELETE http://localhost:3000/auth/logout
