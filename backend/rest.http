@@ -1,5 +1,5 @@
 GET http://localhost:3000
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDE1MzU3MjUsImV4cCI6MTcwMTUzNTc0MCwiYXVkIjoiNjU2YWRhNzkyNjkwMmQzOTk2MzM0ZDA4IiwiaXNzIjoiRGF0YVZpelggVGVhbSJ9.l_ut7VKtbthPwJMCTuXgKJdjpiKzW0CPL2T2FyJghMk
 ###Login route
 
 POST http://localhost:3000/auth/login
@@ -15,7 +15,7 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "email": "lavupro473@student.hcmiu.edu.vn",
+    "email": "reFresh@student.hcmiu.edu.vn",
     "password" : "abdcbc"
 }
 ###Refresh-token route
