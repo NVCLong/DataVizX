@@ -6,15 +6,17 @@ dotenv.config({
     path: `${__dirname}/config/.env.development`
 });
 require ('./helpers/init_mongodb')
+const {verifyAccessToken} = require('./helpers/jwt_helper')
 
-const AuthRoute = require('./routes/auth.route.js')
+const AuthRoute = require('./routes/auth.route.js');
+const auth = require('basic-auth');
 const app = express()
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 // Home page
 
-app.get('/', async (req, res, next) => {
+app.get('/',verifyAccessToken, async (req, res, next) => {
     res.send("Welcome to DataVizX");
 });
 

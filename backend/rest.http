@@ -6,7 +6,7 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "lavu@student.hcmiu.edu.vn",
+    "email": "lavupro473@student.hcmiu.edu.vn",
     "password" : "abdcbc"
 }
 ###Register route
@@ -15,7 +15,7 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "email": "lavu@student.hcmiu.edu.vn",
+    "email": "lavupro473@student.hcmiu.edu.vn",
     "password" : "abdcbc"
 }
 ###Refresh-token route
