@@ -8,6 +8,7 @@
     "create-react-app": "^5.0.1",
     "express": "^4.18.2",
     "morgan": "^1.10.0",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "react-scripts": "^5.0.1"
   }
 }
