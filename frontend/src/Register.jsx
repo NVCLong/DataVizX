@@ -5,8 +5,7 @@ export const Register = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [retypePassword, setRetypePassword] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const [userName, setUserName] = useState("");
 
 
     const handleSubmit = (e) => {
@@ -19,11 +18,8 @@ export const Register = (props) => {
     <div className='auth-form-container'>
         <form className='register-form' onSubmit={handleSubmit}>
 
-        <label htmlhtmlFor="firstName">First Name</label>
-        <input value={firstName} onChange={(e) => setFirstName(e.target.value)} type="text" placeholder="Duy" id="firstName" name="firstName"/>
-
-        <label htmlFor="lastName">Last Name</label>
-        <input value={lastName} onChange={(e) => setLastName(e.target.value)} type="text" placeholder="Nguyen" id="lastName" name="lastName"/>
+        <label htmlhtmlFor="userName">User name</label>
+        <input value={userName} onChange={(e) => setUserName(e.target.value)} type="text" placeholder="thanhduy1706" id="userName" name="userName"/>
 
         <label htmlFor="email">Email</label>
         <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="studentID@hcmiu.edu.vn" id="email" name="email"/>
@@ -34,7 +30,7 @@ export const Register = (props) => {
         <input value={retypePassword} onChange={(e) => setRetypePassword(e.target.value)} type="password" placeholder="***************" id="retypePassword" name="retypePassword"/>
 
 
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
     </form>
 
     <button onClick={ () => props.onFormSwitch('Login')}>Already have an account? Login here.</button>

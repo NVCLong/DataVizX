@@ -4,12 +4,16 @@
   min-height: 100vh;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(79deg, #fcfced, #fcedfc 48%, #ebf6ff);
+  background-image: url("/frontend/resource/images/bg_main.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .auth-form-container, .login-form, .register-form {
   display: flex;
   flex-direction: column;
+  padding: 2rem;
 
 }
 label{
@@ -18,16 +22,18 @@ label{
   text-align: left;
 }
 
-input{
+input {
   padding: 0.5rem;
   border-radius: 0.5rem;
   border: 1px solid #ccc;
   margin-bottom: 1rem;
 }
-button{
+
+button {
   padding: 0.5rem;
   border-radius: 0.5rem;
   border: 1px solid #ccc;
   margin-bottom: 1rem;
   cursor: pointer;
+  color: rebeccapurple;
 }
