@@ -37,7 +37,7 @@ export default function Forget() {
                     />
                 ))}
             </div>
-            <FormAction handleSubmit={handleSubmit} text="Forget" />
+            <FormAction handleSubmit={handleSubmit} text="FORGET" />
         </form>
     );
 }
