@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { loginFields } from "../constants/formFields";
-import Background from "../components/Background";
 
 import FormAction from "./FormAction";
 import FormExtra from "./FormExtra";
@@ -51,7 +50,7 @@ export default function Login(){
         </div>
 
         <FormExtra/>
-        <FormAction handleSubmit={handleSubmit} text="Login"/>
+        <FormAction handleSubmit={handleSubmit} text="LOGIN"/>
 
       </form>
     )
