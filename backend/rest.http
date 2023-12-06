@@ -1,13 +1,13 @@
 GET http://localhost:3000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDE2MTk3NDYsImV4cCI6MTcwMTYxOTc3NiwiYXVkIjoiNjU2YWRhNzkyNjkwMmQzOTk2MzM0ZDA4IiwiaXNzIjoiRGF0YVZpelggVGVhbSJ9.RPZWHF2Adxb3EnB2AE2ky4yoL_0GWHkd0YRNmX0uyQk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDE4NzkxMjksImV4cCI6MTcwMTg3OTE0OSwiYXVkIjoiNjU2YWRhNzkyNjkwMmQzOTk2MzM0ZDA4IiwiaXNzIjoiRGF0YVZpelggVGVhbSJ9.aUlCW1Xb_-2w_Bf3CYNtTDPFM3EZEcqhtRQ03UNAEaU
 ###Login route
 
 POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "lavupro473@student.hcmiu.edu.vn",
-    "password" : "abdcbc"
+    "identifier": "lavu12",
+    "password" : "luonganhvudeptrai"
 }
 ###Register route
 
@@ -15,8 +15,9 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "email": "reFresh@student.hcmiu.edu.vn",
-    "password" : "abdcbc"
+    "userName": "lavu12",
+    "email": "lavu@gmail.com",
+    "password" : "luonganhvudeptrai"
 }
 ###Refresh-token route
 
