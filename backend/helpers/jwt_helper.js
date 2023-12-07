@@ -12,7 +12,7 @@ module.exports = {
             const payload = {};
             const secret = process.env.ACCESS_TOKEN_SECRET;
             const options = {
-                expiresIn: "20s",
+                expiresIn: "2h",
                 issuer: "DataVizX Team",
                 audience: userID,
             };
@@ -46,7 +46,7 @@ module.exports = {
             const payload = {};
             const secret = process.env.REFRESH_TOKEN_SECRET;
             const options = {
-                expiresIn: "1y",
+                expiresIn: "1d",
                 issuer: "DataVizX Team",
                 audience: userID,
             };
