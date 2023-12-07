@@ -1,12 +1,12 @@
 GET http://localhost:3000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDE4NzkxMjksImV4cCI6MTcwMTg3OTE0OSwiYXVkIjoiNjU2YWRhNzkyNjkwMmQzOTk2MzM0ZDA4IiwiaXNzIjoiRGF0YVZpelggVGVhbSJ9.aUlCW1Xb_-2w_Bf3CYNtTDPFM3EZEcqhtRQ03UNAEaU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDE4ODcwOTksImV4cCI6MTcwMTg4NzExOSwiYXVkIjoiNjU3MGEzOTkxMzg1MGFkZTNlOWI5ODRhIiwiaXNzIjoiRGF0YVZpelggVGVhbSJ9.98dJdcF6G1uCeQ-QmUhpQYjbhPiWCQK1Ec154m6cL14
 ###Login route
 
 POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "identifier": "lavu12",
+    "identifier": "lavu@gmail.com",
     "password" : "luonganhvudeptrai"
 }
 ###Register route

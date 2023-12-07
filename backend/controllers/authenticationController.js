@@ -1,14 +1,15 @@
 const express = require("express");
 const createError = require("http-errors");
+const User = require("../models/user.model");
+const cookieParser = require("cookie-parser");
 const { authSchema, loginSchema } = require("../helpers/validation_schema");
 const {
     signAccessToken,
     signRefreshToken,
     verifyRefreshToken,
 } = require("../helpers/jwt_helper");
-const User = require("../models/user.model");
-const cookieParser = require("cookie-parser");
 
+// Create a router
 const router = express.Router();
 router.use(cookieParser());
 
@@ -82,9 +83,12 @@ class AuthenticationController {
 
     // Logout function
     static async logout(req, res, next) {
-        // Delete both accessToken and refreshToken
+        
+        // Delete both accessToken and refreshToken using clearCookie
         res.clearCookie("accessToken");
         res.clearCookie("refreshToken");
+
+        // Send a message to the user
         res.send("Logged out!");
     }
 
@@ -92,12 +96,20 @@ class AuthenticationController {
     static async refreshToken(req, res, next) {
         try {
             const { refreshToken } = req.body;
+            
+            // If refreshToken is not found: throw an error
             if (!refreshToken) throw createError.BadRequest();
 
+            // If refreshToken is found: verify the token
             const userID = await verifyRefreshToken(refreshToken);
             const accessToken = await signAccessToken(userID);
+
+            // Generate new refreshToken
             const refreshToken_sign = await signRefreshToken(userID);
+            
+            // Send the new accessToken and refreshToken to the user
             res.send({ accessToken: accessToken, refreshToken: refreshToken_sign });
+
         } catch (error) {
             next(error);
         }

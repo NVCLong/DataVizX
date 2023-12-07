@@ -6,7 +6,7 @@ dotenv.config({
 });
 
 module.exports = {
-    // sign access token to an user
+    // sign access token to each user
     signAccessToken: (userID) => {
         return new Promise((resolve, reject) => {
             const payload = {};
