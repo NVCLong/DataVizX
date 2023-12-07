@@ -15,8 +15,11 @@ export default function FormAction({
             >
                 {text}
             </button>
+
             :
+
             type==='ForgotPassword' ?
+
             <form onSubmit={handleSubmit}>
                 <button
                     type={action}

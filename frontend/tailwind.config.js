@@ -14,6 +14,8 @@ module.exports = {
       '10xl': '6.052rem',
     }
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 }
 
