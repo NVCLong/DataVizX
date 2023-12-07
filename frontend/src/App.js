@@ -12,6 +12,7 @@ import Logo from './pages/Logo';
 function App() {
   return (
     <div className="grid grid-cols-2 h-screen">
+
       <div className="my-auto mx-auto">
           <Logo>
           </Logo>
@@ -28,6 +29,7 @@ function App() {
             </BrowserRouter>
           </div>
       </div>
+
     </div>
 
   );
