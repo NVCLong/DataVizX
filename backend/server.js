@@ -3,26 +3,18 @@ const morgan = require("morgan");
 const createError = require("http-errors");
 const cookiesParser = require("cookie-parser");
 const dotenv = require("dotenv");
+const route= require("./routes/mainRoad");
 dotenv.config({
     path: `${__dirname}/config/.env.development`,
 });
 require("./helpers/init_mongodb");
-const { verifyAccessToken } = require("./helpers/jwt_helper");
-
-const AuthRoute = require("./routes/auth.route.js");
 const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookiesParser());
-// Home page
-
-app.get("/", verifyAccessToken, async (req, res, next) => {
-    res.send("Welcome to DataVizX");
-});
-
-// Set route for API Authentication
-app.use("/auth", AuthRoute);
+// connect to route
+route(app);
 
 // return error
 app.use(async (req, res, next) => {
@@ -42,5 +34,5 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on port  http://localhost:${PORT}`);
 });
