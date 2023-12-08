@@ -21,18 +21,22 @@ class AuthenticationController {
             const result = await authSchema.validateAsync(req.body);
 
             // Email must be unique
-            const doesExit = await User.findOne({ email: result.email });
-            if (doesExit)
+            const doesExitEmail = await User.findOne({ email: result.email });
+            if (doesExitEmail)
                 throw createError.Conflict(`${result.email} is already registered!`);
+
+            // Username must be unique
+            const doesExitUserName = await User.findOne({
+                userName: result.userName,
+            });
+            if (doesExitUserName)
+                throw createError.Conflict(`${result.userName} is already taken!`);
 
             // Save user to the database
             const user = new User(result);
             const savedUser = await user.save();
 
-            // Generate JWT token
-            const accessToken = await signAccessToken(savedUser.id);
-            const refreshToken = await signRefreshToken(savedUser.id);
-            res.send({ accessToken, refreshToken });
+            res.send({ message: "User registered successfully!" });
         } catch (error) {
             // Return an error statement if error is found
             if (error.isJoi === true) error.status = 422;
@@ -83,7 +87,6 @@ class AuthenticationController {
 
     // Logout function
     static async logout(req, res, next) {
-        
         // Delete both accessToken and refreshToken using clearCookie
         res.clearCookie("accessToken");
         res.clearCookie("refreshToken");
@@ -96,7 +99,7 @@ class AuthenticationController {
     static async refreshToken(req, res, next) {
         try {
             const { refreshToken } = req.body;
-            
+
             // If refreshToken is not found: throw an error
             if (!refreshToken) throw createError.BadRequest();
 
@@ -106,10 +109,9 @@ class AuthenticationController {
 
             // Generate new refreshToken
             const refreshToken_sign = await signRefreshToken(userID);
-            
+
             // Send the new accessToken and refreshToken to the user
             res.send({ accessToken: accessToken, refreshToken: refreshToken_sign });
-
         } catch (error) {
             next(error);
         }
