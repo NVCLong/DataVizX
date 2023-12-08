@@ -3,7 +3,7 @@
 
 # DataVizX - Transform your Data into Insights!
 
-Tired of struggling to create visually compelling charts from your data? Say goodbye to clunky spreadsheets and hello to DataVizX, your ultimate data visualization tool.
+Are you tired of struggling to create visually compelling charts from your data? Say goodbye to clunky spreadsheets and hello to DataVizX, your ultimate data visualization tool.
 
 DataVizX is a user-friendly web application that transforms raw data into stunning charts and graphs in seconds. Simply upload your data, choose your desired chart type, and let DataVizX do the magic.
 
@@ -17,7 +17,7 @@ DataVizX is a user-friendly web application that transforms raw data into stunni
 - Interact with chart
 - Live previews
 - Fullscreen mode
-- Cross platform
+- Cross-platform
 
 
 ## 🛠 Skills
@@ -26,9 +26,10 @@ Javascript, HTML, CSS,...
 
 ## Tech Stack
 
-**Client:** React, Redux, TailwindCSS
+### Client: [![My Skills](https://skillicons.dev/icons?i=react,css,tailwind)](https://skillicons.dev)
 
-**Server:** Node, Express
+### Server: [![My Skills](https://skillicons.dev/icons?i=nodejs,express,mongodb)](https://skillicons.dev)
+
 
 
 ## Authors
