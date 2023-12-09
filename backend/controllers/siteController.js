@@ -1,15 +1,9 @@
 const express = require("express");
 
-
-
-
-
-
-class SiteController{
+class SiteController {
     //[GET] /
-    homePage(req, res){
-        res.json({success:true, message:"welcome to dataVizX"})
+    homePage(req, res) {
+        res.json({ success: true, message: "Welcome to DataVizX" });
     }
-
 }
-module.exports= new SiteController();
+module.exports = new SiteController();

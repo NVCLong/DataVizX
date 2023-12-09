@@ -6,8 +6,8 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "identifier": "lavu@gmail.com",
-    "password" : "luonganhvudeptrai"
+    "identifier": " ",
+    "password" : "  "
 }
 ###Register route
 
@@ -15,9 +15,9 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "userName": "lavu12",
-    "email": "lavu@gmail.com",
-    "password" : "luonganhvudeptrai"
+    "userName": "   ",
+    "email": "  ",
+    "password" : " "
 }
 ###Refresh-token route
 
