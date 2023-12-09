@@ -3,7 +3,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import SignupPage from './pages/Signup';
+import RegisterPage from './pages/Register';
 import LoginPage from './pages/Login';
 import ForgetPage from './pages/Forget';
 import Logo from './pages/Logo';
@@ -23,7 +23,7 @@ function App() {
           <BrowserRouter>
               <Routes>
                   <Route path="/" element={<LoginPage/>} />
-                  <Route path="/signup" element={<SignupPage/>} />
+                  <Route path="/Register" element={<RegisterPage/>} />
                   <Route path="/forget" element={<ForgetPage/>} />
               </Routes>
             </BrowserRouter>
