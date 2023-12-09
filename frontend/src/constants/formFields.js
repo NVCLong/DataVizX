@@ -33,7 +33,7 @@ const forgetFields=[
     }
 ]
 
-const signupFields=[
+const registerFields=[
     {
         labelText:"Username",
         labelFor:"username",
@@ -76,4 +76,4 @@ const signupFields=[
     }
 ]
 
-export {loginFields,signupFields,forgetFields}
+export {loginFields,registerFields,forgetFields}

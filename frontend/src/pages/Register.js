@@ -1,6 +1,6 @@
 import Header from "../components/Header";
-import Signup from "../components/Signup";
-import signup_icon from '../images/signup_icon.png';
+import Register from "../components/Register";
+import Register_icon from '../images/Register_icon.png';
 
 export default function SignupPage(){
     return(
@@ -8,7 +8,7 @@ export default function SignupPage(){
             <img
                 alt=""
                 className="h-14 w-14 mx-auto"
-                src={signup_icon}/>
+                src={Register_icon}/>
 
             <Header
               heading="Signup to create an account"
@@ -16,7 +16,7 @@ export default function SignupPage(){
               linkName="Login"
               linkUrl="/"
             />
-            <Signup/>
+            <Register/>
         </>
     )
 }
