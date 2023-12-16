@@ -1,6 +1,6 @@
 const express = require("express");
-const chartList= require("../models/chartlist.model")
-const User = require("../models/user.model")
+const chartList = require("../models/chartlist.model");
+const User = require("../models/user.model");
 
 class SiteController {
     //[GET] /
@@ -10,11 +10,10 @@ class SiteController {
 
     // [GET] /charlist
     async chartListPage(req, res) {
-        try{
-            const user= User.findOne({userId: req.cookies.userId});
-
-        }catch(e){
-            console.log("error: "+ e);
+        try {
+            const user = User.findOne({ userId: req.cookies.userId });
+        } catch (e) {
+            console.log("error: " + e);
         }
     }
 }
