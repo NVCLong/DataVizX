@@ -18,7 +18,11 @@ class AuthenticationController {
         try {
             // If email or password field is blank it will return an error
             // if(!email || !password) throw createError.BadRequest
-            const result = await authSchema.validateAsync(req.body);
+            const result ={
+                userName: req.body.userName,
+                email: req.body.email,
+                password: req.body.password
+            }
 
             // Email must be unique
             const doesExitEmail = await User.findOne({ email: result.email });
@@ -48,7 +52,10 @@ class AuthenticationController {
     static async login(req, res, next) {
         try {
             // Validate the email and password
-            const result = await loginSchema.validateAsync(req.body);
+            const result = {
+                email: req.body.email,
+                password: req.body.password
+            };
 
             // Return email if it is registered
             const user = await User.findOne({
@@ -75,6 +82,7 @@ class AuthenticationController {
                 httpOnly: true,
                 secure: true,
             });
+            res.cookie("userId",user.id);
 
             res.send({ accessToken, refreshToken });
         } catch (error) {
@@ -90,6 +98,7 @@ class AuthenticationController {
         // Delete both accessToken and refreshToken using clearCookie
         res.clearCookie("accessToken");
         res.clearCookie("refreshToken");
+        res.clearCookie("userId")
 
         // Send a message to the user
         res.send("Logged out!");
@@ -127,11 +136,4 @@ class AuthenticationController {
         }
     }
 }
-
-router.post("/register", AuthenticationController.register);
-router.post("/login", AuthenticationController.login);
-router.post("/logout", AuthenticationController.logout);
-router.post("/refresh-token", AuthenticationController.refreshToken);
-router.delete("/deleteLogout", AuthenticationController.deleteLogout);
-
 module.exports = AuthenticationController;

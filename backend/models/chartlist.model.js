@@ -4,7 +4,7 @@ const Schema= mongoose.Schema
 const chartListSchema= new Schema({
     userId: {
         type: Schema.Types.ObjectId,
-        ref: "User",
+        ref: "Users",
         required: true
     },
     DataList: [{

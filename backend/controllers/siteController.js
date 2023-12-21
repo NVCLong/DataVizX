@@ -1,6 +1,7 @@
 const express = require("express");
-const chartList = require("../models/chartlist.model");
-const User = require("../models/user.model");
+const chartList= require("../models/chartlist.model")
+const User = require("../models/user.model")
+const mongooseHelper= require("../untils/mongooseHelper")
 
 class SiteController {
     //[GET] /
@@ -10,10 +11,18 @@ class SiteController {
 
     // [GET] /charlist
     async chartListPage(req, res) {
-        try {
-            const user = User.findOne({ userId: req.cookies.userId });
-        } catch (e) {
-            console.log("error: " + e);
+        try{
+           await chartList.find({userId: req.cookies.userId})
+               .then(function(results){
+                   const lists= results;
+                   res.json({ success:true, chartlist: lists  })
+               })
+               .catch(function(err){
+                   console.log(err)
+               })
+
+        }catch(e){
+            console.log("error: "+ e);
         }
     }
 }
