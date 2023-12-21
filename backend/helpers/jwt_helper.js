@@ -30,9 +30,6 @@ module.exports = {
         console.log(token)
         if (token) {
             JWT.verify(token, "secret", (err) => {
-                if (err) {
-                   console.log(err)
-                }
                 next();
             });
         } else {
