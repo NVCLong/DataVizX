@@ -3,36 +3,24 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import React from 'react';
 import RegisterPage from './pages/Register';
 import LoginPage from './pages/Login';
 import ForgetPage from './pages/Forget';
-import Logo from './pages/Logo';
+import Home from './Comp/pages/Home';
+
 
 
 function App() {
   return (
-    <div className="grid grid-cols-2 h-screen">
-
-      <div className="my-auto mx-auto">
-          <Logo>
-          </Logo>
-      </div>
-
-      <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-md space-y-8">
-          <BrowserRouter>
-              <Routes>
-                  <Route path="/" element={<LoginPage/>} />
-                  <Route path="/Register" element={<RegisterPage/>} />
-                  <Route path="/forget" element={<ForgetPage/>} />
-              </Routes>
-            </BrowserRouter>
-          </div>
-      </div>
-
-    </div>
-
-  );
-}
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" exact Component={Home} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forget" element={<ForgetPage />} />
+    </Routes>
+  </BrowserRouter>
+)}
 
 export default App;
