@@ -51,7 +51,7 @@
   top: 0;
   position:fixed;
   font-size: 30px;
-  
+
 }
 
 .nav-item {
@@ -89,7 +89,7 @@
   .NavbarItems {
     position: relative;
   }
-  
+
 
   .nav-menu {
     display: flex;
@@ -109,11 +109,11 @@
     backdrop-filter: blur(10px);
     background-size: 100vw 100vh;
     background-repeat: no-repeat;
-    background-position-y: -86px ;   
+    background-position-y: -86px ;
     left: 0;
     transition: all 0.5s ease-out allow-discrete;
     backface-visibility: hidden;
-    background-image: url('D:\Documents\Web demo front\my-react-app\public\images\BG_main.png');
+    background-image: url('/src/images/BG_main.png');
     z-index: -9999;
   }
 
@@ -161,7 +161,7 @@
     padding: 14px 20px;
     border: 1px solid #fff;
     transition: all 0.3s ease-out;
-    
+
   }
 
   .nav-links-mobile:hover {
