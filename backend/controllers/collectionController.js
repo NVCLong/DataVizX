@@ -1,5 +1,6 @@
 const Collection= require('../models/collection.model')
 const chartList= require('../models/chartlist.model')
+const algorithm= require("../algorithm/algorithm")
 
 const collectionController= {
     //[GET] /collection/:id
@@ -8,14 +9,12 @@ const collectionController= {
         try{
             await Collection.findOne({_id:req.params.id})
                 .then(function(collection){
-                    console.log(collection)
                     res.json(collection)
                 })
                 .catch(function(err){
                     console.log(err);
                     res.json({msg: "can not find the collection"})
                 })
-
         }catch(e){
             console.log(e)
         }
@@ -81,6 +80,30 @@ const collectionController= {
                     res.json(collectionValues)
                 }
             })
+        }catch(e){
+            console.log(e)
+        }
+    },
+
+    //[GET] collection/groupData/:id
+    async groupingData(req, res){
+        try{
+            await Collection.findOne({_id:req.params.id})
+                .then(function(collection){
+                    let colletcionName= collection.name;
+                    let median= algorithm.findMedian(collection.values)
+                    let colletcionValues= algorithm.groupData(collection.values,median)
+                    let newCollection={
+                        _id:collection._id,
+                        name:colletcionName,
+                        colletcionValues:colletcionValues
+                    }
+                    res.json({collection: newCollection})
+                })
+                .catch(function(err){
+                    console.log(err);
+                    res.json({msg: "can not find the collection"})
+                })
         }catch(e){
             console.log(e)
         }
