@@ -98,7 +98,7 @@ const collectionController= {
                         name:colletcionName,
                         colletcionValues:colletcionValues
                     }
-                    res.json({collection: newCollection})
+                    res.json({newcollection: newCollection, collection: collection})
                 })
                 .catch(function(err){
                     console.log(err);
@@ -108,8 +108,6 @@ const collectionController= {
             console.log(e)
         }
     }
-
-
 
 }
 module.exports= collectionController

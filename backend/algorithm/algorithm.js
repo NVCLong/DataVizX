@@ -19,6 +19,8 @@ const algorithm= {
         const rightMin= this.findMin(array.slice(mid))
         return Math.min(leftMin, rightMin)
     },
+
+    // group using hash table
     groupData(array, target){
         let hashTable={}
         for (let i = 0; i < array.length ; i++) {
@@ -34,6 +36,7 @@ const algorithm= {
         }
         return hashTable
     },
+    // replace the sort method  with the sorting method of LAV
     findMedian(array){
         let median;
         array.sort((a, b) => {
