@@ -13,6 +13,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookiesParser());
+app.use(express.static("public"));
 // connect to route
 route(app);
 

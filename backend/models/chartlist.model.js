@@ -1,7 +1,7 @@
-const mongoose= require("mongoose")
-const Schema= mongoose.Schema
+const mongoose = require("mongoose")
+const Schema = mongoose.Schema
 
-const chartListSchema= new Schema({
+const chartListSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
         ref: "Users",
@@ -10,5 +10,5 @@ const chartListSchema= new Schema({
     DataList: [{
         collectionId: Schema.Types.ObjectId
     }]
-}, {timestamps: true});
+}, { timestamps: true });
 module.exports = mongoose.model('chartList', chartListSchema);

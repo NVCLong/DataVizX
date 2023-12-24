@@ -11,7 +11,9 @@
     "mongoose": "^7.6.2",
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1",
-    "redis": "^4.6.11"
+    "redis": "^4.6.11",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
   },
   "scripts": {
     "start": "nodemon server.js",
