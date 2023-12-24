@@ -73,13 +73,14 @@ const collectionController= {
                 {category: req.body.category8, value: req.body.value8},
                 {category: req.body.category9, value: req.body.value9}
             ];
-            await Collection.findByIdAndUpdate(req.params.id,{value: collectionValues}, function(err){
-                if(err){
-                    console.log(err);
-                }else{
-                    res.json(collectionValues)
-                }
-            })
+            await Collection.findByIdAndUpdate(req.params.id,{values: collectionValues})
+                .then(function (collection){
+                    console.log(collection)
+                    res.json(collection)
+                }).catch(function (err){
+                    console.log(err)
+                })
+
         }catch(e){
             console.log(e)
         }
@@ -90,21 +91,52 @@ const collectionController= {
         try{
             await Collection.findOne({_id:req.params.id})
                 .then(function(collection){
-                    let colletcionName= collection.name;
                     let median= algorithm.findMedian(collection.values)
-                    let colletcionValues= algorithm.groupData(collection.values,median)
-                    let newCollection={
-                        _id:collection._id,
-                        name:colletcionName,
-                        colletcionValues:colletcionValues
+                    let colletcionBelowValues= algorithm.groupBelowData(collection.values,median.value)
+                    let collectionAboveValues= algorithm.groupAboveData(collection.values,median.value)
+                    let belowCollection={
+                        colletcionBelowValues:colletcionBelowValues
                     }
-                    res.json({newcollection: newCollection, collection: collection})
+                    let aboveCollection={
+                        collectionAboveValues:collectionAboveValues
+                    }
+                    res.json({colletcionBelowValues: belowCollection,collectionAboveValues: aboveCollection ,collection: collection, median:median})
                 })
                 .catch(function(err){
                     console.log(err);
                     res.json({msg: "can not find the collection"})
                 })
         }catch(e){
+            console.log(e)
+        }
+    },
+
+    // [PUT]   /collection/edit/:id
+    async editCollection(req, res){
+
+        try{
+            const collectionValues=[
+                {category: req.body.category0, value: req.body.value0},
+                {category: req.body.category1, value: req.body.value1},
+                {category: req.body.category2, value: req.body.value2},
+                {category: req.body.category3, value: req.body.value3},
+                {category: req.body.category4, value: req.body.value4},
+                {category: req.body.category5, value: req.body.value5},
+                {category: req.body.category6, value: req.body.value7},
+                {category: req.body.category7, value: req.body.value7},
+                {category: req.body.category8, value: req.body.value8},
+                {category: req.body.category9, value: req.body.value9}
+            ];
+            await Collection.findOneAndUpdate({_id: req.params.id}, {values: collectionValues})
+                .then(function (collection) {
+                    console.log(collection)
+                    res.json({collection})
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
+
+        }catch (e) {
             console.log(e)
         }
     }

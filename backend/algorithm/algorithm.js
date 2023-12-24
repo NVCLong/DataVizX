@@ -21,11 +21,26 @@ const algorithm= {
     },
 
     // group using hash table
-    groupData(array, target){
+    groupBelowData(array, target){
         let hashTable={}
         for (let i = 0; i < array.length ; i++) {
             let  element = array[i];
             if( element.value < target) {
+                let key = element.category;
+                let hash = key
+                if (!hashTable[hash]) {
+                    hashTable[hash] = []
+                }
+                hashTable[hash].push(element)
+            }
+        }
+        return hashTable
+    },
+    groupAboveData(array, target){
+        let hashTable={}
+        for (let i = 0; i < array.length ; i++) {
+            let  element = array[i];
+            if( element.value > target) {
                 let key = element.category;
                 let hash = key
                 if (!hashTable[hash]) {
@@ -44,12 +59,12 @@ const algorithm= {
         })
         let mid= Math.floor(array.length/2);
         if( mid %2===0){
-            median = (array[mid].value+ array[mid+1].value)/2;
+            median = (array[mid]+ array[mid+1])/2;
         }else{
-            median = (array[mid].value)
+            median = (array[mid])
         }
         return median
-    }
+    },
 
 
 }
