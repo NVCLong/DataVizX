@@ -12,9 +12,7 @@ body {
   margin: 0;
   background-image: url('./images/BG_main.png');
   background-position: top left;
-  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
+  font-family: 'SF Pro Display', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-background-size: cover;
@@ -24,8 +22,6 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-  monospace;
   background-size: contain;
 }
 
