@@ -1,0 +1,23 @@
+/* Button.css */
+.custom-button {
+    padding: 20px 90px;
+    font-size: 16px;
+    border: none;
+    background-color: #00ccffa1;
+     border-radius: 10px;
+     color: #fff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transition effect for hover */
+    top: 170px;
+    left: 1770px;
+
+  }
+  
+  .custom-button:hover {
+    background-color: #712fffa1;
+    border-radius: 90px;
+    transition: 250ms;
+    transition: all 0.5s ease-in-out; /* Change background color on hover */
+  }
+  

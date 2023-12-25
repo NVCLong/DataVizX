@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-// import '../index.css'
+
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -82,7 +82,11 @@ function Navbar() {
               </Link>
             </li>
           </ul>
-          {button && <Button buttonStyle='btn--outline'>Get started - it's free</Button>}
+          {button && <Button buttonStyle='btn--outline'>
+          <Link to="/chart">
+            Get started - it's free
+          </Link>
+          </Button>}
         </div>
       </nav>
 
