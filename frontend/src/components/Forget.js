@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { forgetFields } from "../constants/formFields";
 import FormAction from "./FormAction";
 import Input from "./Input";
-import { forgetPassword } from '../api';  // import the forgetPassword function
+import { forgetPassword } from '../api/api';
 
 const fields = forgetFields;
 let fieldsState = {};
@@ -10,6 +10,7 @@ fields.forEach(field => fieldsState[field.id] = '');
 
 export default function Forget() {
     const [forgetState, setForgetState] = useState(fieldsState);
+    const [error, setError] = useState(null);  // state to handle errors
 
     const handleChange = (e) => {
         setForgetState({ ...forgetState, [e.target.id]: e.target.value });
@@ -21,9 +22,11 @@ export default function Forget() {
           const data = await forgetPassword(forgetState['forgot-password']);
           console.log(data);
           // handle successful password reset here
+          alert('Password reset successful! Please check your email for further instructions.');
         } catch (error) {
           console.error(error);
           // handle failed password reset here
+          setError('Password reset failed. Please try again.');
         }
     };
 
@@ -45,6 +48,7 @@ export default function Forget() {
                     />
                 ))}
             </div>
+            {error && <p>{error}</p>}
             <FormAction handleSubmit={handleSubmit} text="FORGET" />
         </form>
     );

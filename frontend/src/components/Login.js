@@ -3,7 +3,8 @@ import { loginFields } from "../constants/formFields";
 import FormAction from "./FormAction";
 import FormExtra from "./FormExtra";
 import Input from "./Input";
-import { login } from '../api';  // import the login function
+import { login } from '../api/api';
+import { useNavigate  } from 'react-router-dom';
 
 const fields=loginFields;
 let fieldsState = {};
@@ -12,20 +13,25 @@ fields.forEach(field=>fieldsState[field.id]='');
 
 export default function Login(){
     const [loginState,setLoginState]=useState(fieldsState);
+    const [error, setError] = useState(null);  // state to handle errors
+    const navigate = useNavigate();
 
     const handleChange=(e)=>{
         setLoginState({...loginState,[e.target.id]:e.target.value})
     }
 
-    const handleSubmit=async (e)=>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const data = await login(loginState['email-address'], loginState.password);
-          console.log(data);
-          // handle successful login here
+            const data = await login(loginState['email-address'], loginState.password);
+            console.log(data);
+            // handle successful login here
+            alert('Login successful!');
+            navigate('/chartList');
         } catch (error) {
-          console.error(error);
-          // handle failed login here
+            console.error(error);
+            // handle failed login here
+            setError('Login failed. Please try again.');
         }
     }
 
@@ -51,6 +57,7 @@ export default function Login(){
             }
         </div>
 
+        {error && <p>{error}</p>}
         <FormExtra/>
         <FormAction handleSubmit={handleSubmit} text="LOGIN"/>
 

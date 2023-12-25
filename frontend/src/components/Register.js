@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { registerFields } from "../constants/formFields";
 import FormAction from "./FormAction";
 import Input from "./Input";
-import { register } from '../api';  // import the register function
+import { register } from '../api/api';
+import { useNavigate } from 'react-router-dom';
 
 const fields=registerFields;
 let fieldsState = {};
@@ -11,18 +12,24 @@ fields.forEach(field => fieldsState[field.id]='');
 
 export default function Register(){
   const [registerState,setRegisterState]=useState(fieldsState);
+  const [error, setError] = useState(null);  // state to handle errors
+  const navigate = useNavigate();
 
   const handleChange=(e)=>setRegisterState({...registerState,[e.target.id]:e.target.value});
 
-  const handleSubmit=async (e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const data = await register(registerState.username, registerState['email-address'], registerState.password);
       console.log(data);
-      // handle successful registration here
+      // handle successful registration
+      alert('Registration successful!');
+      // redirect the user to the login page
+      navigate('/login');
     } catch (error) {
       console.error(error);
-      // handle failed registration here
+      // handle failed registration
+      setError('Registration failed. Please try again.');
     }
   }
 
@@ -45,6 +52,7 @@ export default function Register(){
             />
           )
         }
+        {error && <p>{error}</p>}
         <FormAction handleSubmit={handleSubmit} text="SIGNUP" />
       </div>
     </form>

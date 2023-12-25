@@ -1,10 +1,16 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --primary: #fff;
 }
 
 .btn {
   padding: 8px 20px;
-  border-radius: 2px;
+  border-radius: 50px;
   outline: none;
   border: none;
   cursor: pointer;
@@ -53,19 +59,11 @@
 }
 
 .btn--primary:hover{
-  background-color: transparent;
-  color: #fff;
+  transition: all 0.3s ease-out;
+  transform: scale(1.1);
+  background: #fff;
+  color: #242424;
   transition: 250ms;
-  transition: all 0.5s ease-in-out;
-  padding: 30px;
-  font-size: 30px;
-  border-radius: 20px;
-  border-width: 10px;
+
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'PT Sans', sans-serif;
-}
