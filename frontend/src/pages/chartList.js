@@ -1,17 +1,17 @@
-import Sidebar from "../components/Sidebar";
-import React from "react";
+// import Sidebar from "../components/Sidebar";
+// import React, { useEffect, useState } from "react";
 
-function ChartList() {
-  return (
-    <div>
-      <div>
-        <Sidebar />
-      </div>
-      <div>
-        <h1>ChartList</h1>
-      </div>
-    </div>
-  );
-}
+// function ChartList() {
+//   return (
+//     <div>
+//       <div>
+//         <Sidebar />
+//       </div>
+//       <div>
+//         <h1>ChartList</h1>
+//       </div>
+//     </div>
+//   );
+// }
 
-export default ChartList;
+// export default ChartList;

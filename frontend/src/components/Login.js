@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { loginFields } from "../constants/formFields";
-
 import FormAction from "./FormAction";
 import FormExtra from "./FormExtra";
 import Input from "./Input";
+import { login } from '../api';  // import the login function
 
 const fields=loginFields;
 let fieldsState = {};
@@ -17,28 +17,16 @@ export default function Login(){
         setLoginState({...loginState,[e.target.id]:e.target.value})
     }
 
-    const handleSubmit=(e)=>{
+    const handleSubmit=async (e)=>{
         e.preventDefault();
-        authenticateUser();
-    }
-
-    //Handle Login API Integration here
-    const authenticateUser = () =>{
-
-        // const endpoint=`https://api.loginradius.com/identity/v2/auth/login?apikey=${apiKey}`;
-        //  fetch(endpoint,
-        //      {
-        //      method:'POST',
-        //      headers: {
-        //      'Content-Type': 'application/json'
-        //      },
-        //      body:JSON.stringify(loginFields)
-        //      }).then(response=>response.json())
-        //      .then(data=>{
-        //         //API Success from LoginRadius Login API
-        //      })
-        //      .catch(error=>console.log(error))
-
+        try {
+          const data = await login(loginState['email-address'], loginState.password);
+          console.log(data);
+          // handle successful login here
+        } catch (error) {
+          console.error(error);
+          // handle failed login here
+        }
     }
 
     return(
