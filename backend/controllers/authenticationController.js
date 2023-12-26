@@ -18,7 +18,7 @@ class AuthenticationController {
         try {
             // If email or password field is blank it will return an error
             // if(!email || !password) throw createError.BadRequest
-            const result ={
+            const result = {
                 userName: req.body.userName,
                 email: req.body.email,
                 password: req.body.password
@@ -27,14 +27,14 @@ class AuthenticationController {
             // Email must be unique
             const doesExitEmail = await User.findOne({ email: result.email });
             if (doesExitEmail)
-                throw createError.Conflict(`${result.email} is already registered!`);
+                throw createError.NotFound(`${result.email} is already registered!`);
 
             // Username must be unique
             const doesExitUserName = await User.findOne({
                 userName: result.userName,
             });
             if (doesExitUserName)
-                throw createError.Conflict(`${result.userName} is already taken!`);
+                throw createError.NotFound(`${result.userName} is already taken!`);
 
             // Save user to the database
             const user = new User(result);
@@ -53,7 +53,7 @@ class AuthenticationController {
         try {
             // Validate the email and password
             const result = {
-                email: req.body.email,
+                identifier: req.body.identifier,
                 password: req.body.password
             };
 
@@ -82,7 +82,7 @@ class AuthenticationController {
                 httpOnly: true,
                 secure: true,
             });
-            res.cookie("userId",user.id);
+            res.cookie("userId", user.id);
 
             res.send({ accessToken, refreshToken });
         } catch (error) {
