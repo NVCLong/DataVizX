@@ -1,4 +1,4 @@
-function bubbleSort(labels, data) {
+export default function bubbleSort(labels, data) {
     var n = data.length;
     var swapped;
 

@@ -6,8 +6,8 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "identifier": " ",
-    "password" : "  "
+    "identifier": "",
+    "password" : ""
 }
 ###Register route
 
@@ -35,3 +35,6 @@ Content-Type: : application/token
 {
     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDE2MjIyMzksImV4cCI6MTczMzE3OTgzOSwiYXVkIjoiNjU2YWRhNzkyNjkwMmQzOTk2MzM0ZDA4IiwiaXNzIjoiRGF0YVZpelggVGVhbSJ9.casMHT2zH9r4EZUhnIPhZzHM1mJhdJQOAzJBg-ycphY"
 }
+
+### Get raw data
+GET http://localhost:3000/collection-raw-data/display
