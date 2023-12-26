@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const createError = require("http-errors");
 const cookiesParser = require("cookie-parser");
 const dotenv = require("dotenv");
+const cors= require("cors");
 const route= require("./routes/mainRoad");
 dotenv.config({
     path: `${__dirname}/config/.env.development`,
@@ -13,6 +14,9 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookiesParser());
+
+// use cors
+app.use(cors());
 // connect to route
 route(app);
 
