@@ -51,17 +51,23 @@ class AuthenticationController {
     // Login function
     static async login(req, res, next) {
         try {
-            // Validate the identifier and password
+            // Validate the email and password
             const result = {
                 identifier: req.body.identifier,
                 password: req.body.password
             };
-            console.log(result);
 
             // Return email if it is registered
             const user = await User.findOne({
                 $or: [{ email: result.identifier }, { userName: result.identifier }],
             });
+
+            // let user;
+            // if (result.email) {
+            //     user = await User.findOne({ email: result.email });
+            // } else if (result.userName) {
+            //     user = await User.findOne({ userName: result.userName });
+            // }
 
             // If not: throw an error
             if (!user) throw createError.NotFound("User not registered!");
@@ -76,15 +82,16 @@ class AuthenticationController {
             // If match: generate JWT token
             const accessToken = await signAccessToken(user.id);
             const refreshToken = await signRefreshToken(user.id);
-
             // Generate cookies
+
             res.cookie("accessToken", accessToken, { httpOnly: true, secure: true });
             res.cookie("refreshToken", refreshToken, {
                 httpOnly: true,
                 secure: true,
             });
             res.cookie("userId", user.id);
-            res.json({ accessToken, refreshToken, user });
+
+            res.send({ accessToken, refreshToken });
         } catch (error) {
             // Return an error statement if validation error is found
             if (error.isJoi === true)
@@ -92,8 +99,6 @@ class AuthenticationController {
             next(error);
         }
     }
-
-
 
     // Logout function
     static async logout(req, res, next) {
@@ -122,7 +127,7 @@ class AuthenticationController {
             const refreshToken_sign = await signRefreshToken(userID);
 
             // Send the new accessToken and refreshToken to the user
-            res.status(200).json({ accessToken: accessToken, refreshToken: refreshToken_sign });
+            res.send({ accessToken: accessToken, refreshToken: refreshToken_sign });
         } catch (error) {
             next(error);
         }

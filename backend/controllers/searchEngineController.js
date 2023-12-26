@@ -1,36 +1,28 @@
 const express = require("express");
 const router = express.Router();
-const Collection = require("../models/collection.model");
-const binarySearch = require("../algorithm/binarySearch");
-const ChartSorting = require("../algorithm/chartSorting");
+const collection = require("../models/collection.model.js");
 
 const searchEngineController = {
-
-    // [GET] /search/:name/:value
-    async performSearch(req, res) {
-        const { name, value } = req.params;
+    async searchEngine(req, res) { // Correct order of req and res parameters
         try {
-            const document = await Collection.findOne({ name });
-            console.log(value);
-
-            if (!document) {
-                return res.status(404).json({ error: "Collection not found!" });
+            const searchText = req.query.q;
+            if (!searchText) {
+                return res.status(400).json({
+                    error: "Search text is required",
+                });
             }
 
-            const sortedValuesArray = ChartSorting.sortByValueAndCategoryAsc(document.values);
-            const result = binarySearch(sortedValuesArray, parseInt(value), "value");
-            console.log(value);
+            const Collections = await collection.find(
+                { $text: { $search: searchText } },
+                { score: { $meta: "textScore" } } // If you want to sort by text score
+            );
 
-            if (result) {
-                res.json(result);
-            } else {
-                res.status(404).json({ error: "Value not found!" });
-            }
+            res.json(Collections);
         } catch (error) {
             console.error(error);
-            res.status(500).json({ error: "Internal server error" });
+            res.status(500).json({ message: error.message });
         }
-    },
+    }
 };
 
 module.exports = searchEngineController;
