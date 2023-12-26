@@ -135,11 +135,9 @@ const collectionController= {
                 .catch(function(err){
                     console.log(err)
                 })
-
         }catch (e) {
             console.log(e)
         }
     }
-
 }
 module.exports= collectionController

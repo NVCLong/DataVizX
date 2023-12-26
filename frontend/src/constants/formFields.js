@@ -38,7 +38,7 @@ const registerFields=[
         labelText:"Username",
         labelFor:"username",
         id:"username",
-        name:"username",
+        name:"userName",
         type:"text",
         autoComplete:"username",
         isRequired:true,

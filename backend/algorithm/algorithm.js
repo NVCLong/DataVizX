@@ -66,6 +66,8 @@ const algorithm= {
         return median
     },
 
+    // trEE, graph
+
 
 }
 module.exports=algorithm

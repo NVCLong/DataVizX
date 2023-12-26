@@ -20,7 +20,7 @@ export default function Register(){
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await register(registerState.username, registerState['email-address'], registerState.password);
+      const data = await register(registerState.userName, registerState.email, registerState.password);
       console.log(data);
       // handle successful registration
       alert('Registration successful!');

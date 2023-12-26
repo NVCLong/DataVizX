@@ -33,9 +33,9 @@ module.exports = {
                 next();
             });
         } else {
+
         }
     },
-
     signRefreshToken: (userID) => {
         return new Promise((resolve, reject) => {
             const payload = {};
@@ -68,3 +68,5 @@ module.exports = {
         });
     },
 };
+
+// redux: access token 20s  request  api  refresh token
