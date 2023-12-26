@@ -19,7 +19,7 @@ class AuthenticationController {
             // If email or password field is blank it will return an error
             // if(!email || !password) throw createError.BadRequest
 
-            const result ={
+            const result = {
                 userName: req.body.userName,
                 email: req.body.email,
                 password: req.body.password

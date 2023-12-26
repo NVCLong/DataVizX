@@ -1,4 +1,4 @@
-import selectionSortDataDesc from "./algorithms/selectionSort.js";
+import selectionSortDataAsc from "./algorithms/selectionSort.js";
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -29,7 +29,7 @@ function fetchDataAndDisplayChart() {
 }
 
 function fetchDataSortAndDisplayChart() {
-    fetch("/collection-raw-data/display")
+    fetch("/collection-raw-data/display/6584823284cbac5e414cb8c7")
         .then((res) => res.json())
         .then((data) => {
             // Remove existing canvas element if it exists
@@ -38,8 +38,9 @@ function fetchDataSortAndDisplayChart() {
                 console.log("Destroyed existing chart");
             }
             // Sort the data before displaying the chart using selection sort
-            const sortedData = selectionSortDataDesc(data);
+            const sortedData = selectionSortDataAsc(data);
             console.log("Sorted data successfully");
+            console.log(data);
             // destroyChart();
             displayChart(sortedData);
         })
