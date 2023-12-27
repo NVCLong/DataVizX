@@ -62,13 +62,6 @@ class AuthenticationController {
                 $or: [{ email: result.identifier }, { userName: result.identifier }],
             });
 
-            // let user;
-            // if (result.email) {
-            //     user = await User.findOne({ email: result.email });
-            // } else if (result.userName) {
-            //     user = await User.findOne({ userName: result.userName });
-            // }
-
             // If not: throw an error
             if (!user) throw createError.NotFound("User not registered!");
 
@@ -82,8 +75,8 @@ class AuthenticationController {
             // If match: generate JWT token
             const accessToken = await signAccessToken(user.id);
             const refreshToken = await signRefreshToken(user.id);
-            // Generate cookies
 
+            // Generate cookies
             res.cookie("accessToken", accessToken, { httpOnly: true, secure: true });
             res.cookie("refreshToken", refreshToken, {
                 httpOnly: true,
