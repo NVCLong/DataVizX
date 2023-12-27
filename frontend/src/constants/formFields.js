@@ -4,10 +4,10 @@ const loginFields=[
         labelFor:"email",
         id:"email",
         name:"email",
-        type:"email",
+        // type:"email",
         autoComplete:"email",
         isRequired:true,
-        placeholder:"Email address"
+        placeholder:"Username or Email"
     },
     {
         labelText:"Password",
