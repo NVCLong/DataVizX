@@ -17,6 +17,12 @@ const collectionSchema = new Schema(
   { timestamps: true }
 );
 
-collectionSchema.index({ name: "text" });
+// collectionSchema.index({ 'values.value': 1 }, { sparse: true });
 
-module.exports = mongoose.model("collection", collectionSchema);
+const Collection = mongoose.model("collection", collectionSchema);
+
+// async function init() {
+//   await Collection.init();
+// }
+// init();
+module.exports = Collection;
