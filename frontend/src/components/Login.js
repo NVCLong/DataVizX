@@ -26,7 +26,6 @@ export default function Login(){
             const data = await login(loginState['email'], loginState.password);
             console.log(data);
 
-
             // handle successful login here
             alert('Login successfully!');
             navigate('/chartList');

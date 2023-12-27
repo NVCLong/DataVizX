@@ -8,7 +8,15 @@ export const login = async (identifier, password) => {
       identifier,
       password,
     });
+    console.log(response.data.accessToken);
+    localStorage.setItem("accessToken",response.data.accessToken)
+    localStorage.setItem("refreshToken",response.data.refreshToken)
+    //get cookie from response
+
+
+    document.cookie=`userId=${response.data.user._id}`
     return response.data;
+
   } catch (error) {
     console.error("Login failed", error);
     throw error;

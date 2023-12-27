@@ -4,30 +4,23 @@ import axios from "axios";
 
 function ChartList() {
 
-    async function getToken(){
-        try {
-            const response = await axios.post('http://localhost:3000/auth/login');
-            const token = response.data.accessToken;
-            console.log(token)
-            setToken(token);
-            localStorage.setItem('token', token);
-        } catch (error) {
+//   // Get api
+// export const login = async (identifier, password) => {
+//   try {
+//     const
+//     const response = await axios.get:(`http://localhost:3000/chartList`, {
 
-        }
-    }
+//     });
+//     console.log(response.data.accessToken);
+//     localStorage.setItem("accessToken",response.data.accessToken)
+//     localStorage.setItem("refreshToken",response.data.refreshToken)
+//     return response.data;
 
-    useEffect(() => {
-        getToken();
-    }, []);
-
-    console.log(getToken)
-
-
-    //save token to local storage
-    const [token, setToken] = useState('');
-    useEffect(() => {
-        localStorage.setItem('token', token);
-    }, [token]);
+//   } catch (error) {
+//     console.error("Login failed", error);
+//     throw error;
+//   }
+// };
 
   return (
     <div>
