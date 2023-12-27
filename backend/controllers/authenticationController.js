@@ -121,7 +121,7 @@ class AuthenticationController {
             const refreshToken_sign = await signRefreshToken(userID);
 
             // Send the new accessToken and refreshToken to the user
-            res.send({ accessToken: accessToken, refreshToken: refreshToken_sign });
+            res.status(200).json({ accessToken: accessToken, refreshToken: refreshToken_sign });
         } catch (error) {
             next(error);
         }
