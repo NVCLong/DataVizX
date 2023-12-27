@@ -1,8 +1,8 @@
 const loginFields=[
     {
         labelText:"Email address",
-        labelFor:"email-address",
-        id:"email-address",
+        labelFor:"email",
+        id:"email",
         name:"email",
         type:"email",
         autoComplete:"email",
@@ -28,7 +28,7 @@ const forgetFields=[
         name:"forgot-password",
         type:"email",
         autoComplete:"off",
-        isRequired:false,
+        isRequired:true,
         placeholder:"Enter your email"
     }
 ]
@@ -46,8 +46,8 @@ const registerFields=[
     },
     {
         labelText:"Email address",
-        labelFor:"email-address",
-        id:"email-address",
+        labelFor:"email",
+        id:"email",
         name:"email",
         type:"email",
         autoComplete:"email",

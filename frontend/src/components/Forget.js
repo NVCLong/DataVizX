@@ -6,14 +6,14 @@ import { forgetPassword } from '../api/api';
 
 const fields = forgetFields;
 let fieldsState = {};
-fields.forEach(field => fieldsState[field.id] = '');
+fields.forEach(field => fieldsState[field.name] = '');
 
 export default function Forget() {
     const [forgetState, setForgetState] = useState(fieldsState);
     const [error, setError] = useState(null);  // state to handle errors
 
     const handleChange = (e) => {
-        setForgetState({ ...forgetState, [e.target.id]: e.target.value });
+        setForgetState({ ...forgetState, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
