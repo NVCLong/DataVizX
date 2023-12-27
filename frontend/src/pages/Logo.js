@@ -3,8 +3,8 @@ import logoMain from '../images/DataVizX.png';
 
 const Logo = () => {
   return (
-    <div className="flex flex-col sm:flex-row items-center">
-        <div className="py-6 px-5">
+    <div className="flex flex-col sm:flex-row items-center drop-shadow-lg">
+        <div className="py-6 px-5 ">
                 <img
                     alt="DataVizX Logo"
                     className="h-24 w-24"

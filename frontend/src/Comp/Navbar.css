@@ -18,12 +18,10 @@
 }
 
 .navbar-logo {
+  display: flex;
   color: #fff;
-  justify-self: start;
-  margin-left: 20px;
   cursor: pointer;
   text-decoration: none;
-  font-size: 2rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -31,6 +29,8 @@
   margin-left: 40px;
   align-items: center;
   font-size: 50px;
+  font-weight: 900;
+
 }
 
 .fa-typo3 {
