@@ -84,7 +84,7 @@ class AuthenticationController {
             });
             res.cookie("userId", user.id);
 
-            res.send({ accessToken, refreshToken });
+            res.json({ accessToken, refreshToken, user });
         } catch (error) {
             // Return an error statement if validation error is found
             if (error.isJoi === true)
