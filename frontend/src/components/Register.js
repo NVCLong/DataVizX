@@ -1,60 +1,75 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { registerFields } from "../constants/formFields";
 import FormAction from "./FormAction";
 import Input from "./Input";
-import { register } from '../api/api';
-import { useNavigate } from 'react-router-dom';
+import { register } from "../api/api";
+import { useNavigate } from "react-router-dom";
 
-const fields=registerFields;
+const fields = registerFields;
 let fieldsState = {};
 
-fields.forEach(field => fieldsState[field.id]='');
+fields.forEach((field) => (fieldsState[field.name] = ""));
 
-export default function Register(){
-  const [registerState,setRegisterState]=useState(fieldsState);
-  const [error, setError] = useState(null);  // state to handle errors
+export default function Register() {
+  const [registerState, setRegisterState] = useState(fieldsState);
+  const [error, setError] = useState(null); // state to handle errors
   const navigate = useNavigate();
 
-  const handleChange=(e)=>setRegisterState({...registerState,[e.target.id]:e.target.value});
+  const handleChange = (e) => {
+    // console.log(registerState.userName);
+    // console.log(registerState['email']);
+    // console.log(registerState.password);
+    // console.log(e.target.name + e.target.value);
+    setRegisterState({...registerState, [e.target.name]: e.target.value});
+    // console.log(registerState);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await register(registerState.username, registerState['email-address'], registerState.password);
+      const data = await register(
+        registerState.userName,
+        registerState["email"],
+        registerState.password
+      );
       console.log(data);
       // handle successful registration
-      alert('Registration successful!');
+      alert("Registration successful!");
       // redirect the user to the login page
-      navigate('/login');
+      navigate("/login");
     } catch (error) {
       console.error(error);
       // handle failed registration
-      setError('Registration failed. Please try again.');
+      alert("Registration failed. Please try again.");
+      // console.log(registerState.userName);
+      // console.log(registerState['email']);
+      // console.log(registerState.password);
     }
-  }
+  };
+  //  console.log(registerState.userName);
+  //  console.log(registerState['email']);
+  //  console.log(registerState.password);
+  //  console.log(registerState);
 
-  return(
+  return (
     <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
       <div className="">
-        {
-          fields.map(field=>
-            <Input
-              key={field.id}
-              handleChange={handleChange}
-              value={registerState[field.id]}
-              labelText={field.labelText}
-              labelFor={field.labelFor}
-              id={field.id}
-              name={field.name}
-              type={field.type}
-              isRequired={field.isRequired}
-              placeholder={field.placeholder}
-            />
-          )
-        }
-        {error && <p>{error}</p>}
+        {fields.map((field) => (
+          <Input
+            key={field.id}
+            handleChange={handleChange}
+            value={registerState[field.id]}
+            labelText={field.labelText}
+            labelFor={field.labelFor}
+            id={field.id}
+            name={field.name}
+            type={field.type}
+            isRequired={field.isRequired}
+            placeholder={field.placeholder}
+          />
+        ))}
         <FormAction handleSubmit={handleSubmit} text="SIGNUP" />
       </div>
     </form>
-  )
+  );
 }

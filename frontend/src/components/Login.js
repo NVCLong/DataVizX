@@ -9,7 +9,7 @@ import { useNavigate  } from 'react-router-dom';
 const fields=loginFields;
 let fieldsState = {};
 
-fields.forEach(field=>fieldsState[field.id]='');
+fields.forEach(field=>fieldsState[field.name]='');
 
 export default function Login(){
     const [loginState,setLoginState]=useState(fieldsState);
@@ -17,13 +17,13 @@ export default function Login(){
     const navigate = useNavigate();
 
     const handleChange=(e)=>{
-        setLoginState({...loginState,[e.target.id]:e.target.value})
+        setLoginState({...loginState,[e.target.name]:e.target.value})
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const data = await login(loginState['email-address'], loginState.password);
+            const data = await login(loginState['email'], loginState.password);
             console.log(data);
             // handle successful login here
             alert('Login successful!');
@@ -31,7 +31,7 @@ export default function Login(){
         } catch (error) {
             console.error(error);
             // handle failed login here
-            setError('Login failed. Please try again.');
+            alert('Login failed. Please try again.');
         }
     }
 

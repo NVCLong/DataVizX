@@ -1,33 +1,42 @@
-import axios from 'axios';
+import axios from "axios";
+const API_URL = "http://localhost:3000";
 
-const API_URL = 'http://localhost:3000';
-
-export const login = async (email, password) => {
+// Login function
+export const login = async (identifier, password) => {
   try {
-    const response = await axios.post(`${API_URL}/auth/login`, { email, password });
+    const response = await axios.post(`${API_URL}/auth/login`, {
+      identifier,
+      password,
+    });
     return response.data;
   } catch (error) {
-    console.error('Login failed', error);
+    console.error("Login failed", error);
     throw error;
   }
 };
 
-export const register = async (username, email, password) => {
+// Register function
+export const register = async (userName, email, password) => {
   try {
-    const response = await axios.post(`${API_URL}/auth/register`, { username, email, password });
+    const response = await axios.post(
+      `http://localhost:3000/auth/register`,
+      { userName, email, password },
+      { headers: { "Content-Type": "application/json" } }
+    );
     return response.data;
   } catch (error) {
-    console.error('Registration failed', error);
+    console.error("Registration failed", error);
     throw error;
   }
 };
 
+// Forget Password function
 export const forgetPassword = async (email) => {
   try {
     const response = await axios.post(`${API_URL}/auth/forget`, { email });
     return response.data;
   } catch (error) {
-    console.error('Forget password failed', error);
+    console.error("Forget password failed", error);
     throw error;
   }
 };
