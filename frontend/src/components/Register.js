@@ -34,11 +34,13 @@ export default function Register() {
       );
       console.log(data);
       // handle successful registration
-      alert("Registration successful!");
+      alert("Registration successfully!");
       // redirect the user to the login page
       navigate("/login");
     } catch (error) {
       console.error(error);
+
+      if (error.response.status === 409) { alert('User already logged in!'); }
       // handle failed registration
       alert("Registration failed. Please try again.");
       // console.log(registerState.userName);

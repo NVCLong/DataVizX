@@ -12,7 +12,7 @@ module.exports = {
             const payload = {};
             const secret = process.env.ACCESS_TOKEN_SECRET;
             const options = {
-                expiresIn: "2h",
+                expiresIn: "1h",
                 issuer: "DataVizX Team",
                 audience: userID,
             };
@@ -33,9 +33,9 @@ module.exports = {
                 next();
             });
         } else {
-
         }
     },
+
     signRefreshToken: (userID) => {
         return new Promise((resolve, reject) => {
             const payload = {};
@@ -68,5 +68,3 @@ module.exports = {
         });
     },
 };
-
-// redux: access token 20s  request  api  refresh token

@@ -51,11 +51,12 @@ class AuthenticationController {
     // Login function
     static async login(req, res, next) {
         try {
-            // Validate the email and password
+            // Validate the identifier and password
             const result = {
                 identifier: req.body.identifier,
                 password: req.body.password
             };
+            console.log(result);
 
             // Return email if it is registered
             const user = await User.findOne({
