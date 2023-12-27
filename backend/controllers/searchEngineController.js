@@ -1,28 +1,35 @@
 const express = require("express");
 const router = express.Router();
-const collection = require("../models/collection.model.js");
+const Collection = require("../models/collection.model");
+const binarySearch = require("../algorithm/binarySearch");
 
 const searchEngineController = {
-    async searchEngine(req, res) { // Correct order of req and res parameters
+    async performSearch(req, res) {
+        const { name, value } = req.params;
         try {
-            const searchText = req.query.q;
-            if (!searchText) {
-                return res.status(400).json({
-                    error: "Search text is required",
-                });
+            const document = await Collection.findOne({ name });
+            console.log(value);
+
+            if (!document) {
+                return res.status(404).json({ error: 'Document not found' });
             }
 
-            const Collections = await collection.find(
-                { $text: { $search: searchText } },
-                { score: { $meta: "textScore" } } // If you want to sort by text score
-            );
+            const sortedValuesArray = document.values.sort((a, b) => a.value - b.value);
+            const result = binarySearch(sortedValuesArray, parseInt(value), 'value');
+            console.log(value);
 
-            res.json(Collections);
+            // console.log(object);
+
+            if (result) {
+                res.json(result);
+            } else {
+                res.status(404).json({ error: 'Value not found' });
+            }
         } catch (error) {
             console.error(error);
-            res.status(500).json({ message: error.message });
+            res.status(500).json({ error: 'Internal server error' });
         }
     }
-};
+}
 
 module.exports = searchEngineController;

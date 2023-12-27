@@ -76,8 +76,8 @@ class AuthenticationController {
             // If match: generate JWT token
             const accessToken = await signAccessToken(user.id);
             const refreshToken = await signRefreshToken(user.id);
-            // Generate cookies
 
+            // Generate cookies
             res.cookie("accessToken", accessToken, { httpOnly: true, secure: true });
             res.cookie("refreshToken", refreshToken, {
                 httpOnly: true,
