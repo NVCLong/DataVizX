@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { chartList } from "../api/api";
 import { Chart as ChartJS } from "chart.js/auto";
-import { Bar, Line } from "react-chartjs-2";
+import { Bar, Line, Pie, Radar} from "react-chartjs-2";
 
 ChartJS.defaults.font.size = 16;
 ChartJS.defaults.font.family = "'SF Pro Display', sans-serif";
@@ -119,8 +119,12 @@ return (
 
         />
       </div>
-      <div className="bg-white rounded-md shadow-md w-full h-52"></div>
-      <div className="bg-white rounded-md shadow-md w-full h-52"></div>
+      <div className="bg-white rounded-md shadow-md w-full h-52">
+        <Bar data={data1} options={config} />
+      </div>
+      <div className="bg-white rounded-md shadow-md w-full h-52">
+        <Radar data={data1} options={config} />
+      </div>
     </div>
   </div>
 );
