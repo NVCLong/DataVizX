@@ -23,10 +23,8 @@
   padding: 8px 20px;
   border: 1px solid var(--primary);
   transition: all 0.5s ease-out;
-  right: 0;
-  top: 0;
-  margin-right: 3rem;
-  margin-top: 30px;
+  right: 30px;
+  top: 30px;
   position:fixed;
   display: flex;
   justify-content:center ;

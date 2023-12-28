@@ -82,11 +82,11 @@ function Navbar() {
               </Link>
             </li>
           </ul>
-          {button && <Button buttonStyle='btn--outline'>
-          <Link to="/chart">
+          <div id='buttonToChart'>
+          {button && <Button buttonStyle='btn--outline' linkUrl="/chart">
             Get started - it's free
-          </Link>
           </Button>}
+          </div>
         </div>
       </nav>
 
