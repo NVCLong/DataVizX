@@ -7,6 +7,7 @@ import { Bar, Line } from "react-chartjs-2";
 
 ChartJS.defaults.font.size = 16;
 ChartJS.defaults.font.family = "'SF Pro Display', sans-serif";
+ChartJS.defaults.layout.padding = 10;
 
 function ChartList() {
   const [chartData, setChartData] = useState([]); // State to store fetched data
@@ -49,22 +50,29 @@ function ChartList() {
 
 
 const config = {
-  // type: 'line',
+  type: 'line',
   data: data1,
   options: {
-    animations: {
-      tension: {
-        duration: 1000,
-        easing: 'easeInOutQuad',
-        from: 1,
-        to: 0,
-        loop: true
-      }
-    },
-    scales: {
-      y: {
-        min: 0,
-        max: 100
+    transitions: {
+      show: {
+        animations: {
+          x: {
+            from: 0
+          },
+          y: {
+            from: 0
+          }
+        }
+      },
+      hide: {
+        animations: {
+          x: {
+            to: 0
+          },
+          y: {
+            to: 0
+          }
+        }
       }
     }
   }
