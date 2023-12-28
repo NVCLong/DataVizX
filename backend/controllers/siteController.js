@@ -10,13 +10,19 @@ class SiteController {
         res.json({ success: true, message: "Welcome to DataVizX" });
     }
 
-    // [GET] /charlist
+    // [GET] /charlist/:id
     async chartListPage(req, res) {
+        console.log("this is chartList page")
         try{
-           await chartList.findOne({userId: req.cookies.userId})
+           await chartList.findOne({userId: req.params.id})
                .then(async function(results){
-                   const user= await User.findOne({_id: req.cookies.userId});
+                   const user= await User.findOne({_id: req.params.id});
+                   if(!user){
+                    console.log("error")
+                   }
+                   console.log(user)
                    const lists= results;
+                   console.log(lists)
                    const listCollection= lists.DataList
                    let userCollection= []
                    for ( let collection of listCollection) {
