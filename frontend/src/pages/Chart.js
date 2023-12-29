@@ -48,7 +48,6 @@ function Chart() {
   const [errorSort, seterrorSort] = useState("");
   const [errorChart, seterrorChart] = useState("");
 
-
   useEffect(() => {
     setLabelsChart(
       DataInput.Data.map((value, index) => {
@@ -69,7 +68,7 @@ function Chart() {
     labelsChart,
     showChart,
     buttonPressed,
-    intArr
+    intArr,
   ]);
 
   const handleSelectChange = (event) => {
@@ -97,14 +96,13 @@ function Chart() {
     // Update input value in state
   };
 
-//   document.getElementsByClassName("buttonToChart").style.display = "b";
+  //   document.getElementsByClassName("buttonToChart").style.display = "b";
 
   const handleOptionChange = (event) => {
     setselectedSortedOption(event.target.value);
     seterrorSort("");
     // Gọi hàm xử lý sắp xếp từ component cha
   };
-
 
   let onClick = () => {
     if (buttonPressed === false) {
@@ -145,7 +143,6 @@ function Chart() {
           },
         ],
       });
-      
 
       setShowChart(true);
     } else {
@@ -237,8 +234,6 @@ function Chart() {
       {showChart && buttonPressed && (
         <div className="graph">{renderChart(DataInput["Graph"])}</div>
       )}
-
-
     </div>
   );
 }
