@@ -1,6 +1,4 @@
-* {
-  font-family: "SF Pro Display", sans-serif;
-}
+
 
 body{
   background: url('./images/BG2.png') no-repeat center fixed;
@@ -8,6 +6,7 @@ body{
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  
 }
 
 .products,

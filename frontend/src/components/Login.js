@@ -1,46 +1,55 @@
 import { useState } from 'react';
 import { loginFields } from "../constants/formFields";
+
 import FormAction from "./FormAction";
 import FormExtra from "./FormExtra";
 import Input from "./Input";
-import { login } from '../api/api';
-import { useNavigate  } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const fields=loginFields;
+const fields = loginFields;
 let fieldsState = {};
 
-fields.forEach(field=>fieldsState[field.name]='');
+fields.forEach(field => fieldsState[field.id] = '');
 
-export default function Login(){
-    const [loginState,setLoginState]=useState(fieldsState);
-    const [error, setError] = useState(null);  // state to handle errors
+export default function Login() {
+    const [loginState, setLoginState] = useState(fieldsState);
     const navigate = useNavigate();
 
-    const handleChange=(e)=>{
-        setLoginState({...loginState,[e.target.name]:e.target.value})
+
+    const handleChange = (e) => {
+        setLoginState({ ...loginState, [e.target.id]: e.target.value })
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        try {
-            const data = await login(loginState['email'], loginState.password);
-
-
-            // handle successful login here
-            alert('Login successfully!');
-            navigate('/chartList');
-        } catch (error) {
-            console.error(error);
-            // handle failed login here
-            alert('Login failed. Please try again.');
-        }
+        authenticateUser();
+        navigate('/chart')
     }
 
-    return(
+    //Handle Login API Integration here
+    const authenticateUser = () => {
+
+        // const endpoint=`https://api.loginradius.com/identity/v2/auth/login?apikey=${apiKey}`;
+        //  fetch(endpoint,
+        //      {
+        //      method:'POST',
+        //      headers: {
+        //      'Content-Type': 'application/json'
+        //      },
+        //      body:JSON.stringify(loginFields)
+        //      }).then(response=>response.json())
+        //      .then(data=>{
+        //         //API Success from LoginRadius Login API
+        //      })
+        //      .catch(error=>console.log(error))
+
+    }
+
+    return (
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-        <div className="-space-y-px">
-            {
-                fields.map(field=>
+            <div className="-space-y-px">
+                {
+                    fields.map(field =>
                         <Input
                             key={field.id}
                             handleChange={handleChange}
@@ -52,16 +61,15 @@ export default function Login(){
                             type={field.type}
                             isRequired={field.isRequired}
                             placeholder={field.placeholder}
-                    />
+                        />
 
-                )
-            }
-        </div>
+                    )
+                }
+            </div>
 
-        {error && <p>{error}</p>}
-        <FormExtra/>
-        <FormAction handleSubmit={handleSubmit} text="LOGIN"/>
+            <FormExtra />
+            <FormAction handleSubmit={handleSubmit} text="LOGIN" />
 
-      </form>
+        </form>
     )
 }
