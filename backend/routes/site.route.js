@@ -4,5 +4,5 @@ const siteController= require("../controllers/siteController")
 const {verifyAccessToken} = require("../helpers/jwt_helper")
 
 router.get('/',siteController.homePage )
-router.get('/chartList',verifyAccessToken, siteController.chartListPage)  //localhost:3000/chartList
+router.get('/chartList/:id', siteController.chartListPage)  //localhost:3000/chartList
 module.exports = router
