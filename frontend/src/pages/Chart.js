@@ -11,6 +11,8 @@ import DataManager from "./DataManager";
 let userInput = {};
 
 function Chart() {
+  const userId = localStorage.getItem("userId")
+
   const [showChart, setShowChart] = useState(false);
 
   const [inputValue, setInputValue] = useState("");
