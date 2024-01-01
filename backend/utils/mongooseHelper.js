@@ -1,4 +1,4 @@
-class Untils{
+class Utils{
     multipleMongooseToObject (SQLArray) {
         return SQLArray.map(function (SQL) {
             return SQL.toObject();
@@ -9,4 +9,4 @@ class Untils{
     }
 }
 
-module.exports = new Untils();
+module.exports = new Utils();

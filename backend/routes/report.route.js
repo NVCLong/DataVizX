@@ -1,10 +1,9 @@
-const express= require('express')
-const router= express.Router()
-const reportController= require('../controllers/reportController')
+const express = require("express");
+const router = express.Router();
+const reportController = require("../controllers/reportController");
 
+router.get("/all_reports", reportController.getAllReport);
+router.post("/sendReport", reportController.sendReport);
+router.get("/", reportController.reportForm);
 
-router.get('/all_reports',reportController.getAllReport)
-router.post('/sendReport', reportController.sendReport)
-router.get('/', reportController.reportForm);
-
-module.exports = router
+module.exports = router;
