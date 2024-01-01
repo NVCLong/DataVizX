@@ -2,7 +2,7 @@ const express = require("express");
 const chartList = require("../models/chartlist.model")
 const User = require("../models/user.model")
 const Collection = require("../models/collection.model")
-const mongooseHelper = require("../untils/mongooseHelper")
+const mongooseHelper = require("../utils/mongooseHelper")
 
 class SiteController {
     //[GET] /
