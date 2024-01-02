@@ -24,18 +24,18 @@ const collectionController= {
     // auto 10 values
     async addNewCollection(req, res){
         try{
-            const collectionValues=[
-                {category: req.body.category0, value: req.body.value0},
-                {category: req.body.category1, value: req.body.value1},
-                {category: req.body.category2, value: req.body.value2},
-                {category: req.body.category3, value: req.body.value3},
-                {category: req.body.category4, value: req.body.value4},
-                {category: req.body.category5, value: req.body.value5},
-                {category: req.body.category6, value: req.body.value7},
-                {category: req.body.category7, value: req.body.value7},
-                {category: req.body.category8, value: req.body.value8},
-                {category: req.body.category9, value: req.body.value9}
-            ];
+            const values= req.body.values.split(",").map(function(value){
+                return parseInt(value,10);
+            })
+            const categories= req.body.categories.split(",");
+            console.log(values)
+            const collectionValues=[];
+            if(categories.length === values.length){
+                for (let i = 0; i < values.length; i++) {
+                    let newValues={category: categories[i], value: values[i]}
+                    collectionValues.push(newValues);
+                }
+            }
              const newCollection=await new Collection({
                 name: req.body.name,
                 values: collectionValues
@@ -58,33 +58,6 @@ const collectionController= {
         }
     },
 
-    //[PUT] /collection/edit/:id
-    async updateCollection(req, res){
-        try{
-            const collectionValues=[
-                {category: req.body.category0, value: req.body.value0},
-                {category: req.body.category1, value: req.body.value1},
-                {category: req.body.category2, value: req.body.value2},
-                {category: req.body.category3, value: req.body.value3},
-                {category: req.body.category4, value: req.body.value4},
-                {category: req.body.category5, value: req.body.value5},
-                {category: req.body.category6, value: req.body.value6},
-                {category: req.body.category7, value: req.body.value7},
-                {category: req.body.category8, value: req.body.value8},
-                {category: req.body.category9, value: req.body.value9}
-            ];
-            await Collection.findByIdAndUpdate(req.params.id,{values: collectionValues})
-                .then(function (collection){
-                    console.log(collection)
-                    res.json(collection)
-                }).catch(function (err){
-                    console.log(err)
-                })
-
-        }catch(e){
-            console.log(e)
-        }
-    },
 
     //[GET] collection/groupData/:id
     async groupingData(req, res){

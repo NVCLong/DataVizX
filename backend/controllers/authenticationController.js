@@ -84,7 +84,6 @@ class AuthenticationController {
                 secure: true,
             });
             res.cookie("userId", user.id);
-
             res.json({ accessToken, refreshToken, user });
         } catch (error) {
             // Return an error statement if validation error is found
@@ -93,6 +92,8 @@ class AuthenticationController {
             next(error);
         }
     }
+
+
 
     // Logout function
     static async logout(req, res, next) {

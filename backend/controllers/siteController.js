@@ -14,7 +14,15 @@ class SiteController {
     async chartListPage(req, res) {
         console.log("this is chartList page")
         try{
+            let page = parseInt(req.query.page);
+            const limit = 3;
+            const startIndex = (page - 1) * limit;
+            const endIndex = page * limit;
+            const result = {};
            await chartList.findOne({userId: req.params.id})
+               .limit(limit)
+               .skip(startIndex)
+               .exec()
                .then(async function(results){
                    const user= await User.findOne({_id: req.params.id});
                    if(!user){
@@ -30,7 +38,17 @@ class SiteController {
                        let element = await Collection.findById(collection._id);
                        userCollection.push(element)
                    }
-                   res.json({ success:true, chartlist: lists, user: user , collection: userCollection  })
+                   if (endIndex <= courses.length) {
+                       result.next = page + 1;
+                   } else if (endIndex > courses.length) {
+                       result.next = 1;
+                   }
+                   if (startIndex > 0) {
+                       result.previous = page - 1;
+                   } else if (startIndex === 0) {
+                       result.previous = 1;
+                   }
+                   res.json({ success:true, chartlist: lists, user: user , collection: userCollection,  result: { previous: result.previous, next: result.next }  })
                })
                .catch(function(err){
                    console.log(err)
