@@ -42,9 +42,9 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",
     "autoprefixer": "^10.4.16",
-    "chart.js": "^4.4.1",
+    "chart.js": "^3.9.1",
     "postcss": "^8.4.32",
-    "react-chartjs-2": "^5.2.0",
+    "react-chartjs-2": "^4.3.1",
     "tailwindcss": "^3.4.0"
   }
 }
