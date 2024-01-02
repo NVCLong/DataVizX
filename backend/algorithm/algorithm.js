@@ -91,19 +91,13 @@ const algorithm= {
 
     // Tree to find the value in the collection
 
-
-
     findValue(array, value){
-        console.log(array)
+        let tree= new Tree();
         for (let i=0; i<array.length; i++) {
-            Tree.insert(array[i]);
+            tree.insert(array[i]);
         }
-        return Tree.findNode(value);
+        return tree.findNode(value);
     },
-
-
-
-
 
     // trEE, graph
 

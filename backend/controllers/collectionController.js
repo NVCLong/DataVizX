@@ -15,6 +15,7 @@ const collectionController= {
                     }
                     console.log( array)
                     let result=algorithm.findValue(array,6);
+                    console.log(result)
                     res.status(200).json(collection);
                 })
                 .catch(function(err){
@@ -117,7 +118,5 @@ const collectionController= {
 
     // [GET]
 
-
-    // [GET]
 }
 module.exports= collectionController
