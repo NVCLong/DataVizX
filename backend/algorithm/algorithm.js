@@ -1,4 +1,7 @@
+const Tree= require("../algorithm/Node");
+
 const algorithm= {
+
 
     findMax(array){
         if(array.length===1){
@@ -65,6 +68,42 @@ const algorithm= {
         }
         return median
     },
+    // find mean function
+    findMean(array){
+        let mean;
+        let sum=0;
+        for (let i=0; i<array.length;i++){
+            sum += array[i]
+        }
+        return (sum/array.length)
+    },
+
+    // find standard deviation function
+    standardDeviation(array){
+        let mean= this.findMean(array);
+        let x=0;
+        for (let i = 0; i <array.length ; i++) {
+            x=Math.pow((array[i]- mean), 2);
+        }
+        return  Math.sqrt(x/array.length-1);
+    },
+
+
+    // Tree to find the value in the collection
+
+
+
+    findValue(array, value){
+        console.log(array)
+        for (let i=0; i<array.length; i++) {
+            Tree.insert(array[i]);
+        }
+        return Tree.findNode(value);
+    },
+
+
+
+
 
     // trEE, graph
 

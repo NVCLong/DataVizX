@@ -15,7 +15,7 @@ class SiteController {
         console.log("this is chartList page")
         try{
             let page = parseInt(req.query.page);
-            const limit = 3;
+            const limit = 2;
             const startIndex = (page - 1) * limit;
             const endIndex = page * limit;
             const result = {};
@@ -38,9 +38,9 @@ class SiteController {
                        let element = await Collection.findById(collection._id);
                        userCollection.push(element)
                    }
-                   if (endIndex <= courses.length) {
+                   if (endIndex <= results.length) {
                        result.next = page + 1;
-                   } else if (endIndex > courses.length) {
+                   } else if (endIndex > results.length) {
                        result.next = 1;
                    }
                    if (startIndex > 0) {
