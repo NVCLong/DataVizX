@@ -41,7 +41,6 @@ const collectionController= {
                 values: collectionValues
             })
             newCollection.save()
-            console.log(newCollection)
              const userId= req.cookies.userId;
              await chartList.findOne({userId : userId})
                  .then(function (lists) {
@@ -60,6 +59,8 @@ const collectionController= {
 
 
     //[GET] collection/groupData/:id
+
+    // using hashTable to group the same data
     async groupingData(req, res){
         try{
             await Collection.findOne({_id:req.params.id})
@@ -110,6 +111,8 @@ const collectionController= {
     },
 
     // [Post] /collection/searchValues/:id
+
+    // find value by using BST and binary search to get position
     async searchValues(req, res){
         try{
             await  Collection.findOne({_id:req.params.id})
