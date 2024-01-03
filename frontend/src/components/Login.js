@@ -23,11 +23,13 @@ export default function Login(){
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            // eslint-disable-next-line
             const data = await login(loginState['email'], loginState.password);
             // handle successful login here
             alert('Login successfully!');
             navigate('/chartList');
         } catch (error) {
+            setError(error.message);
             console.error(error);
             // handle failed login here
             alert('Login failed. Please try again.');
