@@ -1,4 +1,5 @@
 const Tree= require("../algorithm/Node");
+const chartSorting= require("../algorithm/chartSorting")
 
 const algorithm= {
 
@@ -21,6 +22,36 @@ const algorithm= {
         const leftMin= this.findMin(array.slice(0,mid))
         const rightMin= this.findMin(array.slice(mid))
         return Math.min(leftMin, rightMin)
+    },
+
+
+    // replace by sorting algorithm
+
+    findPosition(array, value){
+        array.sort(function(a,b){ return a-b})
+        let upperBound= array.length;
+         let lowerBound= 0;
+        let curIndex=0;
+        if(array.length===1){
+          if(array[0]!==value){
+              return {msg: " can not find position"}
+          }
+          else return {msg: " found position", index: 0}
+        }
+        while(true){
+          curIndex= Math.floor((upperBound+lowerBound)/2)
+          if(array[curIndex]<value){
+              lowerBound= curIndex;
+          }else if(array[curIndex]>value){
+              upperBound= curIndex;
+          }
+          else if(array[curIndex]===value){
+              return {msg: " found position", index: curIndex}
+          }else if(lowerBound> upperBound){
+              return {msg: "can not find position"}
+          }
+        }
+
     },
 
     // group using hash table

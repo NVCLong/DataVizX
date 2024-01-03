@@ -123,12 +123,14 @@ const collectionController= {
                     let finalResult;
                     if( result) {
                         for (const collectiontElement of collection.values) {
-                            if (collectiontElement.value == result.node.data) {
+                            if (collectiontElement.value === result.node.data) {
                                 finalResult= collectiontElement;
                             }
                         }
                     }
-                    res.json(finalResult)
+                    let position=algorithm.findPosition(array,result.node.data)
+                    console.log( position)
+                    res.json({finalResult, position})
                 }).catch(function(err){
                     console.log(err)
                 })
