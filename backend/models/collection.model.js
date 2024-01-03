@@ -1,14 +1,28 @@
-const  mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const collectionSchema= new Schema({
+const collectionSchema = new Schema(
+  {
     name: {
       type: Schema.Types.String,
-      required: true
+      required: true,
     },
-    values: [{
+    values: [
+      {
         category: Schema.Types.String,
-        value: Schema.Types.Number
-    }],
-},{timestamps: true})
-module.exports= mongoose.model('collection', collectionSchema)
+        value: Schema.Types.Number,
+      },
+    ],
+  },
+  { timestamps: true }
+);
+
+// collectionSchema.index({ 'values.value': 1 }, { sparse: true });
+
+const Collection = mongoose.model("collection", collectionSchema);
+
+// async function init() {
+//   await Collection.init();
+// }
+// init();
+module.exports = Collection;

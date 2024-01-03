@@ -9,7 +9,7 @@ const collectionController= {
         try{
             await Collection.findOne({_id:req.params.id})
                 .then(function(collection){
-                    res.json(collection)
+                    res.status(200).json(collection);
                 })
                 .catch(function(err){
                     console.log(err);
@@ -58,33 +58,6 @@ const collectionController= {
         }
     },
 
-    //[PUT] /collection/edit/:id
-    async updateCollection(req, res){
-        try{
-            const collectionValues=[
-                {category: req.body.category0, value: req.body.value0},
-                {category: req.body.category1, value: req.body.value1},
-                {category: req.body.category2, value: req.body.value2},
-                {category: req.body.category3, value: req.body.value3},
-                {category: req.body.category4, value: req.body.value4},
-                {category: req.body.category5, value: req.body.value5},
-                {category: req.body.category6, value: req.body.value6},
-                {category: req.body.category7, value: req.body.value7},
-                {category: req.body.category8, value: req.body.value8},
-                {category: req.body.category9, value: req.body.value9}
-            ];
-            await Collection.findByIdAndUpdate(req.params.id,{values: collectionValues})
-                .then(function (collection){
-                    console.log(collection)
-                    res.json(collection)
-                }).catch(function (err){
-                    console.log(err)
-                })
-
-        }catch(e){
-            console.log(e)
-        }
-    },
 
     //[GET] collection/groupData/:id
     async groupingData(req, res){
@@ -115,18 +88,14 @@ const collectionController= {
     async editCollection(req, res){
 
         try{
-            const collectionValues=[
-                {category: req.body.category0, value: req.body.value0},
-                {category: req.body.category1, value: req.body.value1},
-                {category: req.body.category2, value: req.body.value2},
-                {category: req.body.category3, value: req.body.value3},
-                {category: req.body.category4, value: req.body.value4},
-                {category: req.body.category5, value: req.body.value5},
-                {category: req.body.category6, value: req.body.value7},
-                {category: req.body.category7, value: req.body.value7},
-                {category: req.body.category8, value: req.body.value8},
-                {category: req.body.category9, value: req.body.value9}
-            ];
+            let collectionValues= []
+            let values= req.body.values.split(",").map(function(value){
+                return parseInt(value, 10)
+            })
+            let categories = req.body.categories.split(",")
+            for (let i = 0; i < values.length; i++) {
+                collectionValues.push({category: categories[i], value: values[i]})
+            }
             await Collection.findOneAndUpdate({_id: req.params.id}, {values: collectionValues})
                 .then(function (collection) {
                     console.log(collection)
@@ -138,6 +107,39 @@ const collectionController= {
         }catch (e) {
             console.log(e)
         }
+    },
+
+    // [Post] /collection/searchValues/:id
+    async searchValues(req, res){
+        try{
+            await  Collection.findOne({_id:req.params.id})
+                .then(function(collection) {
+                    let array= [];
+                    for (const arrayElement of collection.values){
+                        array.push(arrayElement.value);
+                    }
+                    console.log( array)
+                    let result=algorithm.findValue(array,req.body.value);
+                    let finalResult;
+                    if( result) {
+                        for (const collectiontElement of collection.values) {
+                            if (collectiontElement.value === result.node.data) {
+                                finalResult= collectiontElement;
+                            }
+                        }
+                    }
+                    let position=algorithm.findPosition(array,result.node.data)
+                    position.index= array.length- position.index;
+                    console.log( position)
+                    res.json({finalResult, position})
+                }).catch(function(err){
+                    console.log(err)
+                })
+
+        }catch (e){
+            console.log(e)
+        }
     }
+
 }
 module.exports= collectionController
