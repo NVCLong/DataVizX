@@ -7,6 +7,7 @@ import Sidebar from "../components/Sidebar";
 Chart.defaults.font.size = 16;
 Chart.defaults.font.family = "'SF Pro Display', sans-serif";
 Chart.defaults.layout.padding = 20;
+Chart.defaults.color = "#fff";
 
 function ChartListPage() {
   const [chartData, setChartData] = useState([]);
@@ -40,11 +41,22 @@ function ChartListPage() {
     fetchChartData();
   }, []);
 
-
   const chartConfig = useMemo(() => {
     return chartData.map((data, index) => {
       const labels = data.map((item) => item.category);
       const values = data.map((item) => item.value);
+
+      // Create a canvas element to apply the gradient
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      // Create the gradient
+      const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+      gradient.addColorStop(0, "#DD3061"); //top
+      gradient.addColorStop(0.25, "#E55986"); // 1st middle
+      gradient.addColorStop(0.5, "#D75587"); // 2nd  middle
+      gradient.addColorStop(0.75, "#CC5188"); // 3rd middle
+      gradient.addColorStop(1, "#AD4689"); //bottom;
 
       return {
         data: {
@@ -52,21 +64,8 @@ function ChartListPage() {
           datasets: [
             {
               label: `Dataset ${index + 1}`,
-
               data: values,
-              backgroundColor: [
-                "#ffff",
-                "rgb(239, 71, 111)",
-                "rgb(255, 209, 102)",
-                "rgb(6, 214, 160)",
-                "rgb(17, 138, 178)",
-                "rgb(7, 59, 76)",
-                "rgb(255, 99, 146)",
-                "rgb(255, 228, 94)",
-                "rgb(127, 200, 248)",
-                "rgb(90, 169, 230)",
-                "rgb(251, 133, 0)"
-            ],
+              backgroundColor: gradient,
             },
           ],
         },
@@ -92,30 +91,30 @@ function ChartListPage() {
             x: {
               grid: {
                 display: false,
-                },
+              },
               ticks: {
-                color: '#fff',
+                color: "#fff",
                 autoSkip: false,
               },
               title: {
                 display: true,
                 text: `Collection ${index + 1}`,
-                color: '#fff',
+                color: "#fff",
                 font: {
                   size: 20,
-                  weight: 'bold',
+                  weight: "bold",
                   lineHeight: 1.2,
                 },
-                padding: {top: 20, left: 0, right: 0, bottom: 0}
+                padding: { top: 20, left: 0, right: 0, bottom: 0 },
               },
             },
             y: {
               grid: {
-                color: '#9FA0A1',
-                drawBorder: false
-                },
+                color: "#9FA0A1",
+                drawBorder: false,
+              },
               ticks: {
-                color: '#fff',
+                color: "#fff",
                 beginAtZero: false,
                 stepSize: 50,
                 max: 1000,
@@ -123,8 +122,7 @@ function ChartListPage() {
             },
           },
         },
-        plugins: {
-        },
+        plugins: {},
       };
     });
   }, [chartData]);
@@ -139,11 +137,11 @@ function ChartListPage() {
 
   return (
     <div className="grid grid-cols-[160px,1fr]">
-      <div className="fixed top-0 left-0 h-screen w-160">
-        <Sidebar/>
+      <div className="fixed top-0 left-0 h-screen w-160 z-50">
+        <Sidebar />
       </div>
 
-      <div className="col-start-2 basis-full flex-col space-y-10 pt-28 pr-10">
+      <div className="col-start-2 space-y-10 pt-28 pr-10">
         {chartConfig.map((config, index) => (
           <div
             key={index}
