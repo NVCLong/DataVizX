@@ -24,8 +24,6 @@ export default function Login(){
         e.preventDefault();
         try {
             const data = await login(loginState['email'], loginState.password);
-
-
             // handle successful login here
             alert('Login successfully!');
             navigate('/chartList');

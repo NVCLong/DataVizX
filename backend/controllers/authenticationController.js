@@ -56,7 +56,7 @@ class AuthenticationController {
                 identifier: req.body.identifier,
                 password: req.body.password
             };
-
+            console.log(result);
             // Return email if it is registered
             const user = await User.findOne({
                 $or: [{ email: result.identifier }, { userName: result.identifier }],
@@ -84,7 +84,7 @@ class AuthenticationController {
             });
             res.cookie("userId", user.id);
 
-            res.send({ accessToken, refreshToken });
+            res.send({ accessToken, refreshToken, user });
         } catch (error) {
             // Return an error statement if validation error is found
             if (error.isJoi === true)
