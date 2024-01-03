@@ -6,7 +6,7 @@ import Sidebar from "../components/Sidebar";
 
 Chart.defaults.font.size = 16;
 Chart.defaults.font.family = "'SF Pro Display', sans-serif";
-Chart.defaults.layout.padding = 5;
+Chart.defaults.layout.padding = 20;
 
 function ChartListPage() {
   const [chartData, setChartData] = useState([]);
@@ -40,6 +40,7 @@ function ChartListPage() {
     fetchChartData();
   }, []);
 
+
   const chartConfig = useMemo(() => {
     return chartData.map((data, index) => {
       const labels = data.map((item) => item.category);
@@ -50,7 +51,7 @@ function ChartListPage() {
           labels,
           datasets: [
             {
-              label: `Collection ${index + 1}`,
+              label: "Value",
               data: values,
               backgroundColor: [
                 "rgb(239, 71, 111)",
@@ -68,6 +69,15 @@ function ChartListPage() {
           ],
         },
         options: {
+          legend: {
+            display: false
+        },
+        tooltips: {
+          callbacks: {
+              label: tooltipItem => `${tooltipItem.yLabel}: ${tooltipItem.xLabel}`,
+              title: () => null,
+          }
+      },
           aspectRatio: 1,
           type: "bar",
           responsive: true,
@@ -88,12 +98,31 @@ function ChartListPage() {
           },
           scales: {
             x: {
+              grid: {
+                display: false,
+                },
               ticks: {
+                color: '#fff',
                 autoSkip: false,
+              },
+              title: {
+                display: true,
+                text: `Collection ${index + 1}`,
+                color: '#fff',
+                font: {
+                  size: 20,
+                  weight: 'bold',
+                  lineHeight: 1.2,
+                },
+                padding: {top: 20, left: 0, right: 0, bottom: 0}
               },
             },
             y: {
+              grid: {
+                color: '#9FA0A1'
+                },
               ticks: {
+                color: '#fff',
                 beginAtZero: true,
                 stepSize: 50,
                 max: 1000,
@@ -101,7 +130,8 @@ function ChartListPage() {
             },
           },
         },
-        plugins: {},
+        plugins: {
+        },
       };
     });
   }, [chartData]);
@@ -124,7 +154,7 @@ function ChartListPage() {
         {chartConfig.map((config, index) => (
           <div
             key={index}
-            className="bg-white rounded-md shadow-md w-full h-52"
+            className="backdrop-blur-3xl rounded-md shadow-md w-full h-96"
           >
             <Bar data={config.data} options={config.options} />
           </div>
