@@ -28,7 +28,9 @@ const algorithm= {
     // replace by sorting algorithm
 
     findPosition(array, value){
-        array.sort(function(a,b){ return a-b})
+        this.sortArray(array)
+        console.log(array)
+        // array.sort(function(a,b){ return a-b})
         let upperBound= array.length;
          let lowerBound= 0;
         let curIndex=0;
@@ -51,8 +53,67 @@ const algorithm= {
               return {msg: "can not find position"}
           }
         }
+    },
+
+    // merge sort
+    sortArray(array)
+    {
+        let length= Math.floor(array.length);
+        if(length<= 1) return;
+        let middle= Math.floor(length/2);
+        let leftArray= [];
+        let rightArray= [];
+
+        let i=0;
+        let j=0;
+
+        for ( i = 0; i < length; i++) {
+            if (i < middle) {
+                leftArray.push(array[i]);
+            } else {
+                rightArray.push(array[i])
+                j++;
+            }
+        }
+
+        this.sortArray(leftArray);
+        this.sortArray(rightArray);
+        this.mergeSortArray(leftArray,rightArray, array)
 
     },
+    mergeSortArray(leftArray, rightArray, array){
+        let leftSize = Math.floor(array.length/2);
+        let rightSize = array.length-leftSize;
+
+        let i=0;
+        let l=0;
+        let r=0;
+
+        while(l<leftSize && r<rightSize){
+            if(leftArray[l]< rightArray[r]){
+                array[i]=leftArray[l];
+                i++;
+                l++;
+            }
+            else{
+                array[i]=rightArray[r];
+                i++;
+                r++;
+            }
+        }
+        while(l< leftSize){
+            array[i]=leftArray[l];
+            i++;
+            l++;
+        }
+        while( r< rightSize){
+            array[i]=rightArray[r];
+            i++;
+            r++;
+        }
+    }
+
+    ,
 
     // group using hash table
     groupBelowData(array, target){
@@ -123,6 +184,7 @@ const algorithm= {
     // Tree to find the value in the collection
 
     findValue(array, value){
+
         let tree= new Tree();
         for (let i=0; i<array.length; i++) {
             tree.insert(array[i]);

@@ -129,6 +129,7 @@ const collectionController= {
                         }
                     }
                     let position=algorithm.findPosition(array,result.node.data)
+                    position.index= array.length- position.index;
                     console.log( position)
                     res.json({finalResult, position})
                 }).catch(function(err){
