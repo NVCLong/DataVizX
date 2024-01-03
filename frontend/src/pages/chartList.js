@@ -39,10 +39,8 @@ function ChartListPage() {
     const labels = chartData.map((item) => item.category);
     const data = chartData.map((item) => item.value);
 
-
     console.log("labels", labels);
     console.log("data", data);
-
 
     return {
       data: {
@@ -67,8 +65,10 @@ function ChartListPage() {
         ],
       },
       options: {
+        aspectRatio: 1,
         type: "bar",
-        responsive: false,
+        responsive: true,
+        maintainAspectRatio: false,
         transitions: {
           show: {
             animations: {
@@ -87,16 +87,18 @@ function ChartListPage() {
           x: {
             ticks: {
               autoSkip: false,
-            }},
+            },
+          },
           y: {
             ticks: {
-            beginAtZero: true,
-            stepSize: 50,
-            max: 1000,
-          }},
-          }
+              beginAtZero: true,
+              stepSize: 50,
+              max: 1000,
+            },
+          },
+        },
       },
-
+      plugins: {},
     };
   }, [chartData]);
 
@@ -110,26 +112,22 @@ function ChartListPage() {
 
   return (
     <div className="flex">
-
       <div className="#">
         <Sidebar />
       </div>
 
-
       <div className="basis-full flex-col space-y-10 pt-28 pr-10">
-
         <div className="bg-white rounded-md shadow-md w-full h-52">
           <Bar data={chartConfig.data} options={chartConfig.options} />
-        </div>
+          </div>
 
-        <div className="bg-white rounded-md shadow-md w-full h-52">
-          <Bar data={chartConfig.data} options={chartConfig.options} />
-        </div>
+          <div className="bg-white rounded-md shadow-md w-full h-52">
+            <Bar data={chartConfig.data} options={chartConfig.options} />
+          </div>
 
-        <div className="bg-white rounded-md shadow-md w-full h-52">
-          <Bar data={chartConfig.data} options={chartConfig.options} />
-        </div>
-
+          <div className="bg-white rounded-md shadow-md w-full h-52">
+            <Bar data={chartConfig.data} options={chartConfig.options} />
+          </div>
       </div>
     </div>
   );
