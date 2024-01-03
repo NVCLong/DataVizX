@@ -115,12 +115,12 @@ function ChartListPage() {
   }
 
   return (
-    <div className="flex">
-      <div className="#">
-        <Sidebar />
+    <div className="grid grid-cols-[160px,1fr]">
+      <div className="fixed top-0 left-0 h-screen w-160">
+        <Sidebar/>
       </div>
 
-      <div className="basis-full flex-col space-y-10 pt-28 pr-10">
+      <div className="col-start-2 basis-full flex-col space-y-10 pt-28 pr-10">
         {chartConfig.map((config, index) => (
           <div
             key={index}

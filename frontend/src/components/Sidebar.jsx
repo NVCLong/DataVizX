@@ -64,7 +64,7 @@ const Sidebar = () => {
       </div>
 
       <div className="p-7 text-3xl text-white font-bold flex-1 h-screen">
-        <h1>Home</h1>
+        {/* <h1>Home</h1> */}
       </div>
     </div>
   );
