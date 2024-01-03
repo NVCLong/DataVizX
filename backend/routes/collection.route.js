@@ -7,5 +7,6 @@ router.get('/:id',jwt_helpers.verifyAccessToken ,collectionController.getCollect
 router.post('/add',jwt_helpers.verifyAccessToken  ,collectionController.addNewCollection)
 router.get('/groupData/:id', jwt_helpers.verifyAccessToken ,collectionController.groupingData)
 router.put("/edit/:id",jwt_helpers.verifyAccessToken, collectionController.editCollection)
+router.post("/searchValues/:id",jwt_helpers.verifyAccessToken, collectionController.searchValues)
 
 module.exports =  router

@@ -40,12 +40,10 @@ module.exports= class Tree{
         while (node !== null) {
             if (data < node.data) {
                 node = node.leftChild;
-            } else
-
-            if (data > node.data) {
+            } else if (data > node.data) {
                 node = node.rightChild;
             } else {
-                return node.data;
+                return {msg:`Find the node with data ${node.data}`, node: node }
             }
         }
         return null;

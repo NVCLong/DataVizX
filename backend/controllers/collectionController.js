@@ -9,13 +9,6 @@ const collectionController= {
         try{
             await Collection.findOne({_id:req.params.id})
                 .then(function(collection){
-                    let array= [];
-                    for (const arrayElement of collection.values){
-                        array.push(arrayElement.value);
-                    }
-                    console.log( array)
-                    let result=algorithm.findValue(array,6);
-                    console.log(result)
                     res.status(200).json(collection);
                 })
                 .catch(function(err){
@@ -116,7 +109,34 @@ const collectionController= {
         }
     },
 
-    // [GET]
+    // [Post] /collection/searchValues/:id
+    async searchValues(req, res){
+        try{
+            await  Collection.findOne({_id:req.params.id})
+                .then(function(collection) {
+                    let array= [];
+                    for (const arrayElement of collection.values){
+                        array.push(arrayElement.value);
+                    }
+                    console.log( array)
+                    let result=algorithm.findValue(array,req.body.value);
+                    let finalResult;
+                    if( result) {
+                        for (const collectiontElement of collection.values) {
+                            if (collectiontElement.value == result.node.data) {
+                                finalResult= collectiontElement;
+                            }
+                        }
+                    }
+                    res.json(finalResult)
+                }).catch(function(err){
+                    console.log(err)
+                })
+
+        }catch (e){
+            console.log(e)
+        }
+    }
 
 }
 module.exports= collectionController
