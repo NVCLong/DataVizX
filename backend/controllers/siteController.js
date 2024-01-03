@@ -12,7 +12,7 @@ class SiteController {
 
     // [GET] /charlist/:id
     async chartListPage(req, res) {
-        console.log("this is chartList page")
+        // console.log("this is chartList page")
         try{
             let page = parseInt(req.query.page);
             const limit = 2;
@@ -28,13 +28,13 @@ class SiteController {
                    if(!user){
                     console.log("error")
                    }
-                   console.log(user)
+                //    console.log(user)
                    const lists= results;
-                   console.log(lists)
+                //    console.log(lists)
                    const listCollection= lists.DataList
                    let userCollection= []
                    for ( let collection of listCollection) {
-                       console.log(typeof  collection)
+                    //    console.log(typeof  collection)
                        let element = await Collection.findById(collection._id);
                        userCollection.push(element)
                    }

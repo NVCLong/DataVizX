@@ -49,7 +49,7 @@ export const forgetPassword = async (email) => {
 //ChartList function
 export const chartList = async () => {
   try {
-    let accessToken= localStorage.getItem("accessToken")
+    let accessToken = localStorage.getItem("accessToken")
     let userId= localStorage.getItem("userId")
     if(!userId){
       throw new Error("Do not have userId")
