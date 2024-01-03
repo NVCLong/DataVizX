@@ -51,9 +51,11 @@ function ChartListPage() {
           labels,
           datasets: [
             {
-              label: "Value",
+              label: `Dataset ${index + 1}`,
+
               data: values,
               backgroundColor: [
+                "#ffff",
                 "rgb(239, 71, 111)",
                 "rgb(255, 209, 102)",
                 "rgb(6, 214, 160)",
@@ -69,17 +71,7 @@ function ChartListPage() {
           ],
         },
         options: {
-          legend: {
-            display: false
-        },
-        tooltips: {
-          callbacks: {
-              label: tooltipItem => `${tooltipItem.yLabel}: ${tooltipItem.xLabel}`,
-              title: () => null,
-          }
-      },
           aspectRatio: 1,
-          type: "bar",
           responsive: true,
           maintainAspectRatio: false,
           transitions: {
@@ -119,11 +111,12 @@ function ChartListPage() {
             },
             y: {
               grid: {
-                color: '#9FA0A1'
+                color: '#9FA0A1',
+                drawBorder: false
                 },
               ticks: {
                 color: '#fff',
-                beginAtZero: true,
+                beginAtZero: false,
                 stepSize: 50,
                 max: 1000,
               },
