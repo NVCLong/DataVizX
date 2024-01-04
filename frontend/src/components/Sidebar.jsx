@@ -23,11 +23,13 @@ const Sidebar = () => {
           src={control_icon}
           className={`absolute cursor-pointer rounded-full -right-3 top-10 w-5 border-2 border-white duration-500
           ${!open && "rotate-180"}`}
+          alt="control_icon"
           onClick={() => setOpen(!open)}
         />
         <div className="flex gap-x-4 items-center">
           <img
             src={logoMain}
+            alt="logoMain"
             className={`cursor-pointer duration-500 size-10
             ${open && "rotate-[360deg]"}`}
           />
@@ -48,7 +50,7 @@ const Sidebar = () => {
               ${menu.gap ? "mt-9" : "mt-2"}`}
             >
               <a href={menu.href} className="flex items-center">
-                <img src={menu.src} width={24} height={24}/>
+                <img src={menu.src} alt="menu" width={24} height={24}/>
                 <span
                   className={`${!open && "hidden"} pl-3 origin-left duration-200`}
                 >
@@ -62,7 +64,7 @@ const Sidebar = () => {
       </div>
 
       <div className="p-7 text-3xl text-white font-bold flex-1 h-screen">
-        <h1>Home</h1>
+        {/* <h1>Home</h1> */}
       </div>
     </div>
   );

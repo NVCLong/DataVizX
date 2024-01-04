@@ -19,5 +19,6 @@
   "devDependencies": {
     "chart.js": "^4.4.1",
     "react-chartjs-2": "^5.2.0"
-  }
+  },
+  "proxy": "http://localhost:3001"
 }

@@ -2,7 +2,6 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
-
 dotenv.config({
     path: `${__dirname}/config/.env.development`,
 });
@@ -18,7 +17,7 @@ mongoose
         console.log("MongoDB Connected!");
     })
 
-// Throw error if there is any
+    // Throw error if there is any
     .catch((err) => {
         console.log(err.message);
     });
