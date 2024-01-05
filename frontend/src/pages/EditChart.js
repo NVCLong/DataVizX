@@ -260,10 +260,8 @@ function Chart() {
     <div>
       <div className="nav-header">
         <NarBav />
-        {/* {document.getElementById("buttonToChart").style.display ="none"} */}
       </div>
-      <div className="user-input">
-        <div className="name-input-container">
+      <div className="name-input-container">
           <h2 className="input-name">Input name of Chart:</h2>
           <form>
             <input
@@ -273,11 +271,12 @@ function Chart() {
               onChange={handleInputName}
               placeholder="Input name here..."
               required
-              minLength="5"
+              minLength="1"
             />
           </form>
           {errorCategory && <p style={{ color: "red" }}>{errorName}</p>}
         </div>
+      <div className="user-input">
         <div className="select-container">
           <h2 className="select-label">Choose one graph:</h2>
           <select

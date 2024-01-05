@@ -24,5 +24,5 @@ const Collection = mongoose.model("collection", collectionSchema);
 // async function init() {
 //   await Collection.init();
 // }
-// init();
+// init();u
 module.exports = Collection;
