@@ -8,9 +8,28 @@
   gap: 20px;
 }
 
-.btn--medium {
-  /* display: none; */
+.name-input-container{
+  margin-bottom: 20px;
 }
+
+.input-name{
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.input-field-name{
+  padding: 8px;
+  font-size: 16px;
+  border: 10px solid #ccc;
+  border-radius: 4px;
+  width: 275px;
+}
+
+.input-category{
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
 
 .category-input-container {
   margin-bottom: 20px;
@@ -176,12 +195,23 @@ td {
 }
 
 #instruction {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90vw;
   height: 50vh;
-  width: 50vw;
-  font-size: xx-large;
-  margin: 0;
+  margin: 50px auto;
+  padding: 5px;
+  border: 5px solid #ccc;
+  border-radius: 50px;
+  background-color: rgba(10, 20, 30, 0.6);
+  text-align: center
+}
+
+#instruction p {
+  font-size: 30px; /* Adjust font size as needed */
+  line-height: 1.5; /* Adjust line height as needed */
+  display: inline-block;
+  margin: auto 50px;
+  text-align: center; 
 }

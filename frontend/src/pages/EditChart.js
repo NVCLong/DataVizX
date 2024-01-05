@@ -7,18 +7,15 @@ import { useState } from "react";
 import LineGraph from "./ChartType/LineGraph";
 import PieChart from "./ChartType/PieChart";
 import Table from "./ChartType/Table";
-import {DataManager} from "./DataManager";
-
-
+import { DataManager } from "./DataManager";
 
 function Chart() {
-  const userId = localStorage.getItem("userId")
-
   const [showChart, setShowChart] = useState(false);
 
   const [inputValue, setInputValue] = useState("");
   const [inputCategory, setInputCategory] = useState("");
-  const [selectedOption, setSelectedOption] = useState(""); // State to hold selected option
+  const [selectedOption, setSelectedOption] = useState("");
+  const [inputName, setInputName] = useState(""); // State to hold selected option
   const [selectedSortedOption, setselectedSortedOption] = useState("");
 
   const [intArr, setIntArr] = useState(inputValue.split(" ").map(Number));
@@ -32,7 +29,6 @@ function Chart() {
     Category: "",
     Sort: "",
   });
-
 
   const [userData, setUserData] = useState({
     labels: [],
@@ -48,21 +44,21 @@ function Chart() {
   });
 
   const [errorText, seterrorText] = useState("");
+  const [errorName, seterrorName] = useState("");
   const [errorSort, seterrorSort] = useState("");
   const [errorChart, seterrorChart] = useState("");
   const [errorCategory, seterrorCategory] = useState("");
 
   const portData = new DataManager();
-  const data={
+  const data = {
     name: "user1",
     categories: inputCategory,
-    values: inputValue
-  }
+    values: inputValue,
+  };
 
   // document.getElementsByClassName("btn--medium").style.display="none";
 
-  useEffect(() => {
-  }, [
+  useEffect(() => {}, [
     selectedOption,
     selectedSortedOption,
     inputValue,
@@ -78,13 +74,13 @@ function Chart() {
   const renderChart = (key) => {
     switch (key) {
       case "Pie Chart":
-        return <PieChart chartData={userData}/>;
+        return <PieChart chartData={userData} />;
       case "Line Graph":
-        return <LineGraph chartData={userData}/>;
+        return <LineGraph chartData={userData} />;
       case "Bar Chart":
-        return <BarChart chartData={userData}/>;
+        return <BarChart chartData={userData} />;
       case "Table":
-          return <Table chartData={userData}/>;
+        return <Table chartData={userData} />;
       default:
         return <></>;
     }
@@ -99,10 +95,10 @@ function Chart() {
       seterrorText("");
       return false;
     }
-  }
+  };
 
   const checkStr = (str) => {
-    if(str.includes("")){
+    if (str.includes("")) {
       return true;
     }
     str.some((element) => {
@@ -111,15 +107,25 @@ function Chart() {
       }
     });
 
-    for(let i=0;i<str.length-1;i++){
-      for(let j=i+1;j<str.length;j++){
-        if(str[i]==str[j]){
+    for (let i = 0; i < str.length - 1; i++) {
+      for (let j = i + 1; j < str.length; j++) {
+        if (str[i] == str[j]) {
           return true;
         }
       }
     }
     seterrorCategory("");
     return false;
+  };
+  const handleInputName = (event) => {
+    setInputName(event.target.value);
+    seterrorName("");
+
+    setDataInput({
+      Name: event.target.value,
+      Data: intArr,
+      Category: labelsChart,
+    });
   };
 
   const handleChartChange = (event) => {
@@ -177,12 +183,11 @@ function Chart() {
 
   let onClick = () => {
     setButtonPressed(true);
-    
+
     if (checkIntArray(intArr) || checkStr(labelsChart)) {
       setButtonPressed(false);
-      setShowChart(false)
+      setShowChart(false);
     }
-
 
     if (
       selectedOption.length !== 0 &&
@@ -192,8 +197,7 @@ function Chart() {
       intArr.length == labelsChart.length &&
       buttonPressed
     ) {
-
-      portData.portData(data)
+      // portData.portData(data)
       setUserData({
         labels: labelsChart,
         datasets: [
@@ -259,7 +263,21 @@ function Chart() {
         {/* {document.getElementById("buttonToChart").style.display ="none"} */}
       </div>
       <div className="user-input">
-        {/* Selection Graph */}
+        <div className="name-input-container">
+          <h2 className="input-name">Input name of Chart:</h2>
+          <form>
+            <input
+              type="text"
+              className="input-field-name"
+              value={inputName}
+              onChange={handleInputName}
+              placeholder="Input name here..."
+              required
+              minLength="5"
+            />
+          </form>
+          {errorCategory && <p style={{ color: "red" }}>{errorName}</p>}
+        </div>
         <div className="select-container">
           <h2 className="select-label">Choose one graph:</h2>
           <select
@@ -318,7 +336,7 @@ function Chart() {
           {errorCategory && <p style={{ color: "red" }}>{errorCategory}</p>}
         </div>
 
-        <div className="sort-container">
+        {/* <div className="sort-container">
           <h3>Sorting:</h3>
           <select
             className="selectSort"
@@ -332,7 +350,7 @@ function Chart() {
           </select>
           {selectedSortedOption && <p>You choose: {selectedSortedOption}</p>}
           {errorSort && <p style={{ color: "red" }}>{errorSort}</p>}
-        </div>
+        </div> */}
 
         <button className="custom-button" onClick={onClick}>
           Generate
@@ -342,8 +360,6 @@ function Chart() {
         <div className="graph">{renderChart(DataInput["Graph"])}</div>
       )}
     </div>
-
-    
   );
 }
 

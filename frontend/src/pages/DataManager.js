@@ -27,6 +27,7 @@ export class DataManager{
         });
       console.log("userInput categories",userData.categories)
       console.log("userInput values", userData.values)
+      
 
     } catch (error) {
       console.error("Fetch error:", error);
