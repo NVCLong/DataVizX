@@ -161,10 +161,10 @@ const algorithm = {
     },
     // find mean function
     findMean(array) {
-        let mean;
+
         let sum = 0;
         for (let i = 0; i < array.length; i++) {
-            sum += array[i]
+            sum += array[i].value;
         }
         return (sum / array.length)
     },
@@ -174,9 +174,9 @@ const algorithm = {
         let mean = this.findMean(array);
         let x = 0;
         for (let i = 0; i < array.length; i++) {
-            x = Math.pow((array[i] - mean), 2);
+            x = Math.pow((array[i].value - mean), 2);
         }
-        return Math.sqrt(x / array.length - 1);
+        return {sd:Math.sqrt(x / array.length - 1), msg: "This is standard deviation"};
     },
 
 
