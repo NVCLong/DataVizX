@@ -6,9 +6,10 @@ import BarChart from "./ChartType/BarChart";
 import { useState } from "react";
 import LineGraph from "./ChartType/LineGraph";
 import PieChart from "./ChartType/PieChart";
-import DataManager from "./DataManager";
+import Table from "./ChartType/Table";
+import {DataManager} from "./DataManager";
 
-let userInput = {};
+
 
 function Chart() {
   const userId = localStorage.getItem("userId")
@@ -32,7 +33,6 @@ function Chart() {
     Sort: "",
   });
 
-  userInput = DataInput;
 
   const [userData, setUserData] = useState({
     labels: [],
@@ -52,10 +52,14 @@ function Chart() {
   const [errorChart, seterrorChart] = useState("");
   const [errorCategory, seterrorCategory] = useState("");
 
+  const portData = new DataManager();
+  const data={
+    name: "user1",
+    categories: inputCategory,
+    values: inputValue
+  }
+
   useEffect(() => {
-    // handleInputDataChange();
-    console.log("Labels:", labelsChart);
-    console.log("int Arr", intArr)
   }, [
     selectedOption,
     selectedSortedOption,
@@ -72,11 +76,13 @@ function Chart() {
   const renderChart = (key) => {
     switch (key) {
       case "Pie Chart":
-        return <PieChart chartData={userData} />;
+        return <PieChart chartData={userData}/>;
       case "Line Graph":
-        return <LineGraph chartData={userData} />;
+        return <LineGraph chartData={userData}/>;
       case "Bar Chart":
-        return <BarChart chartData={userData} />;
+        return <BarChart chartData={userData}/>;
+      case "Table":
+          return <Table chartData={userData}/>;
       default:
         return <></>;
     }
@@ -89,7 +95,6 @@ function Chart() {
     if (check == 0 || arr.includes(NaN)) return true;
     else {
       seterrorText("");
-      setButtonPressed(true);
       return false;
     }
   }
@@ -98,7 +103,7 @@ function Chart() {
     if(str.includes("")){
       return true;
     }
-    str.forEach((element) => {
+    str.some((element) => {
       if (element.includes(" ")) {
         return true;
       }
@@ -112,7 +117,6 @@ function Chart() {
       }
     }
     seterrorCategory("");
-    setButtonPressed(true);
     return false;
   };
 
@@ -170,18 +174,13 @@ function Chart() {
   };
 
   let onClick = () => {
-    if (checkIntArray(intArr)) {
-      seterrorText("Input right format of data");
+    setButtonPressed(true);
+    
+    if (checkIntArray(intArr) || checkStr(labelsChart)) {
       setButtonPressed(false);
       setShowChart(false)
     }
 
-    if (checkStr(labelsChart)) {
-      seterrorCategory("Input rigt format of category");
-      setButtonPressed(false);
-      setShowChart(false)
-
-    }
 
     if (
       selectedOption.length !== 0 &&
@@ -191,12 +190,14 @@ function Chart() {
       intArr.length == labelsChart.length &&
       buttonPressed
     ) {
+
+      portData.portData(data)
       setUserData({
         labels: labelsChart,
         datasets: [
           {
             label: "Data",
-            data: DataInput.Data,
+            data: intArr,
             backgroundColor: [
               "#FF6633",
               "#FFB399",
@@ -222,6 +223,7 @@ function Chart() {
 
       setShowChart(true);
     } else {
+      setShowChart(false);
       if (intArr.length <= 2) {
         seterrorText("Input must be at least 3 characters long");
       }
@@ -343,4 +345,4 @@ function Chart() {
   );
 }
 
-export { Chart as default, userInput };
+export default Chart;

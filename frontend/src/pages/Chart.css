@@ -8,6 +8,9 @@
   gap: 20px;
 }
 
+.btn--medium{
+  display: none;
+}
 
 .category-input-container{
   margin-bottom: 20px;
@@ -25,7 +28,7 @@
 display: flex;
 width: 90vw;
 height: 50vh;
-margin: 50px 20px;
+margin: 50px auto;
 justify-items: center;
 justify-content: center;
 padding: 5px;
@@ -142,4 +145,28 @@ select {
   bottom: 30px;
   right: 30px;
   position: absolute;
+}
+
+table {
+  width: 90vw;
+  height: 50vh;
+  color: aliceblue;
+  font-size: 20px;
+}
+
+tr{
+  height: 20%;
+}
+
+th {
+  border-bottom: 1px solid wheat;
+  /* border-right: 1px solid wheat; */
+  width: 1%; 
+}
+
+td {
+  text-align: center;
+  align-items: center;
+  /* border-right: 1px solid wheat; */
+
 }
