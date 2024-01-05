@@ -3,6 +3,7 @@ import axios from "axios";
 import Chart from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 import Sidebar from "../components/Sidebar";
+import { Navigate } from "react-router-dom";
 
 Chart.defaults.font.size = 16;
 Chart.defaults.font.family = "'SF Pro Display', sans-serif";
@@ -11,8 +12,12 @@ Chart.defaults.color = "#fff";
 
 function ChartListPage() {
   const [chartData, setChartData] = useState([]);
+  const [chartName, setChartName] = useState([]);
+  const [chartID, setChartID] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+
 
   const fetchChartData = async () => {
     setIsLoading(true);
@@ -24,12 +29,26 @@ function ChartListPage() {
       const response = await axios.get(
         `http://localhost:3000/chartList/${userId}`
       );
-      // console.log("response", response);
+      console.log("response", response);
+
+      console.log(response.data.collection.map((item) => item._id));
+      const allChartID = response.data.chartlist.DataList.map(
+        (item) => item._id
+      );
+      setChartID(allChartID);
+
+      // console.log(response.data.collection[1].name);
 
       const allChartData = response.data.collection.map((item) => item.values);
       setChartData(allChartData);
 
-      console.log(allChartData);
+      // console.log(allChartData)
+
+      const allChartName = response.data.collection.map((item) => item.name);
+      setChartName(allChartName);
+      console.log(allChartName);
+
+      // console.log(allChartData);
     } catch (error) {
       setError(error);
     } finally {
@@ -40,6 +59,8 @@ function ChartListPage() {
   useEffect(() => {
     fetchChartData();
   }, []);
+
+
 
   const chartConfig = useMemo(() => {
     return chartData.map((data, index) => {
@@ -98,7 +119,7 @@ function ChartListPage() {
               },
               title: {
                 display: true,
-                text: `Collection ${index + 1}`,
+                text: chartName[index],
                 color: "#fff",
                 font: {
                   size: 20,
@@ -127,6 +148,8 @@ function ChartListPage() {
     });
   }, [chartData]);
 
+
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -141,13 +164,35 @@ function ChartListPage() {
         <Sidebar />
       </div>
 
-      <div className="col-start-2 space-y-10 pt-28 pr-10">
+      <div className="col-start-2 space-y-20 pt-28 pr-10">
         {chartConfig.map((config, index) => (
           <div
             key={index}
-            className="backdrop-blur-3xl rounded-md shadow-md w-full h-96"
+            className="flex backdrop-blur-3xl rounded-md shadow-md w-11/12 h-96"
           >
             <Bar data={config.data} options={config.options} />
+
+            <div className="">
+              <div class="absolute right-5 bottom-5 inline-flex rounded-md shadow-sm">
+                <button
+                  type="button"
+                  className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-purple-600 dark:border-purple-800 dark:text-white dark:hover:text-white dark:hover:bg-purple-400 dark:focus:ring-blue-500 dark:focus:text-white"
+                  onClick={() => {
+                      localStorage.setItem("chartID", chartID[index]);
+                      navigator("/chart");
+                    }
+                  }
+                >
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-purple-600 dark:border-purple-800 dark:text-white dark:hover:text-white dark:hover:bg-purple-400 dark:focus:ring-blue-500 dark:focus:text-white"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
           </div>
         ))}
       </div>
