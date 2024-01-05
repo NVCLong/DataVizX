@@ -51,7 +51,7 @@ const collectionController = {
                 .catch(function (err) {
                     console.log(err);
                 });
-            res.json({ success: true, message: "add new successfully" });
+            res.json({ success: true, message: "add new successfully", chartId: newCollection._id });
         } catch (e) {
             console.log(e);
         }
