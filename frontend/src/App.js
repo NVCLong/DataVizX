@@ -10,7 +10,8 @@ import ForgetPage from './pages/Forget';
 import Home from './pages/Home';
 import Sidebar from './components/Sidebar';
 import ChartList from "./pages/chartList";
-import Chart from './pages/Chart';
+import CreateChart from "./pages/CreateChart"
+import EditChart from "./pages/EditChart"
 
 
 function App() {
@@ -22,7 +23,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forget" element={<ForgetPage />} />
-        <Route path="/chart" exact Component={Chart} />
+        <Route path="/createChart" exact Component={CreateChart} />
+        <Route path="/editChart" exact Component={EditChart}/>
     </Routes>
   </BrowserRouter>
 )}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-// import { Button } from './Button';
+import { useLocation } from 'react-router-dom';
+import { Button } from './Button';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
@@ -22,6 +23,11 @@ function Navbar() {
   useEffect(() => {
     showButton();
   }, []);
+
+
+    const location = useLocation();
+    const currentPath = location.pathname;
+   
 
   window.addEventListener('resize', showButton);
 
@@ -83,7 +89,7 @@ function Navbar() {
             </li>
           </ul>
           <div id='buttonToChart'>
-          {button && <Button buttonStyle='btn--outline' linkUrl="/chart">
+          {currentPath === "/home" && button && <Button buttonStyle='btn--outline' linkUrl="/register">
             Get started - it's free
           </Button>}
           </div>

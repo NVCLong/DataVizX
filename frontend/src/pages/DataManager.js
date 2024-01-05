@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export class DataManager{
 
 
@@ -5,29 +7,27 @@ export class DataManager{
     const baseUrl = "http://localhost:3000";
     // e.preventDefault();
     try {
-      const response = await fetch(`${baseUrl}/collection/add`, {
-        method: "POST",
+      axios.post(`${baseUrl}/collection/add`, {
+        name: "user1",
+        categories: userData.categories,
+        values: userData.values
+      }, {
         headers: {
           "Content-Type": "application/json",
           "accept": "*/*"
-        },
-        body: JSON.stringify({
-          name: "user1",
-          categories: userData.categories,
-          values: userData.values
+        }
+      })
+        .then(response => {
+          // Handle success
+          console.log('Response:', response.data);
         })
-      });
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-  
-      const data = await response.json();
+        .catch(error => {
+          // Handle error
+          console.error('Error:', error);
+        });
       console.log("userInput categories",userData.categories)
       console.log("userInput values", userData.values)
 
-      console.log("Login response:", data);
-      // Process the login response here
     } catch (error) {
       console.error("Fetch error:", error);
     }

@@ -59,6 +59,8 @@ function Chart() {
     values: inputValue
   }
 
+  // document.getElementsByClassName("btn--medium").style.display="none";
+
   useEffect(() => {
   }, [
     selectedOption,

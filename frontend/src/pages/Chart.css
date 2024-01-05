@@ -8,11 +8,11 @@
   gap: 20px;
 }
 
-.btn--medium{
-  display: none;
+.btn--medium {
+  /* display: none; */
 }
 
-.category-input-container{
+.category-input-container {
   margin-bottom: 20px;
 }
 
@@ -25,17 +25,17 @@
 }
 
 .graph {
-display: flex;
-width: 90vw;
-height: 50vh;
-margin: 50px auto;
-justify-items: center;
-justify-content: center;
-padding: 5px;
-border: 5px solid #ccc;
-border-radius: 50px;
-background-color: rgba(10,20,30,0.6);
-align-items: center;
+  display: flex;
+  width: 90vw;
+  height: 50vh;
+  margin: 50px auto;
+  justify-items: center;
+  justify-content: center;
+  padding: 5px;
+  border: 5px solid #ccc;
+  border-radius: 50px;
+  background-color: rgba(10, 20, 30, 0.6);
+  align-items: center;
 }
 
 /* DropdownSelect.css */
@@ -46,11 +46,11 @@ align-items: center;
 }
 
 
-p{
+p {
   color: aliceblue;
 }
 
-h2{
+h2 {
   color: aliceblue;
 }
 
@@ -88,6 +88,7 @@ h2{
   border-radius: 4px;
   width: 550px;
 }
+
 .sort-container {
   margin-bottom: 20px;
   top: 150px;
@@ -114,11 +115,12 @@ select {
   font-size: 16px;
   border: none;
   background-color: #00ccffa1;
-   border-radius: 10px;
-   color: #fff;
+  border-radius: 10px;
+  color: #fff;
   color: white;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Transition effect for hover */
+  transition: background-color 0.3s ease;
+  /* Transition effect for hover */
   top: 170px;
   left: 1770px;
 
@@ -128,7 +130,8 @@ select {
   background-color: #712fffa1;
   border-radius: 90px;
   transition: 250ms;
-  transition: all 0.5s ease-in-out; /* Change background color on hover */
+  transition: all 0.5s ease-in-out;
+  /* Change background color on hover */
 }
 
 
@@ -137,11 +140,12 @@ select {
   font-size: 16px;
   border: none;
   background-color: #00ccff;
-   border-radius: 10px;
-   color: #fff;
+  border-radius: 10px;
+  color: #fff;
   color: white;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Transition effect for hover */
+  transition: background-color 0.3s ease;
+  /* Transition effect for hover */
   bottom: 30px;
   right: 30px;
   position: absolute;
@@ -154,14 +158,14 @@ table {
   font-size: 20px;
 }
 
-tr{
+tr {
   height: 20%;
 }
 
 th {
   border-bottom: 1px solid wheat;
   /* border-right: 1px solid wheat; */
-  width: 1%; 
+  width: 1%;
 }
 
 td {
@@ -169,4 +173,15 @@ td {
   align-items: center;
   /* border-right: 1px solid wheat; */
 
+}
+
+#instruction {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 50vh;
+  width: 50vw;
+  font-size: xx-large;
+  margin: 0;
 }
