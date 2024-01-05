@@ -25,7 +25,7 @@ function ChartListPage() {
         `http://localhost:3000/chartList/${userId}`
       );
       // console.log("response", response);
-
+      // http://localhost:3000/collection/${userId}
       const allChartData = response.data.collection.map((item) => item.values);
       setChartData(allChartData);
 

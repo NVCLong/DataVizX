@@ -28,7 +28,6 @@ const collectionController = {
                 return parseInt(value, 10);
             });
             const categories = req.body.categories.split(",");
-            console.log(values);
             const collectionValues = [];
             if (categories.length === values.length) {
                 for (let i = 0; i < values.length; i++) {
@@ -156,5 +155,35 @@ const collectionController = {
             console.log(e);
         }
     },
+    //[GET] collection/statistic/:id
+    async statistic(req, res) {
+        try {
+            await Collection.findById(req.params.id)
+                .then(function (collection) {
+                    console.log(collection)
+                    const max= algorithm.findMax(collection.values)
+                    const min= algorithm.findMin(collection.values)
+                    const median= algorithm.findMedian(collection.values);
+                    const standardDeviation= algorithm.standardDeviation(collection.values)
+                    let maxElement;
+                    let minElement;
+                    for (const element of collection.values) {
+                        if(element.value===max){
+                            maxElement = element
+                        }else if( element.value===min){
+                            minElement = element
+                        }
+                    }
+                    res.status(200).json({maxElement, minElement, median, standardDeviation})
+
+                })
+                .catch(function (err) {
+                    console.log(err);
+                    res.status(404).json({ error: err})
+                })
+        }catch (e) {
+            console.log(e);
+        }
+    }
 };
 module.exports = collectionController;
