@@ -9,6 +9,8 @@ import LoginPage from './pages/Login';
 import ForgetPage from './pages/Forget';
 import Home from './Comp/pages/Home';
 import ChartList from "./pages/chartList";
+import Feedback from "./pages/Feedback";
+import Note from "./pages/Note";
 
 
 
@@ -21,6 +23,8 @@ function App() {
         <Route path="/register" element={<RegisterPage/>} />
         <Route path="/forget" element={<ForgetPage/>} />
         <Route path="/chartList" element={<ChartList/>} />
+        <Route path="/feedback" element={<Feedback/>} />
+        <Route path="/note" element={<Note/>} />
     </Routes>
   </BrowserRouter>
 )}

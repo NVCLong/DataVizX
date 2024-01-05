@@ -1,14 +1,16 @@
 import control_icon from "../images/control.png";
 import logoMain from "../images/DataVizX.png";
 import dashboard_icon from "../images/dashboard_icon.png";
+import feedback_icon from "../images/feedback_icon.png";
+import note_icon from "../images/note_icon.png";
 import { useState } from "react";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
   const menus = [
-    { title: "Dashboard", src: dashboard_icon, href: "./pages/Login" },
-    { title: "B", src: dashboard_icon, href: "#" },
-    { title: "C", src: dashboard_icon, href: "#", gap: true },
+    { title: "Dashboard", src: dashboard_icon, href: "./login" },
+    { title: "Feedback", src: feedback_icon, href: "./feedback" },
+    { title: "Note", src: note_icon, href: "./note", gap: false },
     { title: "D", src: dashboard_icon, href: "#" },
     { title: "E", src: dashboard_icon, href: "#" },
   ];
