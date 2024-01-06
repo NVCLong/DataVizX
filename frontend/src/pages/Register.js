@@ -13,7 +13,6 @@ export default function SignupPage() {
         <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-md space-y-8">
             <img alt="" className="h-14 w-14 mx-auto" src={Register_icon} />
-
             <Header
               heading="Signup to create an account"
               paragraph="Already have an account?"
