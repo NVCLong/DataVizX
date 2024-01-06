@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import Chart from "chart.js/auto";
-import { Bar } from "react-chartjs-2";
+import { Bar, Pie, Line } from "react-chartjs-2";
 import Sidebar from "../components/Sidebar";
 import { Navigate } from "react-router-dom";
 
@@ -16,8 +16,6 @@ function ChartListPage() {
   const [chartID, setChartID] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
-
 
   const fetchChartData = async () => {
     setIsLoading(true);
@@ -60,8 +58,6 @@ function ChartListPage() {
     fetchChartData();
   }, []);
 
-
-
   const chartConfig = useMemo(() => {
     return chartData.map((data, index) => {
       const labels = data.map((item) => item.category);
@@ -73,11 +69,11 @@ function ChartListPage() {
 
       // Create the gradient
       const gradient = ctx.createLinearGradient(0, 0, 0, 200);
-      gradient.addColorStop(0, "#DD3061"); //top
-      gradient.addColorStop(0.25, "#E55986"); // 1st middle
-      gradient.addColorStop(0.5, "#D75587"); // 2nd  middle
-      gradient.addColorStop(0.75, "#CC5188"); // 3rd middle
-      gradient.addColorStop(1, "#AD4689"); //bottom;
+      gradient.addColorStop(0, "RGBA(188,1,189,1)"); //top
+      // gradient.addColorStop(0.25, "#E55986"); // 1st middle
+      gradient.addColorStop(0.5, "RGBA(182,1,184,0.6)"); // 2nd  middle
+      // gradient.addColorStop(0.75, "#CC5188"); // 3rd middle
+      gradient.addColorStop(1, "RGBA(250,206,251,0.5"); //bottom;
 
       return {
         data: {
@@ -86,6 +82,7 @@ function ChartListPage() {
             {
               label: `Dataset ${index + 1}`,
               data: values,
+              fill: true,
               backgroundColor: gradient,
             },
           ],
@@ -148,8 +145,6 @@ function ChartListPage() {
     });
   }, [chartData]);
 
-
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -170,27 +165,36 @@ function ChartListPage() {
             key={index}
             className="flex backdrop-blur-3xl rounded-md shadow-md w-11/12 h-96"
           >
-            <Bar data={config.data} options={config.options} />
+            <Line data={config.data} options={config.options} />
 
             <div className="">
               <div class="absolute right-5 bottom-5 inline-flex rounded-md shadow-sm">
                 <button
                   type="button"
-                  className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-purple-600 dark:border-purple-800 dark:text-white dark:hover:text-white dark:hover:bg-purple-400 dark:focus:ring-blue-500 dark:focus:text-white"
+                  className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg focus:z-10 focus:ring-2 dark:bg-purple-600 dark:border-purple-800 dark:text-white hover:text-white hover:bg-purple-400 focus:ring-blue-500 focus:text-white"
                   onClick={() => {
-                      localStorage.setItem("chartID", chartID[index]);
-                      navigator("/chart");
-                    }
-                  }
+                    localStorage.setItem("chartID", chartID[index]);
+                    navigator("/chart");
+                  }}
                 >
                   Edit
                 </button>
                 <button
                   type="button"
-                  className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-purple-600 dark:border-purple-800 dark:text-white dark:hover:text-white dark:hover:bg-purple-400 dark:focus:ring-blue-500 dark:focus:text-white"
+                  className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg focus:z-10 focus:ring-2 dark:bg-purple-600 dark:border-purple-800 dark:text-white hover:text-white hover:bg-purple-400 focus:ring-blue-500 focus:text-white"
                 >
                   Delete
                 </button>
+                {/* <button
+                  id="noteBtn"
+                  type="button"
+                  className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg focus:z-10 focus:ring-2 dark:bg-purple-600 dark:border-purple-800 dark:text-white hover:text-white hover:bg-purple-400 focus:ring-blue-500 focus:text-white"
+                  onClick={() => {
+                    navigator("#");
+                  }}
+                >
+                  Note
+                </button> */}
               </div>
             </div>
           </div>

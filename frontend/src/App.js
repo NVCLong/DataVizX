@@ -11,6 +11,7 @@ import Home from './Comp/pages/Home';
 import ChartList from "./pages/chartList";
 import Feedback from "./pages/Feedback";
 import Note from "./pages/Note";
+import User from "./pages/User";
 
 
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/chartList" element={<ChartList/>} />
         <Route path="/feedback" element={<Feedback/>} />
         <Route path="/note" element={<Note/>} />
+        <Route path="/user" element={<User/>} />
     </Routes>
   </BrowserRouter>
 )}
