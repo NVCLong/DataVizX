@@ -10,9 +10,9 @@ const supportController= {
         try{
             console.log(typeof req.body.question)
             const  response= await openai.chat.completions.create({
-                model: 'gpt-3.5-turbo',
+                model: 'gpt-3.5-turbo-1106',
                 messages:[{"role": "user", "content": req.body.question}],
-                max_tokens: 100
+                max_tokens: 4000
             })
             res.status(200).json({response: response.choices[0].message})
         }catch(e){
