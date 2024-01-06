@@ -12,7 +12,7 @@ fields.forEach((field) => (fieldsState[field.name] = ""));
 
 export default function Register() {
   const [registerState, setRegisterState] = useState(fieldsState);
-  const [error, setError] = useState(null); // state to handle errors
+  // const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleChange = (e) => {

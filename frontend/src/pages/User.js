@@ -1,6 +1,4 @@
 import Sidebar from "../components/Sidebar";
-
-
 const User = () => {
   return (
     <div className="flex">

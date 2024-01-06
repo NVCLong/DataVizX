@@ -7,24 +7,24 @@ import logoMain from '../images/DataVizX.png';
 
 function Navbar() {
   const [click, setClick] = useState(false);
+  // eslint-disable-next-line
   const [button, setButton] = useState(true);
-
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
-  const showButton = () => {
-    if (window.innerWidth <= 1650) {
-      setButton(false);
-    } else {
-      setButton(true);
-    }
-  };
-
   useEffect(() => {
-    showButton();
-  }, []);
+    const showButton = () => {
+      if (window.innerWidth <= 1650) {
+        setButton(false);
+      } else {
+        setButton(true);
+      }
+    };
 
-  window.addEventListener('resize', showButton);
+    showButton();
+    window.addEventListener('resize', showButton);
+
+  }, []);
 
   return (
     <>
@@ -84,7 +84,6 @@ function Navbar() {
               </Link>
             </li>
           </ul>
-          {/* {button && <Button buttonStyle='btn--outline'>Get started - it's free</Button>} */}
         </div>
       </nav>
 

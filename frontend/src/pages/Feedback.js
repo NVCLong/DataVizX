@@ -1,5 +1,4 @@
 import Sidebar from "../components/Sidebar";
-import { FaUser } from "react-icons/fa";
 import TextareaAutosize from "react-textarea-autosize";
 
 const Report = () => {

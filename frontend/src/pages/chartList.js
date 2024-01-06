@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import Chart from "chart.js/auto";
-import { Bar, Pie, Line } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import Sidebar from "../components/Sidebar";
-import { Navigate } from "react-router-dom";
+
 
 Chart.defaults.font.size = 16;
 Chart.defaults.font.family = "'SF Pro Display', sans-serif";
@@ -27,7 +27,7 @@ function ChartListPage() {
       const response = await axios.get(
         `http://localhost:3000/chartList/${userId}`
       );
-      console.log("response", response);
+      // console.log("response", response);
 
       console.log(response.data.collection.map((item) => item._id));
       const allChartID = response.data.chartlist.DataList.map(
@@ -44,7 +44,7 @@ function ChartListPage() {
 
       const allChartName = response.data.collection.map((item) => item.name);
       setChartName(allChartName);
-      console.log(allChartName);
+      // console.log(allChartName);
 
       // console.log(allChartData);
     } catch (error) {
@@ -143,7 +143,7 @@ function ChartListPage() {
         plugins: {},
       };
     });
-  }, [chartData]);
+  }, [chartData, chartName]);
 
   if (isLoading) {
     return <div>Loading...</div>;

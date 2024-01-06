@@ -11,19 +11,6 @@ const Note = () => {
   <div className="pt-12 pr-10 mx-auto" id="mainClass">
   <h1 className="text-4xl font-bold text-center pb-11 text-white uppercase">Note</h1>
     <div id="inputClass" className="space-y-8">
-      {/* <div id="userInput" className="">
-        <label className="flex justify-center text-lg font-medium mb-2 text-white tracking-wider">
-          Username
-        </label>
-        <div className="flex justify-center">
-          <input
-            type="text"
-            className="py-3 px-4 ps-6 w-48 shadow-lg rounded-lg text-base bg-slate-900 border-gray-700 text-gray-400 ring-gray-600"
-            placeholder="Enter your username"
-          />
-        </div>
-      </div> */}
-
       <div id="textInput">
         <label
           for="note"
