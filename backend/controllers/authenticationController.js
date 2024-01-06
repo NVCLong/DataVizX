@@ -21,7 +21,7 @@ class AuthenticationController {
             const result = {
                 userName: req.body.userName,
                 email: req.body.email,
-                password: req.body.password
+                password: req.body.password,
             }
 
             // Email must be unique

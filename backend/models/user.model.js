@@ -28,6 +28,14 @@ const UserSchema = new Schema(
             require: true,
             default: false,
         },
+        publicId: {
+            type: String,
+            require: false,
+        },
+        imageUrl: {
+            type: String,
+            require: false,
+        },
     },
     { timestamps: true }
 );

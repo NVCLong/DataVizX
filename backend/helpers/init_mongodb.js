@@ -1,10 +1,7 @@
 // Initialize MongoDB
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-
-dotenv.config({
-    path: `${__dirname}/config/.env.development`,
-});
+require("dotenv").config({path:"./backend/.env"})
 
 // Connect to MongoDB database
 mongoose
