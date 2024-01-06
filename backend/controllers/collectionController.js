@@ -184,6 +184,20 @@ const collectionController = {
         }catch (e) {
             console.log(e);
         }
+    },
+    // [DELETE] collection/delete/:id
+    async deleteCollection(req,res){
+        try {
+            await Collection.findByIdAndDelete(req.params.id)
+                .then((res)=>{
+                    console.log(res);
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
+        }catch (e) {
+            console.log(e);
+        }
     }
 };
 module.exports = collectionController;

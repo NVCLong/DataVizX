@@ -10,5 +10,6 @@ router.get('/groupData/:id', jwt_helpers.verifyAccessToken ,collectionController
 router.put("/edit/:id",jwt_helpers.verifyAccessToken, collectionController.editCollection)
 router.get('/statistic/:id', jwt_helpers.verifyAccessToken ,collectionController.statistic)
 router.post("/searchValues/:id",jwt_helpers.verifyAccessToken, collectionController.searchValues)
+router.delete("/delete/:id", jwt_helpers.verifyAccessToken, collectionController.deleteCollection)
 
 module.exports =  router

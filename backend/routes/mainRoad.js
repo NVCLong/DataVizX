@@ -6,6 +6,7 @@ const searchEngine = require("./searchEngine.route");
 const chartSorting = require("./chartSorting.route");
 const note= require("./note.route");
 const userProfile = require("./userProfile.route");
+const support= require("./support.route")
 
 module.exports = function route(app) {
     app.use("/auth", authentication);
@@ -13,7 +14,9 @@ module.exports = function route(app) {
     app.use("/collection", collection);
     app.use("/search", searchEngine);
     app.use("/chartSorting", chartSorting);
-    app.use("/note",note)
-    app.use("/", site);
+    app.use("/note",note);
     app.use("/user", userProfile);
+    app.use("/support", support);
+    app.use("/", site);
+
 };
