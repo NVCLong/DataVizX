@@ -9,7 +9,7 @@ import Table from "./ChartType/Table";
 
 let listFindingLabels = [];
 
-const AdvancedOption = ({ staticData, findingValue, ascending, descending }) => {
+const AdvancedOption = ({ staticData, findingValue, ascending, descending, highMed, lowMed }) => {
   const [selectedSortedOption, setSelectedSortedOption] = useState("");
   const [selectedGroupingOption, setSelectedGroupingOption] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
@@ -20,12 +20,21 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending }) => 
   const asc_labels = ascending.categories.split(",");
   const asc_values = ascending.values.split(",").map(Number);
 
+  const desc_labels = descending.categories.split(",");
+  const desc_values = descending.values.split(",").map(Number);
+
+  const highMed_labels = highMed.categories.split(",");
+  const highMed_values = highMed.values.split(",").map(Number);
+
+  const lowMed_labels = lowMed.categories.split(",");
+  const lowMed_values = lowMed.values.split(",").map(Number);
+
   const [userDataSort, setUserDataSort] = useState({
-    labels: asc_labels,
+    labels: [],
     datasets: [
       {
         label: "Data",
-        data: asc_values,
+        data: [],
         backgroundColor: [
           "#FF6633",
           "#FFB399",
@@ -49,10 +58,36 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending }) => 
     ],
   });
 
-  const renderChart = (key) => {
+  const [userDataGroup, setUserDataGroup] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "Data",
+        data: [],
+        backgroundColor: [
+          "#FF6633",
+          "#FFB399",
+          "#FF33FF",
+          "#FFFF99",
+          "#00B3E6",
+          "#E6B333",
+          "#3366E6",
+          "#999966",
+          "#99FF99",
+          "#B34D4D",
+          "#80B300",
+          "#809900",
+          "#E6B3B3",
+          "#6680B3",
+          "#66991A",
+        ],
+        borderColor: "white",
+        borderWidth: 4,
+      },
+    ],
+  });
 
-    console.log("asc value", asc_values);
-    console.group("asc cate", asc_labels);
+  const renderChartSort = (key) => {
 
     switch (key) {
       case "Pie Chart":
@@ -68,12 +103,153 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending }) => 
     }
   };
 
+  const renderChartGroup = (key) => {
+
+    switch (key) {
+      case "Pie Chart":
+        return <PieChart chartData={userDataGroup} />;
+      case "Line Graph":
+        return <LineGraph chartData={userDataGroup} />;
+      case "Bar Chart":
+        return <BarChart chartData={userDataGroup} />;
+      case "Table":
+        return <Table chartData={userDataGroup} />;
+      default:
+        return <></>;
+    }
+  };
+
   const handleSortChange = (event) => {
     setSelectedSortedOption(event.target.value);
+
+    if(event.target.value == "ascending"){
+      setUserDataSort({
+        labels: asc_labels,
+        datasets: [
+          {
+            label: "Data",
+            data: asc_values,
+            backgroundColor: [
+              "#FF6633",
+              "#FFB399",
+              "#FF33FF",
+              "#FFFF99",
+              "#00B3E6",
+              "#E6B333",
+              "#3366E6",
+              "#999966",
+              "#99FF99",
+              "#B34D4D",
+              "#80B300",
+              "#809900",
+              "#E6B3B3",
+              "#6680B3",
+              "#66991A",
+            ],
+            borderColor: "white",
+            borderWidth: 4,
+          },
+        ],
+      })
+    }
+    else if (event.target.value == "descending"){
+      setUserDataSort({
+        labels: desc_labels,
+        datasets: [
+          {
+            label: "Data",
+            data: desc_values,
+            backgroundColor: [
+              "#FF6633",
+              "#FFB399",
+              "#FF33FF",
+              "#FFFF99",
+              "#00B3E6",
+              "#E6B333",
+              "#3366E6",
+              "#999966",
+              "#99FF99",
+              "#B34D4D",
+              "#80B300",
+              "#809900",
+              "#E6B3B3",
+              "#6680B3",
+              "#66991A",
+            ],
+            borderColor: "white",
+            borderWidth: 4,
+          },
+        ],
+      })
+    }
   };
 
   const handleGroupingChange = (event) => {
     setSelectedGroupingOption(event.target.value);
+
+    if(event.target.value == "high"){
+      console.log("true high")
+      setUserDataGroup({
+        labels: highMed_labels,
+        datasets: [
+          {
+            label: "Data",
+            data: highMed_values,
+            backgroundColor: [
+              "#FF6633",
+              "#FFB399",
+              "#FF33FF",
+              "#FFFF99",
+              "#00B3E6",
+              "#E6B333",
+              "#3366E6",
+              "#999966",
+              "#99FF99",
+              "#B34D4D",
+              "#80B300",
+              "#809900",
+              "#E6B3B3",
+              "#6680B3",
+              "#66991A",
+            ],
+            borderColor: "white",
+            borderWidth: 4,
+          },
+        ],
+      })
+    }
+    else if(event.target.value == "low")
+    {
+      console.log("true high")
+      setUserDataGroup({
+        labels: lowMed_labels,
+        datasets: [
+          {
+            label: "Data",
+            data: lowMed_values,
+            backgroundColor: [
+              "#FF6633",
+              "#FFB399",
+              "#FF33FF",
+              "#FFFF99",
+              "#00B3E6",
+              "#E6B333",
+              "#3366E6",
+              "#999966",
+              "#99FF99",
+              "#B34D4D",
+              "#80B300",
+              "#809900",
+              "#E6B3B3",
+              "#6680B3",
+              "#66991A",
+            ],
+            borderColor: "white",
+            borderWidth: 4,
+          },
+        ],
+      })
+    }
   };
 
   const handleChartChange = (event) => {
@@ -85,13 +261,14 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending }) => 
   };
 
   useEffect(() => {
-    console.log("result finding labels:", listFindingLabels);
   }, [
     selectedSortedOption,
     selectedGroupingOption,
     selectedOption,
     showStasticInfo,
     inputFindValue,
+    selectedGroupingOption,
+        showFindingResult,
   ]);
 
   const onClick_Statistic = () => {
@@ -135,7 +312,7 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending }) => 
           )}
         </div>
         <div className="find-value-container">
-          <h2 className="input-find-value">Input finding value:</h2>
+          <h2>Input finding value:</h2>
           <form>
             <input
               type="text"
@@ -197,7 +374,7 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending }) => 
           {selectedGroupingOption && (
             <p>You choose: {selectedGroupingOption}</p>
           )}
-          {}
+          <div className="graphGroup">{selectedOption && selectedGroupingOption && renderChartGroup(selectedOption)}</div>
         </div>
 
         <div className="sort-container">
@@ -212,7 +389,7 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending }) => 
             <option value="descending">Descending</option>
           </select>
           { selectedSortedOption && <p>You choose: {selectedSortedOption}</p>}
-        <div className="graphSort">{selectedOption && selectedSortedOption && renderChart(selectedOption)}</div>
+        <div className="graphSort">{selectedOption && selectedSortedOption && renderChartSort(selectedOption)}</div>
         </div>
       </div>
     </div>

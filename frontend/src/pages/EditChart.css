@@ -52,8 +52,8 @@
 
 .graph {
   display: flex;
-width: 90vw;
-height: 90vh;
+width: 1150px;
+height: 990px;
 margin: 50px auto;
 justify-items: center;
 justify-content: center;
@@ -62,8 +62,8 @@ border: 5px solid #ccc;
 border-radius: 50px;
 background-color: rgba(10,20,30,0.6);
 align-items: center;
-max-width: max-content;
-max-height: max-content;
+/* max-width: max-content;
+max-height: max-content; */
 }
 
 

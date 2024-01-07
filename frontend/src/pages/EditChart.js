@@ -57,6 +57,15 @@ const descending = {
 
 }
 
+const highMed = {
+  categories: "a,f,b",
+  values: "21,25,31"
+}
+
+const lowMed ={
+  categories: "d,a,f",
+  values: "11,21,25"
+}
 
 function Chart() {
   const [showChart, setShowChart] = useState(true);
@@ -116,7 +125,7 @@ function Chart() {
 
   const portData = new DataManager();
   const data = {
-    name: "user1",
+    name: inputName,
     categories: inputCategory,
     values: inputValue,
   };
@@ -410,7 +419,14 @@ function Chart() {
         <div className="graph">{renderChart(selectedOption)}</div>
       )}
       <hr></hr>
-      <AdvancedOption staticData={staticData} findingValue={findingValue} ascending={ascending}/>
+      <AdvancedOption
+       staticData={staticData} 
+       findingValue={findingValue} 
+       ascending={ascending}
+       descending={descending}
+       highMed={highMed}
+       lowMed={lowMed}
+       />
     </div>
   );
 }
