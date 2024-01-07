@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "../App.css";
+import "./CreateChart.css"
 import NarBav from "../Comp_homepage/Navbar";
 import { useState } from "react";
 import { DataManager } from "./DataManager";
@@ -108,7 +109,7 @@ function Chart() {
   }
 
   let onClick = () => {
-    setButtonPressed(true);
+    setButtonPressed(true)
 
     if (checkIntArray(intArr) || checkStr(labelsChart)) {
       setButtonPressed(false);

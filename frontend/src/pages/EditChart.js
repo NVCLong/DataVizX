@@ -1,25 +1,42 @@
 import React, { useEffect } from "react";
 import "../App.css";
 import NarBav from "../Comp_homepage/Navbar";
-import "./Chart.css";
+import "./EditChart.css";
 import BarChart from "./ChartType/BarChart";
 import { useState } from "react";
 import LineGraph from "./ChartType/LineGraph";
 import PieChart from "./ChartType/PieChart";
 import Table from "./ChartType/Table";
 import { DataManager } from "./DataManager";
+import AdvancedOption from "./AdvancedOption";
+
+const dataGet = {
+  name: "User 1",
+  categories: "a,b,d,f",
+  values: "21,32,11,25"
+}
+
+const staticData = {
+  max: 32,
+  min: 11,
+  median: 21,
+  mean: 22.25,
+  variance: 50.6875,
+  standard_deviation: 7.12
+
+}
 
 function Chart() {
-  const [showChart, setShowChart] = useState(false);
+  const [showChart, setShowChart] = useState(true);
 
-  const [inputValue, setInputValue] = useState("");
-  const [inputCategory, setInputCategory] = useState("");
+  const [inputValue, setInputValue] = useState(dataGet.values);
+  const [inputCategory, setInputCategory] = useState(dataGet.categories);
   const [selectedOption, setSelectedOption] = useState("");
-  const [inputName, setInputName] = useState(""); // State to hold selected option
+  const [inputName, setInputName] = useState(dataGet.name); // State to hold selected option
   const [selectedSortedOption, setselectedSortedOption] = useState("");
 
-  const [intArr, setIntArr] = useState(inputValue.split(" ").map(Number));
-  const [labelsChart, setLabelsChart] = useState([]);
+  const [intArr, setIntArr] = useState(dataGet.values.split(",").map(Number));
+  const [labelsChart, setLabelsChart] = useState(dataGet.categories.split(","));
 
   const [buttonPressed, setButtonPressed] = useState(true);
 
@@ -31,14 +48,30 @@ function Chart() {
   });
 
   const [userData, setUserData] = useState({
-    labels: [],
+    labels: labelsChart,
     datasets: [
       {
         label: "Data",
-        data: [],
-        backgroundColor: [],
-        borderColor: "",
-        borderWidth: 0,
+        data: intArr,
+        backgroundColor: [
+          "#FF6633",
+          "#FFB399",
+          "#FF33FF",
+          "#FFFF99",
+          "#00B3E6",
+          "#E6B333",
+          "#3366E6",
+          "#999966",
+          "#99FF99",
+          "#B34D4D",
+          "#80B300",
+          "#809900",
+          "#E6B3B3",
+          "#6680B3",
+          "#66991A",
+        ],
+        borderColor: "white",
+        borderWidth: 4,
       },
     ],
   });
@@ -58,7 +91,10 @@ function Chart() {
 
   // document.getElementsByClassName("btn--medium").style.display="none";
 
-  useEffect(() => {}, [
+  useEffect(() => {
+    console.log("int Arr", intArr)
+    console.log("Lables:", labelsChart)
+  }, [
     selectedOption,
     selectedSortedOption,
     inputValue,
@@ -148,7 +184,7 @@ function Chart() {
     setDataInput({
       Graph: selectedOption,
       Data: intArr,
-      Category: event.target.value.split(" "),
+      Category: event.target.value.split(","),
       Sort: selectedSortedOption,
     });
   };
@@ -182,6 +218,8 @@ function Chart() {
   };
 
   let onClick = () => {
+    setShowChart(true);
+
     setButtonPressed(true);
 
     if (checkIntArray(intArr) || checkStr(labelsChart)) {
@@ -190,8 +228,6 @@ function Chart() {
     }
 
     if (
-      selectedOption.length !== 0 &&
-      selectedSortedOption.length !== 0 &&
       intArr.length > 2 &&
       labelsChart.length > 2 &&
       intArr.length == labelsChart.length &&
@@ -227,7 +263,6 @@ function Chart() {
         ],
       });
 
-      setShowChart(true);
     } else {
       setShowChart(false);
       if (intArr.length <= 2) {
@@ -358,6 +393,8 @@ function Chart() {
       {showChart && buttonPressed && (
         <div className="graph">{renderChart(DataInput["Graph"])}</div>
       )}
+      <hr></hr>
+      <AdvancedOption staticData={staticData}/>
     </div>
   );
 }
