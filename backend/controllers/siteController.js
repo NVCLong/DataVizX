@@ -23,22 +23,29 @@ class SiteController {
                 .then(async function (results) {
                     if (!results){
                         res.status(200).json({msg: "do not have any collection", success: false})
+                    }else {
+                        const user = await User.findOne({_id: req.params.id});
+                        if (!user) {
+                            console.log("error")
+                        }
+                        //    console.log(user)
+                        const lists = results;
+                        //    console.log(lists)
+                        const listCollection = lists.DataList
+                        let userCollection = []
+                        for (let collection of listCollection) {
+                            //    console.log(typeof  collection)
+                            let element = await Collection.findById(collection._id);
+                            userCollection.push(element)
+                        }
+                        res.json({
+                            success: true,
+                            chartlist: lists,
+                            user: user,
+                            collection: userCollection,
+                            result: {previous: result.previous, next: result.next}
+                        })
                     }
-                    const user = await User.findOne({ _id: req.params.id });
-                    if (!user) {
-                        console.log("error")
-                    }
-                    //    console.log(user)
-                    const lists = results;
-                    //    console.log(lists)
-                    const listCollection = lists.DataList
-                    let userCollection = []
-                    for (let collection of listCollection) {
-                        //    console.log(typeof  collection)
-                        let element = await Collection.findById(collection._id);
-                        userCollection.push(element)
-                    }
-                    res.json({ success: true, chartlist: lists, user: user, collection: userCollection, result: { previous: result.previous, next: result.next } })
                 })
                 .catch(function (err) {
                     console.log(err)
