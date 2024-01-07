@@ -61,6 +61,7 @@ class AuthenticationController {
             const user = await User.findOne({
                 $or: [{ email: result.identifier }, { userName: result.identifier }],
             });
+            console.log(user)
 
             // If not: throw an error
             if (!user) throw createError.NotFound("User not registered!");

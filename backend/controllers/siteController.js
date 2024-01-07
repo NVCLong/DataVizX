@@ -20,10 +20,10 @@ class SiteController {
             const endIndex = page * limit;
             const result = {};
             await chartList.findOne({ userId: req.params.id })
-                .limit(limit)
-                .skip(startIndex)
-                .exec()
                 .then(async function (results) {
+                    if (!results){
+                        res.status(200).json({msg: "do not have any collection", success: false})
+                    }
                     const user = await User.findOne({ _id: req.params.id });
                     if (!user) {
                         console.log("error")
@@ -37,16 +37,6 @@ class SiteController {
                         //    console.log(typeof  collection)
                         let element = await Collection.findById(collection._id);
                         userCollection.push(element)
-                    }
-                    if (endIndex <= results.length) {
-                        result.next = page + 1;
-                    } else if (endIndex > results.length) {
-                        result.next = 1;
-                    }
-                    if (startIndex > 0) {
-                        result.previous = page - 1;
-                    } else if (startIndex === 0) {
-                        result.previous = 1;
                     }
                     res.json({ success: true, chartlist: lists, user: user, collection: userCollection, result: { previous: result.previous, next: result.next } })
                 })

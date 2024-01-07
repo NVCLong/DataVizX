@@ -148,9 +148,7 @@ const algorithm = {
     // replace the sort method  with the sorting method of LAV
     findMedian(array) {
         let median;
-        array.sort((a, b) => {
-            return a.value - b.value
-        })
+        this.sortArray(array)
         let mid = Math.floor(array.length / 2);
         if (mid % 2 === 0) {
             median = (array[mid] + array[mid + 1]) / 2;
