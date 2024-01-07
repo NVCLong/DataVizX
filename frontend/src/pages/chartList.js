@@ -4,7 +4,6 @@ import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import Sidebar from "../components/Sidebar";
 
-
 Chart.defaults.font.size = 16;
 Chart.defaults.font.family = "'SF Pro Display', sans-serif";
 Chart.defaults.layout.padding = 20;
@@ -27,9 +26,9 @@ function ChartListPage() {
       const response = await axios.get(
         `http://localhost:3000/chartList/${userId}`
       );
-      // console.log("response", response);
+      console.log("response", response);
 
-      console.log(response.data.collection.map((item) => item._id));
+      // console.log(response.data.collection.map((item) => item._id));
       const allChartID = response.data.chartlist.DataList.map(
         (item) => item._id
       );
@@ -146,7 +145,24 @@ function ChartListPage() {
   }, [chartData, chartName]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <div className="flex">
+          <div className="#">
+            <Sidebar />
+          </div>
+
+          <div className="pt-96 pr-10 mx-auto">
+            <button
+              type="button"
+              class="flex justify-center items-center py-2.5 px-5 me-2 mb-2 text-3xl font-bold w-72 h-16 focus:outline-none rounded-lg border  focus:z-10 focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700"
+            >
+              + Add new chart
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (error) {

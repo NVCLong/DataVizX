@@ -1,7 +1,6 @@
 import axios from "axios";
 const API_URL = "http://localhost:3000";
 
-
 // Login function
 export const login = async (identifier, password) => {
   try {
@@ -9,9 +8,9 @@ export const login = async (identifier, password) => {
       identifier,
       password,
     });
-    localStorage.setItem("accessToken",response.data.accessToken)
-    localStorage.setItem("refreshToken",response.data.refreshToken)
-    localStorage.setItem("userId",response.data.user._id)
+    localStorage.setItem("accessToken", response.data.accessToken);
+    localStorage.setItem("refreshToken", response.data.refreshToken);
+    localStorage.setItem("userId", response.data.user._id);
     //get cookie from response
     return response.data;
   } catch (error) {
@@ -47,22 +46,47 @@ export const forgetPassword = async (email) => {
 };
 
 //ChartList function
-export const chartList = async () => {
-  try {
-    // let accessToken = localStorage.getItem("accessToken")
-    let userId= localStorage.getItem("userId")
-    if(!userId){
-      throw new Error("Do not have userId")
-    }
-    await axios.get(`http://localhost:3000/chartList/${userId}`).then((response)=>{
-      console.log(response);
-      return response.data
-    }).catch((err)=>{
-      console.log(err)
-    })
+// export const chartList = async () => {
+//   try {
+//     // let accessToken = localStorage.getItem("accessToken")
+//     let userId = localStorage.getItem("userId");
+//     if (!userId) {
+//       throw new Error("Do not have userId");
+//     }
+//     await axios
+//       .get(`http://localhost:3000/chartList/${userId}`)
+//       .then((response) => {
+//         console.log(response);
+//         return response.data;
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   } catch (error) {
+//     console.error(error);
+//     throw error;
+//   }
+// };
 
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
+//Get user image function
+// export const User = async () => {
+//   try {
+//     // let accessToken = localStorage.getItem("accessToken")
+//     let userId = localStorage.getItem("userId");
+//     if (!userId) {
+//       throw new Error("Do not have userId");
+//     }
+//     await axios
+//       .get(`http://localhost:3000/user/${userId}`)
+//       .then((response) => {
+//         console.log(response);
+//         return response.data;
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   } catch (error) {
+//     console.error(error);
+//     throw error;
+//   }
+// };

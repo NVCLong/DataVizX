@@ -1,5 +1,54 @@
+import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
+import DataVizX from "../images/DataVizX.png";
+import axios from "axios";
+
 const User = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [userData, setUserData] = useState(null);
+
+  const fetchUserData = async () => {
+    setIsLoading(true);
+    try {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        throw new Error("Do not have userId");
+      }
+      console.log(userId);
+      const response = await axios.get(`http://localhost:3000/user/${userId}`);
+      setUserData(response.data);
+
+      const userImage = response.data.imageUrl;
+      console.log(userImage);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  console.log(userData);
+  // if (isLoading) {
+  //   return <div className="text-sm font-medium text-white">Loading...</div>;
+  // }
+
+  if (error) {
+    return (
+      <div className="text-sm font-medium text-white">
+        Error: {error.message}
+      </div>
+    );
+  }
+
+  if (!userData) {
+    return <div className="text-sm font-medium text-white">No User Data</div>;
+  }
+
   return (
     <div className="flex">
       <div className="#">
@@ -12,7 +61,7 @@ const User = () => {
             <div className="bg-white relative shadow rounded-lg mx-auto pb-3 w-auto">
               <div className="flex justify-center">
                 <img
-                  src="https://res.cloudinary.com/dvq5hclxc/image/upload/v1704529090/user-image/izxjc57sxtdf7ezgmos2.jpg"
+                  src={userData.imageUrl}
                   alt="logoMain"
                   className="object-cover rounded-full mx-auto absolute -top-20  w-56 h-56 shadow-md border-4 border-white transition duration-300 transform hover:scale-110"
                 />
@@ -20,10 +69,10 @@ const User = () => {
 
               <div className="mt-16 pt-24">
                 <h1 className="font-bold text-center text-4xl text-gray-900">
-                  DataVizX
+                  {userData ? userData.userName : "DataVizX"}
                 </h1>
                 <p className="text-center text-sm text-gray-400 font-medium">
-                  Administrator
+                  DataVizX Premimum User
                 </p>
                 <div className="my-5 px-6">
                   <a
@@ -41,4 +90,5 @@ const User = () => {
     </div>
   );
 };
+
 export default User;
