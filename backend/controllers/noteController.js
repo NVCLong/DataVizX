@@ -58,6 +58,20 @@ const noteController = {
         } catch (e) {
             console.log(e)
         }
+    },
+    //[DELETE] /note/delete/:id
+    async deleteNote(req,res){
+        try {
+            await Note.findOneAndDelete({chartId: req.params.id})
+                .then(function(){
+                    console.log("success")
+                }).catch(function(err){
+                    console.log(err)
+                })
+
+        }catch (e){
+            console.log(e)
+        }
     }
 
 }
