@@ -32,11 +32,13 @@
     position: relative;
     font-size: 15px;
     place-items: center;
+    height: 337px;
   }
 
 .sta_info{
     border: 3px;
     border-style: dashed;
+    background-color: rgba(10, 20, 30, 0.7);
 }
 
 h2.input-find-value{
@@ -54,3 +56,42 @@ div.static-container{
 .selectGrouping{
     margin: 10px;
 }
+
+.show_ad_chart{
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(1, auto);
+    grid-gap: 300px;
+    list-style: georgian;
+    text-align: center;
+    width: 95vw;
+    justify-content: center; /* Aligns items in the middle horizontally */
+    margin-top: 20px;
+    position: relative;
+    font-size: 15px;
+    place-items: center;
+    height: 337px;
+}
+
+.graphSort {
+    display: flex;
+  width: 50vw;
+  height: 50vh;
+  margin: 20px auto;
+  justify-items: center;
+  justify-content: center;
+  padding: 5px;
+  border: 5px solid #ccc;
+  border-radius: 50px;
+  background-color: rgba(10,20,30,0.6);
+  align-items: center;
+
+}
+
+
+
+  /* div.Table{
+    width: auto;
+    height: fit-content;
+  } */

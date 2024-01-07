@@ -9,14 +9,64 @@ import Table from "./ChartType/Table";
 
 let listFindingLabels = [];
 
-
-const AdvancedOption = ({ staticData, findingValue }) => {
+const AdvancedOption = ({ staticData, findingValue, ascending, descending }) => {
   const [selectedSortedOption, setSelectedSortedOption] = useState("");
   const [selectedGroupingOption, setSelectedGroupingOption] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
   const [showStasticInfo, setShowStasticInfo] = useState(false);
   const [inputFindValue, setInputFindValue] = useState("");
   const [showFindingResult, setShowFindingResult] = useState("");
+
+  const asc_labels = ascending.categories.split(",");
+  const asc_values = ascending.values.split(",").map(Number);
+
+  const [userDataSort, setUserDataSort] = useState({
+    labels: asc_labels,
+    datasets: [
+      {
+        label: "Data",
+        data: asc_values,
+        backgroundColor: [
+          "#FF6633",
+          "#FFB399",
+          "#FF33FF",
+          "#FFFF99",
+          "#00B3E6",
+          "#E6B333",
+          "#3366E6",
+          "#999966",
+          "#99FF99",
+          "#B34D4D",
+          "#80B300",
+          "#809900",
+          "#E6B3B3",
+          "#6680B3",
+          "#66991A",
+        ],
+        borderColor: "white",
+        borderWidth: 4,
+      },
+    ],
+  });
+
+  const renderChart = (key) => {
+
+    console.log("asc value", asc_values);
+    console.group("asc cate", asc_labels);
+
+    switch (key) {
+      case "Pie Chart":
+        return <PieChart chartData={userDataSort} />;
+      case "Line Graph":
+        return <LineGraph chartData={userDataSort} />;
+      case "Bar Chart":
+        return <BarChart chartData={userDataSort} />;
+      case "Table":
+        return <Table chartData={userDataSort} />;
+      default:
+        return <></>;
+    }
+  };
 
   const handleSortChange = (event) => {
     setSelectedSortedOption(event.target.value);
@@ -36,7 +86,6 @@ const AdvancedOption = ({ staticData, findingValue }) => {
 
   useEffect(() => {
     console.log("result finding labels:", listFindingLabels);
-
   }, [
     selectedSortedOption,
     selectedGroupingOption,
@@ -58,8 +107,8 @@ const AdvancedOption = ({ staticData, findingValue }) => {
     }
     setShowFindingResult("There is no value like this");
     findingValue.forEach((element) => {
-    //   console.log("value of element:", element.value);
-    //   console.log("value", value);
+      //   console.log("value of element:", element.value);
+      //   console.log("value", value);
       if (element.value == value) {
         setShowFindingResult(`value ${value} is belonged to label(s):`);
         listFindingLabels.push(element.category);
@@ -70,8 +119,7 @@ const AdvancedOption = ({ staticData, findingValue }) => {
     <div className="ad_opt">
       <div className="show_info">
         <div className="static-container">
-        <h2>Find Max, Min, Median,Mean, 
-        Variance and Standard Deviation</h2>
+          <h2>Find Max, Min, Median,Mean, Variance and Standard Deviation</h2>
           <button className="static_button" onClick={onClick_Statistic}>
             Statisitc
           </button>
@@ -103,66 +151,69 @@ const AdvancedOption = ({ staticData, findingValue }) => {
           {showFindingResult && (
             <div>
               <p>{showFindingResult}</p>
-              {listFindingLabels.map((label,index) => {
-                return(
-                    <p key={index}>+ {label}</p>
-                )
+              {listFindingLabels.map((label, index) => {
+                return <p key={index}>+ {label}</p>;
               })}
             </div>
           )}
         </div>
         <div className="select-container">
-        <h2 className="select-label">Choose one graph:</h2>
-        <select
-          className="select-dropdown"
-          value={selectedOption}
-          onChange={handleChartChange}
-        >
-          <option value="">Choose Graph</option>
-          <option value="Pie Chart" className="select-option">
-            Pie Chart
-          </option>
-          <option value="Line Graph" className="select-option">
-            Line Graph
-          </option>
-          <option value="Bar Chart" className="select-option">
-            Bar Chart
-          </option>
-          <option value="Table" className="select-option">
-            Table
-          </option>
-        </select>
-        {selectedOption && <p>You choose: {selectedOption}</p>}
-      </div>
-      </div>
-      
-
-      <div className="grouping-container">
-        <h2>Grouping:</h2>
-        <select
-          className="selectGrouping"
-          value={selectedGroupingOption}
-          onChange={handleGroupingChange}
-        >
-          <option value="">Find</option>
-          <option value="high">Higher Median</option>
-          <option value="low">Lower Median</option>
-        </select>
-        {selectedGroupingOption && <p>You choose: {selectedGroupingOption}</p>}
+          <h2 className="select-label">Choose one graph:</h2>
+          <select
+            className="select-dropdown"
+            value={selectedOption}
+            onChange={handleChartChange}
+          >
+            <option value="">Choose Graph</option>
+            <option value="Pie Chart" className="select-option">
+              Pie Chart
+            </option>
+            <option value="Line Graph" className="select-option">
+              Line Graph
+            </option>
+            <option value="Bar Chart" className="select-option">
+              Bar Chart
+            </option>
+            <option value="Table" className="select-option">
+              Table
+            </option>
+          </select>
+          {selectedOption && <p>You choose: {selectedOption}</p>}
+        </div>
       </div>
 
-      <div className="sort-container">
-        <h2>Sorting:</h2>
-        <select
-          className="selectSort"
-          value={selectedSortedOption}
-          onChange={handleSortChange}
-        >
-          <option value="">Choose Sort</option>
-          <option value="ascending">Ascending</option>
-          <option value="descending">Descending</option>
-        </select>
-        {selectedSortedOption && <p>You choose: {selectedSortedOption}</p>}
+      <div className="show_ad_chart">
+        <div className="grouping-container">
+          <h2>Grouping:</h2>
+          <select
+            className="selectGrouping"
+            value={selectedGroupingOption}
+            onChange={handleGroupingChange}
+          >
+            <option value="">Find</option>
+            <option value="high">Higher Median</option>
+            <option value="low">Lower Median</option>
+          </select>
+          {selectedGroupingOption && (
+            <p>You choose: {selectedGroupingOption}</p>
+          )}
+          {}
+        </div>
+
+        <div className="sort-container">
+          <h2>Sorting:</h2>
+          <select
+            className="selectSort"
+            value={selectedSortedOption}
+            onChange={handleSortChange}
+          >
+            <option value="">Choose Sort</option>
+            <option value="ascending">Ascending</option>
+            <option value="descending">Descending</option>
+          </select>
+          { selectedSortedOption && <p>You choose: {selectedSortedOption}</p>}
+        <div className="graphSort">{selectedOption && selectedSortedOption && renderChart(selectedOption)}</div>
+        </div>
       </div>
     </div>
   );

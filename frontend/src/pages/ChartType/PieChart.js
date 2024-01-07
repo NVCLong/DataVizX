@@ -7,7 +7,7 @@ function PieChart({chartData}){
 
     return (
         <>
-            <Pie data={chartData}/>;
+            <Pie  data={chartData}/>;
         </>
     )
 }

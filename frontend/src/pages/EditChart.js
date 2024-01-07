@@ -13,7 +13,7 @@ import AdvancedOption from "./AdvancedOption";
 const dataGet = {
   name: "User 1",
   categories: "a,b,d,f",
-  values: "21,25,11,25"
+  values: "21,31,11,25"
 }
 
 const staticData = {
@@ -33,7 +33,7 @@ const findingValue = [
   },
   {
     category : "b",
-    value: 25
+    value: 31
   },
   {
     category : "d",
@@ -45,6 +45,17 @@ const findingValue = [
   },
 ]
 
+const ascending = {
+  categories: "d,a,f,b",
+  values: "11,21,25,31"
+
+}
+
+const descending = {
+  categories: "b,f,a,d",
+  values: "31,25,21,11"
+
+}
 
 
 function Chart() {
@@ -131,7 +142,7 @@ function Chart() {
   const renderChart = (key) => {
     switch (key) {
       case "Pie Chart":
-        return <PieChart chartData={userData} />;
+        return <PieChart  chartData={userData} />;
       case "Line Graph":
         return <LineGraph chartData={userData} />;
       case "Bar Chart":
@@ -391,31 +402,15 @@ function Chart() {
           {errorCategory && <p style={{ color: "red" }}>{errorCategory}</p>}
         </div>
 
-        {/* <div className="sort-container">
-          <h3>Sorting:</h3>
-          <select
-            className="selectSort"
-            value={selectedSortedOption}
-            onChange={handleSortChange}
-          >
-            <option value="">Choose Sort</option>
-            <option value="none">None sort</option>
-            <option value="ascending">Ascending</option>
-            <option value="descending">Descending</option>
-          </select>
-          {selectedSortedOption && <p>You choose: {selectedSortedOption}</p>}
-          {errorSort && <p style={{ color: "red" }}>{errorSort}</p>}
-        </div> */}
-
         <button className="custom-button" onClick={onClick}>
           Generate
         </button>
       </div>
-      {showChart && buttonPressed && (
-        <div className="graph">{renderChart(DataInput["Graph"])}</div>
+      {showChart && (
+        <div className="graph">{renderChart(selectedOption)}</div>
       )}
       <hr></hr>
-      <AdvancedOption staticData={staticData} findingValue={findingValue}/>
+      <AdvancedOption staticData={staticData} findingValue={findingValue} ascending={ascending}/>
     </div>
   );
 }
