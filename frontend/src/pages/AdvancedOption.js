@@ -7,15 +7,17 @@ import LineGraph from "./ChartType/LineGraph";
 import PieChart from "./ChartType/PieChart";
 import Table from "./ChartType/Table";
 
-const AdvancedOption = ({
-    staticData
-}) => {
+let listFindingLabels = [];
+
+
+const AdvancedOption = ({ staticData, findingValue }) => {
   const [selectedSortedOption, setSelectedSortedOption] = useState("");
   const [selectedGroupingOption, setSelectedGroupingOption] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
   const [showStasticInfo, setShowStasticInfo] = useState(false);
-    const[inputFindValue, setInputFindValue] = useState();
-  
+  const [inputFindValue, setInputFindValue] = useState("");
+  const [showFindingResult, setShowFindingResult] = useState("");
+
   const handleSortChange = (event) => {
     setSelectedSortedOption(event.target.value);
   };
@@ -28,30 +30,64 @@ const AdvancedOption = ({
     setSelectedOption(event.target.value);
   };
 
-  useEffect(() => {}, [selectedSortedOption, selectedGroupingOption]);
+  const handleInputFindValue = (event) => {
+    setInputFindValue(event.target.value);
+  };
 
-  const onClick = () => {
-    setShowStasticInfo(true)
-    
+  useEffect(() => {
+    console.log("result finding labels:", listFindingLabels);
+
+  }, [
+    selectedSortedOption,
+    selectedGroupingOption,
+    selectedOption,
+    showStasticInfo,
+    inputFindValue,
+  ]);
+
+  const onClick_Statistic = () => {
+    setShowStasticInfo(true);
+  };
+
+  const onClick_Finding = () => {
+    const value = parseInt(inputFindValue, 10);
+    listFindingLabels = [];
+    if (value == NaN || inputFindValue.includes(" ")) {
+      setShowFindingResult("Just input number");
+      return;
+    }
+    setShowFindingResult("There is no value like this");
+    findingValue.forEach((element) => {
+    //   console.log("value of element:", element.value);
+    //   console.log("value", value);
+      if (element.value == value) {
+        setShowFindingResult(`value ${value} is belonged to label(s):`);
+        listFindingLabels.push(element.category);
+      }
+    });
   };
   return (
     <div className="ad_opt">
-      <div className="static-container">
-        <button className="static_button" onClick={onClick}>
-          Statisitc
-        </button>
-        {showStasticInfo && <div className="sta_info">
-        <p>Max: {staticData.max}</p>
-        <p>Min: {staticData.min}</p>
-        <p>Median: {staticData.median}</p>
-        <p>Mean: {staticData.mean}</p>
-        <p>Variance: {staticData.variance}</p>
-        <p>Standard Deviation: {staticData.standard_deviation}</p>
+      <div className="show_info">
+        <div className="static-container">
+        <h2>Find Max, Min, Median,Mean, 
+        Variance and Standard Deviation</h2>
+          <button className="static_button" onClick={onClick_Statistic}>
+            Statisitc
+          </button>
+          {showStasticInfo && (
+            <div className="sta_info">
+              <p>Max: {staticData.max}</p>
+              <p>Min: {staticData.min}</p>
+              <p>Median: {staticData.median}</p>
+              <p>Mean: {staticData.mean}</p>
+              <p>Variance: {staticData.variance}</p>
+              <p>Standard Deviation: {staticData.standard_deviation}</p>
+            </div>
+          )}
         </div>
-        }
-      </div>
-      <div className="find-value-container">
-          <h2 className="input-find-value">Input name of Chart:</h2>
+        <div className="find-value-container">
+          <h2 className="input-find-value">Input finding value:</h2>
           <form>
             <input
               type="text"
@@ -59,14 +95,23 @@ const AdvancedOption = ({
               value={inputFindValue}
               onChange={handleInputFindValue}
               placeholder="Find Value..."
-              required
-              minLength="1"
             />
           </form>
-          {errorCategory && <p style={{ color: "red" }}>{errorName}</p>}
+          <button className="custom-button" onClick={onClick_Finding}>
+            Generate
+          </button>
+          {showFindingResult && (
+            <div>
+              <p>{showFindingResult}</p>
+              {listFindingLabels.map((label,index) => {
+                return(
+                    <p key={index}>+ {label}</p>
+                )
+              })}
+            </div>
+          )}
         </div>
-
-      <div className="select-container">
+        <div className="select-container">
         <h2 className="select-label">Choose one graph:</h2>
         <select
           className="select-dropdown"
@@ -89,6 +134,8 @@ const AdvancedOption = ({
         </select>
         {selectedOption && <p>You choose: {selectedOption}</p>}
       </div>
+      </div>
+      
 
       <div className="grouping-container">
         <h2>Grouping:</h2>

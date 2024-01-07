@@ -13,7 +13,7 @@ import AdvancedOption from "./AdvancedOption";
 const dataGet = {
   name: "User 1",
   categories: "a,b,d,f",
-  values: "21,32,11,25"
+  values: "21,25,11,25"
 }
 
 const staticData = {
@@ -25,6 +25,27 @@ const staticData = {
   standard_deviation: 7.12
 
 }
+
+const findingValue = [
+  {
+    category : "a",
+    value: 21
+  },
+  {
+    category : "b",
+    value: 25
+  },
+  {
+    category : "d",
+    value: 11
+  },
+  {
+    category : "f",
+    value: 25
+  },
+]
+
+
 
 function Chart() {
   const [showChart, setShowChart] = useState(true);
@@ -394,7 +415,7 @@ function Chart() {
         <div className="graph">{renderChart(DataInput["Graph"])}</div>
       )}
       <hr></hr>
-      <AdvancedOption staticData={staticData}/>
+      <AdvancedOption staticData={staticData} findingValue={findingValue}/>
     </div>
   );
 }

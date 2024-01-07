@@ -17,3 +17,40 @@
     transition: 250ms;
     transition: all 0.5s ease-in-out;
 }
+
+.show_info {
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(1, auto);
+    grid-gap: 300px;
+    list-style: georgian;
+    text-align: center;
+    width: 95vw;
+    justify-content: center; /* Aligns items in the middle horizontally */
+    margin-top: 20px;
+    position: relative;
+    font-size: 15px;
+    place-items: center;
+  }
+
+.sta_info{
+    border: 3px;
+    border-style: dashed;
+}
+
+h2.input-find-value{
+    margin: 0px
+}
+
+.input-find-value{
+    margin: 20px
+}
+
+div.static-container{
+    width: min-content;
+}
+
+.selectGrouping{
+    margin: 10px;
+}
