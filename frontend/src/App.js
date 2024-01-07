@@ -12,6 +12,7 @@ import ChartList from "./pages/chartList";
 import Feedback from "./pages/Feedback";
 import Note from "./pages/Note";
 import User from "./pages/User";
+import ChatDVX from "./pages/ChatDVX";
 
 
 
@@ -27,6 +28,8 @@ function App() {
         <Route path="/feedback" element={<Feedback/>} />
         <Route path="/note" element={<Note/>} />
         <Route path="/user" element={<User/>} />
+        <Route path="/chatDVX" element={<ChatDVX/>} />
+
     </Routes>
   </BrowserRouter>
 )}
