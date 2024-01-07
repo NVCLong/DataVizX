@@ -35,23 +35,35 @@ const collectionController = {
                     collectionValues.push(newValues);
                 }
             }
+            console.log(collectionValues)
             const newCollection = await new Collection({
                 name: req.body.name,
                 values: collectionValues,
             });
             newCollection.save();
             const userId = req.cookies.userId;
-            await chartList
-                .findOne({ userId: userId })
-                .then(function (lists) {
-                    lists.DataList.push(newCollection._id);
-                    lists.save();
-                    console.log(lists);
+            const userChartList=await chartList.findOne({userId: userId});
+            if (userChartList) {
+                await chartList
+                    .findOne({userId: userId})
+                    .then(function (lists) {
+                        lists.DataList.push(newCollection._id);
+                        lists.save();
+                        console.log(lists);
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+                res.json({success: true, message: "add new successfully", chartId: newCollection._id});
+            }else {
+                const newChartList=  new chartList({
+                    userId:userId,
+                    DataList: []
                 })
-                .catch(function (err) {
-                    console.log(err);
-                });
-            res.json({ success: true, message: "add new successfully", chartId: newCollection._id });
+                newChartList.DataList.push(newCollection._id)
+                newChartList.save();
+                res.json({success: true, message: "add and create new successfully", chartId: newCollection._id});
+            }
         } catch (e) {
             console.log(e);
         }

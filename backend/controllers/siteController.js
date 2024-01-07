@@ -36,6 +36,7 @@ class SiteController {
                         for (let collection of listCollection) {
                             //    console.log(typeof  collection)
                             let element = await Collection.findById(collection._id);
+                            console.log( element)
                             userCollection.push(element)
                         }
                         res.json({
