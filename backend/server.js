@@ -5,9 +5,7 @@ const cookiesParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const cors= require("cors");
 const route= require("./routes/mainRoad");
-dotenv.config({
-    path: `${__dirname}/config/.env.development`,
-});
+dotenv.config();
 require("./helpers/init_mongodb");
 const app = express();
 app.use(morgan("dev"));

@@ -15,7 +15,10 @@ router.post("/logout", AuthenticationController.logout);
 router.post("/refresh-token", AuthenticationController.refreshToken);
 
 // Delete logout route
-router.delete("/logout", AuthenticationController.logout);
+router.post("/logout", AuthenticationController.logout);
+
+// Test route
+// router.get("/getAllUser", AuthenticationController.getAllUser);
 
 // Test route
 // router.get("/getAllUser", AuthenticationController.getAllUser);

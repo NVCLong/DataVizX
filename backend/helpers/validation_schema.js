@@ -10,6 +10,7 @@ const authSchema = Joi.object({
         })
         .required(),
     password: Joi.string().min(4).required(),
+    imageUrl: Joi.string().allow(null, ""),
 });
 
 // Validation schema for user login

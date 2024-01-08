@@ -1,16 +1,25 @@
 import control_icon from "../images/control.png";
 import logoMain from "../images/DataVizX.png";
 import dashboard_icon from "../images/dashboard_icon.png";
+import feedback_icon from "../images/feedback_icon.png";
+import logout_icon from "../images/logout_icon.png";
+import user_icon from "../images/user_icon.png";
+import note_icon from "../images/note_icon.png";
 import { useState } from "react";
+import { useNavigate  } from 'react-router-dom';
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const menus = [
-    { title: "Dashboard", src: dashboard_icon, href: "./pages/Login" },
-    { title: "B", src: dashboard_icon, href: "#" },
-    { title: "C", src: dashboard_icon, href: "#", gap: true },
-    { title: "D", src: dashboard_icon, href: "#" },
-    { title: "E", src: dashboard_icon, href: "#" },
+    { title: "Dashboard", src: dashboard_icon, href: "./login" },
+    { title: "Feedback", src: feedback_icon, href: "./feedback" },
+    { title: "Note", src: note_icon, href: "./note"},
+    { title: "User", src: user_icon, href: "./user" },
+    { title: "Logout", src: logout_icon, href: "", gap: true, onClick: () => {
+      localStorage.clear();
+      navigate('/');
+    }  },
   ];
   return (
     <div className="flex">
@@ -46,10 +55,11 @@ const Sidebar = () => {
           {menus.map((menu, index) => (
             <li
               key={index}
-              className={`text-white text-2xl flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md
-              ${menu.gap ? "mt-9" : "mt-2"}`}
+              className={`text-white text-2xl flex items-center cursor-pointer p-2 hover:bg-light-white rounded-md
+              ${menu.gap ? "mt-96" : "mt-12"}`}
             >
-              <a href={menu.href} className="flex items-center">
+              <a onClick={menu.onClick}
+              href={menu.href} className="flex items-center">
                 <img src={menu.src} alt="menu" width={24} height={24}/>
                 <span
                   className={`${!open && "hidden"} pl-3 origin-left duration-200`}

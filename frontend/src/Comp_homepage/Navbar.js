@@ -1,42 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Button } from './Button';
+// import { Button } from './Button';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-
+import logoMain from '../images/DataVizX.png';
+// import '../index.css'
 
 function Navbar() {
   const [click, setClick] = useState(false);
+  // eslint-disable-next-line
   const [button, setButton] = useState(true);
-
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
-  const showButton = () => {
-    if (window.innerWidth <= 1650) {
-      setButton(false);
-    } else {
-      setButton(true);
-    }
-  };
-
   useEffect(() => {
+    const showButton = () => {
+      if (window.innerWidth <= 1650) {
+        setButton(false);
+      } else {
+        setButton(true);
+      }
+    };
+
     showButton();
+    window.addEventListener('resize', showButton);
+
   }, []);
 
-
-    const location = useLocation();
-    const currentPath = location.pathname;
-   
-
-  window.addEventListener('resize', showButton);
-
   return (
-    <div className='nav'>
+    <>
       <nav className='navbar'>
         <div className='navbar-container'>
           <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-            DataVizX
+            <img src={logoMain} alt="DataVizX Logo" className="h-10 w-10" />
+            <span style={{ marginLeft: '5px' }}>DataVizX</span>
           </Link>
           <div className='menu-icon' onClick={handleClick}>
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
@@ -88,15 +84,10 @@ function Navbar() {
               </Link>
             </li>
           </ul>
-          <div id='buttonToChart'>
-          {currentPath === "/home" && button && <Button buttonStyle='btn--outline' linkUrl="/register">
-            Get started - it's free
-          </Button>}
-          </div>
         </div>
       </nav>
 
-    </div>
+    </>
   );
 }
 

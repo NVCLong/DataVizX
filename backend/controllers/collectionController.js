@@ -28,7 +28,6 @@ const collectionController = {
                 return parseInt(value, 10);
             });
             const categories = req.body.categories.split(",");
-            console.log(values);
             const collectionValues = [];
             if (categories.length === values.length) {
                 for (let i = 0; i < values.length; i++) {
@@ -36,23 +35,35 @@ const collectionController = {
                     collectionValues.push(newValues);
                 }
             }
+            console.log(collectionValues)
             const newCollection = await new Collection({
                 name: req.body.name,
                 values: collectionValues,
             });
             newCollection.save();
             const userId = req.cookies.userId;
-            await chartList
-                .findOne({ userId: userId })
-                .then(function (lists) {
-                    lists.DataList.push(newCollection._id);
-                    lists.save();
-                    console.log(lists);
+            const userChartList=await chartList.findOne({userId: userId});
+            if (userChartList) {
+                await chartList
+                    .findOne({userId: userId})
+                    .then(function (lists) {
+                        lists.DataList.push(newCollection._id);
+                        lists.save();
+                        console.log(lists);
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+                res.json({success: true, message: "add new successfully", chartId: newCollection._id});
+            }else {
+                const newChartList=  new chartList({
+                    userId:userId,
+                    DataList: []
                 })
-                .catch(function (err) {
-                    console.log(err);
-                });
-            res.json({ success: true, message: "add new successfully" });
+                newChartList.DataList.push(newCollection._id)
+                newChartList.save();
+                res.json({success: true, message: "add and create new successfully", chartId: newCollection._id});
+            }
         } catch (e) {
             console.log(e);
         }
@@ -156,5 +167,49 @@ const collectionController = {
             console.log(e);
         }
     },
+    //[GET] collection/statistic/:id
+    async statistic(req, res) {
+        try {
+            await Collection.findById(req.params.id)
+                .then(function (collection) {
+                    console.log(collection)
+                    const max= algorithm.findMax(collection.values)
+                    const min= algorithm.findMin(collection.values)
+                    const median= algorithm.findMedian(collection.values);
+                    const standardDeviation= algorithm.standardDeviation(collection.values)
+                    let maxElement;
+                    let minElement;
+                    for (const element of collection.values) {
+                        if(element.value===max){
+                            maxElement = element
+                        }else if( element.value===min){
+                            minElement = element
+                        }
+                    }
+                    res.status(200).json({maxElement, minElement, median, standardDeviation})
+
+                })
+                .catch(function (err) {
+                    console.log(err);
+                    res.status(404).json({ error: err})
+                })
+        }catch (e) {
+            console.log(e);
+        }
+    },
+    // [DELETE] collection/delete/:id
+    async deleteCollection(req,res){
+        try {
+            await Collection.findByIdAndDelete(req.params.id)
+                .then((res)=>{
+                    console.log(res);
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
+        }catch (e) {
+            console.log(e);
+        }
+    }
 };
 module.exports = collectionController;

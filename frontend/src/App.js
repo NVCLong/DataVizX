@@ -7,24 +7,29 @@ import React from 'react';
 import RegisterPage from './pages/Register';
 import LoginPage from './pages/Login';
 import ForgetPage from './pages/Forget';
-import Home from './pages/Home';
-import Sidebar from './components/Sidebar';
+import Home from './Comp/pages/Home';
 import ChartList from "./pages/chartList";
-import CreateChart from "./pages/CreateChart"
-import EditChart from "./pages/EditChart"
+import Feedback from "./pages/Feedback";
+import Note from "./pages/Note";
+import User from "./pages/User";
+import ChatDVX from "./pages/ChatDVX";
+
 
 
 function App() {
   return (
     <BrowserRouter>
     <Routes>
-      <Route path="/home" exact Component={Home}/>
-      <Route path="/" exact Component={ChartList} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/forget" element={<ForgetPage />} />
-        <Route path="/createChart" exact Component={CreateChart} />
-        <Route path="/editChart" exact Component={EditChart}/>
+      <Route path="/" exact Component={Home} />
+        <Route path="/login" element={<LoginPage/>} />
+        <Route path="/register" element={<RegisterPage/>} />
+        <Route path="/forget" element={<ForgetPage/>} />
+        <Route path="/chartList" element={<ChartList/>} />
+        <Route path="/feedback" element={<Feedback/>} />
+        <Route path="/note" element={<Note/>} />
+        <Route path="/user" element={<User/>} />
+        <Route path="/chatDVX" element={<ChatDVX/>} />
+
     </Routes>
   </BrowserRouter>
 )}
