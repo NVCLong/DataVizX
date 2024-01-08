@@ -10,7 +10,7 @@ const AnswerSec = ({ messages }) => {
             return (
               <div className="#" key={index}>
                 <p className="p-6 mt-2 bg-indigo-600 font-bold">{value.input}</p>
-                <p className=" p-10 bg-gray-800">{value.answer}</p>
+                <p className="p-10 bg-gray-800">{value.answer}</p>
               </div>
             );
           })}

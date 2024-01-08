@@ -187,7 +187,7 @@ function ChartListPage() {
               <div class="absolute right-5 bottom-5 inline-flex rounded-md shadow-sm">
                 <button
                   type="button"
-                  className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg focus:z-10 focus:ring-2 dark:bg-purple-600 dark:border-purple-800 dark:text-white hover:text-white hover:bg-purple-400 focus:ring-blue-500 focus:text-white"
+                  className="px-4 py-2 text-sm font-medium  border rounded-s-lg focus:z-10 focus:ring-2 bg-purple-600 border-purple-800 text-white hover:text-white hover:bg-purple-400 focus:ring-blue-500 focus:text-white"
                   onClick={() => {
                     localStorage.setItem("chartID", chartID[index]);
                     navigator("/chart");
@@ -197,7 +197,7 @@ function ChartListPage() {
                 </button>
                 <button
                   type="button"
-                  className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg focus:z-10 focus:ring-2 dark:bg-purple-600 dark:border-purple-800 dark:text-white hover:text-white hover:bg-purple-400 focus:ring-blue-500 focus:text-white"
+                  className="px-4 py-2 text-sm font-medium  border rounded-e-lg focus:z-10 focus:ring-2 bg-purple-600 border-purple-800 text-white hover:text-white hover:bg-purple-400 focus:ring-blue-500 focus:text-white"
                 >
                   Delete
                 </button>
