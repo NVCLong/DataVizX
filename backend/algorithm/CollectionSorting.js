@@ -1,8 +1,8 @@
-// utils/ChartSorting.js
+// utils/CollectionSorting.js
 
-class ChartSorting {
+class CollectionSorting {
     // Ascending order
-    static quickSortAsc(arr) {
+    static quickSortAsc(arr, key) {
         console.log(arr)
         if (arr.length <= 1) {
             return arr;
@@ -13,7 +13,7 @@ class ChartSorting {
         const right = [];
 
         for (let i = 1; i < arr.length; i++) {
-            if (arr[i].value < pivot.value) {
+            if (arr[i][key] < pivot[key]) {
                 left.push(arr[i]);
             } else {
                 right.push(arr[i]);
@@ -21,18 +21,18 @@ class ChartSorting {
         }
 
         return [
-            ...ChartSorting.quickSortAsc(left),
+            ...CollectionSorting.quickSortAsc(left, key),
             pivot,
-            ...ChartSorting.quickSortAsc(right),
+            ...CollectionSorting.quickSortAsc(right, key),
         ];
     }
 
-    static sortByValueAndCategoryAsc(data) {
-        return ChartSorting.quickSortAsc(data);
+    static sortByValueAndCategoryAsc(data, key) {
+        return CollectionSorting.quickSortAsc(data, key);
     }
 
     // Descending order
-    static quickSortDesc(arr) {
+    static quickSortDesc(arr, key) {
         if (arr.length <= 1) {
             return arr;
         }
@@ -42,7 +42,7 @@ class ChartSorting {
         const right = [];
 
         for (let i = 1; i < arr.length; i++) {
-            if (arr[i].value > pivot.value) {
+            if (arr[i][key] > pivot[key]) {
                 left.push(arr[i]);
             } else {
                 right.push(arr[i]);
@@ -50,15 +50,15 @@ class ChartSorting {
         }
 
         return [
-            ...ChartSorting.quickSortDesc(left),
+            ...CollectionSorting.quickSortDesc(left, key),
             pivot,
-            ...ChartSorting.quickSortDesc(right),
+            ...CollectionSorting.quickSortDesc(right, key),
         ];
     }
 
-    static sortByValueAndCategoryDesc(data) {
-        return ChartSorting.quickSortDesc(data);
+    static sortByValueAndCategoryDesc(data, key) {
+        return CollectionSorting.quickSortDesc(data, key);
     }
 }
 
-module.exports = ChartSorting;
+module.exports = CollectionSorting;
