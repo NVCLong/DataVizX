@@ -30,17 +30,21 @@ const reportController = {
     // POST /report/sendReport
     async sendReport(req, res) {
         try {
-            const user = await User.findOne({ userName: req.body.username });
-            console.log(user);
+            console.log(req.body);
+            const user = await User.findOne({ userName: req.body.post.username });
+            if (!user) {
+               res.status(200).json({ status: true, message: "do not have this user"})
+            }
+            console.log("this is "+user);
             const newReport = new Report({
-                userid: user._id,
-                content: req.body.content,
+                userId: user._id,
+                content: req.body.post.content,
             });
-            console.log(user);
+            console.log(newReport);
             newReport.save();
             res.status(200).redirect("/report");
         } catch (e) {
-            console.log(e);
+            console.log("this is error  "+e);
         }
     },
 };

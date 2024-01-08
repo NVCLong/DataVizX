@@ -1,6 +1,6 @@
 const OpenAI= require("openai");
 const dotenv= require("dotenv");
-dotenv.config()
+dotenv.config(({path:"./backend/.env"}))
 const openai= new OpenAI({
     apiKey: process.env.API
 });
