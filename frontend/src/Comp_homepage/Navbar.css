@@ -31,6 +31,8 @@
   margin-left: 40px;
   align-items: center;
   font-size: 50px;
+  display: grid;
+  grid-template-columns: repeat(2,auto);
 }
 
 .fa-typo3 {
@@ -171,4 +173,9 @@
     color: #242222;
     transition: 250ms;
   }
+}
+
+.logo_img{
+  height: 50px;
+  width: 50px;
 }
