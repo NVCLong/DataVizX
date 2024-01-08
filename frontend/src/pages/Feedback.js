@@ -2,6 +2,7 @@ import Sidebar from "../components/Sidebar";
 import TextareaAutosize from "react-textarea-autosize";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 
 const Report = () => {
@@ -11,6 +12,7 @@ const Report = () => {
   })
   const [error, setError] = useState(null)
   const API='http://localhost:3000'
+  const navigate= useNavigate()
 
   const handleInput =function (event){
     setPost({...post,[event.target.name]: event.target.value})
@@ -21,7 +23,8 @@ const Report = () => {
     e.preventDefault()
     try{
       await axios.post(`${API}/report/sendReport`, {post})
-      alert("Report submitted")
+      window.location.reload(true)
+
     }catch (error) {
       setError(error)
     }
