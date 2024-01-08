@@ -9,7 +9,7 @@ const ChatForm = ({ responseGenerate }) => {
       <TextareaAutosize
         rows="10"
         minRows="4"
-        className="flex-grow rounded p-2.5 w-96 bg-slate-900 border-gray-700 text-gray-400 ring-gray-600 shadow-lg"
+        className="flex-grow rounded p-2.5 w-96 bg-slate-900 border-gray-700 text-gray-400 ring-gray-600 shadow-lg transition duration-300 transform hover:scale-110"
         placeholder="Ask me anything..."
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
@@ -17,7 +17,7 @@ const ChatForm = ({ responseGenerate }) => {
       <br />
       <button
         onClick={() => responseGenerate(inputText, setInputText)}
-        className="ml-2 w-44 h-8 bg-blue-700 text-white rounded cursor-pointer mt-2 hover:bg-blue-500 shadow-lg"
+        className="ml-2 w-44 h-8 bg-purple-700 text-white rounded cursor-pointer mt-2 hover:bg-purple-500 shadow-lg transition duration-300 transform hover:scale-110"
       >
         Generate response
       </button>

@@ -7,7 +7,7 @@ export default function SignupPage() {
   return (
     <>
       <div className="grid grid-cols-2 h-screen">
-        <div className="my-auto mx-auto">
+        <div className="my-auto mx-auto transition duration-200 transform hover:scale-110">
           <Logo></Logo>
         </div>
         <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
