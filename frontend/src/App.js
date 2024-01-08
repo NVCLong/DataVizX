@@ -7,7 +7,7 @@ import React from 'react';
 import RegisterPage from './pages/Register';
 import LoginPage from './pages/Login';
 import ForgetPage from './pages/Forget';
-import Home from './Comp/pages/Home';
+import Home from './pages/Home';
 import ChartList from "./pages/chartList";
 import Feedback from "./pages/Feedback";
 import Note from "./pages/Note";
