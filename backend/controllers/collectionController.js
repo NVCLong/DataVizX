@@ -77,13 +77,14 @@ const collectionController = {
             await Collection.findOne({ _id: req.params.id })
                 .then(function (collection) {
                     let median = algorithm.findMedian(collection.values);
+                    console.log(median)
                     let colletcionBelowValues = algorithm.groupBelowData(
                         collection.values,
-                        median.value
+                        median
                     );
                     let collectionAboveValues = algorithm.groupAboveData(
                         collection.values,
-                        median.value
+                        median
                     );
                     let belowCollection = {
                         colletcionBelowValues: colletcionBelowValues,
@@ -120,7 +121,7 @@ const collectionController = {
             }
             await Collection.findOneAndUpdate(
                 { _id: req.params.id },
-                { values: collectionValues }
+                { values: collectionValues, name: req.body.name },
             )
                 .then(function (collection) {
                     console.log(collection);
