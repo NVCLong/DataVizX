@@ -262,7 +262,7 @@ const AdvancedOption = ({
     setInputFindValue(event.target.value);
   };
 
-  useEffect(() => {}, [
+  useEffect(() => { }, [
     selectedSortedOption,
     selectedGroupingOption,
     selectedOption,
@@ -306,17 +306,27 @@ const AdvancedOption = ({
               <p>
                 Max: {statisData.max.value} ({statisData.max.category})
               </p>
-              <p>
+              {statisData.min == null && <p>
+                Min: empty
+              </p>}
+              {statisData.min != null && <p>
                 Min: {statisData.min.value} ({statisData.min.category})
-              </p>
+              </p>}
               <p>
                 Median: {statisData.median.value} ({statisData.median.category})
               </p>
-              {statisData.stand.value == null && (
-                <p>Standard Deviation: empty </p>
-              )}
-              {statisData.stand.value != null && (
-                <p>Standard Deviation: {statisData.stand.value} </p>
+              {statisData.median == null &&
+                <p>
+                  Median: empty
+                </p>}
+              {statisData.median != null &&
+                <p>
+                  Median: {statisData.median.value} ({statisData.median.category})
+                </p>}
+              {/* {statisData.stand == null && 
+                <p>Standard Deviation: empty </p>} */}
+              {statisData.stand != null && (
+                <p>Standard Deviation: {statisData.stand.sd} </p>
               )}
             </div>
           )}

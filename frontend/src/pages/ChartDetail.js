@@ -7,8 +7,9 @@ import { useState } from "react";
 import LineGraph from "./ChartType/LineGraph";
 import PieChart from "./ChartType/PieChart";
 import Table from "./ChartType/Table";
-import { getDataRaw, getStatisticData } from "./DataManager";
+import { getDataRaw, getStatisticData, getGroupData } from "./DataManager";
 import AdvancedOption from "./AdvancedOption";
+
 
 // const findingValue = [
 //   {
@@ -52,6 +53,8 @@ const lowMed ={
 }
 
 function Chart() {
+  // const groupData = new getGroupData();
+
   const [showChart, setShowChart] = useState(true);
 
   const [inputValue, setInputValue] = useState("");
@@ -71,24 +74,7 @@ function Chart() {
     values: ""
   });
 
-  const [statisData, setStatisData] = useState({
-    max: {
-      category: "" ,
-      value: "",
-    },
-    median:{
-      category: "" ,
-      value: "",
-    },
-    min: {
-      category: "" ,
-      value: "",
-    },
-    stand: {
-      category: "" ,
-      value: "",
-    },
-  })
+  const [statisData, setStatisData] = useState({})
   // const get_Data = getData();
 
   const [DataInput, setDataInput] = useState({
@@ -120,7 +106,7 @@ function Chart() {
   useEffect(() => {
     fetchRawData();
     fetchStatisticData();
-    console.log("statis Data", statisData)
+    fetchGroupData();
   }, [
     selectedOption
   ]);
@@ -165,8 +151,10 @@ function Chart() {
     setRawData({
       name: chartName,
       categories: cateList.map(ele => ele).join(','),
-      values: cateList.map(ele => ele).join(',')
+      values: valueList.map(ele => ele).join(',')
     })
+
+
 
     setUserData({
       labels: labelsChart,
@@ -197,6 +185,14 @@ function Chart() {
       ],
     })
   }
+
+  const fetchGroupData = async () =>{
+    try {
+      const res = await getGroupData();
+    } catch (error) {
+      console.log("error group", error)
+    }
+  }
   
   const fetchStatisticData = async () =>{
     const res = await getStatisticData();
@@ -207,26 +203,14 @@ function Chart() {
     })
 
     setStatisData({
-      max: {
-        category: ObjArr[0].category,
-        value: ObjArr[0].value,
-      },
-      median:{
-        category: ObjArr[1].category,
-        value: ObjArr[1].value,
-      },
-      min: {
-        category: ObjArr[2].category,
-        value: ObjArr[2].value,
-      },
-      stand: {
-        category: ObjArr[3].category,
-        value: ObjArr[3].value,
-      },
+      max: ObjArr[0],
+      median: ObjArr[1],
+      min: ObjArr[2],
+      stand: ObjArr[3]
     })
 
-    console.log("Obj sta", ObjArr)
-    console.log("statis Data", statisData)
+    // console.log("Obj sta", ObjArr)
+    // console.log("statis Data", statisData)
   }
 
   const renderChart = (key) => {
@@ -329,7 +313,6 @@ function Chart() {
 
   const handleSortChange = (event) => {
     setselectedSortedOption(event.target.value);
-    seterrorSort("");
     setDataInput({
       Graph: selectedOption,
       Data: intArr,
@@ -390,9 +373,6 @@ function Chart() {
       setShowChart(false);
       if (intArr.length <= 2) {
         seterrorText("Input must be at least 3 characters long");
-      }
-      if (selectedSortedOption.length === 0) {
-        seterrorSort("Please choose an method to sort");
       }
       if (selectedOption.length === 0) {
         seterrorChart("Please choose a chart to present");
