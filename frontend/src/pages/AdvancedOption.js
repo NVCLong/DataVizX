@@ -312,16 +312,13 @@ const AdvancedOption = ({
               {statisData.min != null && <p>
                 Min: {statisData.min.value} ({statisData.min.category})
               </p>}
-              <p>
-                Median: {statisData.median.value} ({statisData.median.category})
-              </p>
               {statisData.median == null &&
                 <p>
                   Median: empty
                 </p>}
               {statisData.median != null &&
                 <p>
-                  Median: {statisData.median.value} ({statisData.median.category})
+                  Median: {statisData.median} 
                 </p>}
               {/* {statisData.stand == null && 
                 <p>Standard Deviation: empty </p>} */}

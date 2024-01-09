@@ -6,7 +6,6 @@ export const axiosJWT = axios.create();
 
 export const sendData = async (userData) => {
   // userData.preventDefault(); // preventDefault is used on events, not on data objects
-  console.log("user Data", userData);
   try {
     const response = await axios.post(
       `${API_URL}/collection/add`,
@@ -23,7 +22,8 @@ export const sendData = async (userData) => {
       }
     );
     // console.log("Response from server:", response.data);
-    localStorage.setItem("chartId", response.data.chartId);
+    localStorage.setItem("UsingchartId", response.data.chartId);
+    // localStorage.removeItem("UsinngchartId")
     // Add any further handling of the response here, if needed
     return response.data; // Returning data if necessary
   } catch (error) {
@@ -35,7 +35,7 @@ export const sendData = async (userData) => {
 export const getDataRaw = async () => {
   const values = [];
 
-  const retrievedValue = localStorage.getItem("chartId");
+  const retrievedValue = localStorage.getItem("UsingchartId");
   try {
     const response = await axios.get(`${API_URL}/collection/${retrievedValue}`);
     console.log("response value raw: ", response.data.values);
@@ -50,13 +50,13 @@ export const getDataRaw = async () => {
 };
 
 
-export const getStatisticData = async () =>{
+export const getStatisticData = async () => {
   const values = [];
 
-  const retrievedValue = localStorage.getItem("chartId");
+  const retrievedValue = localStorage.getItem("UsingchartId");
   try {
     const response = await axios.get(`${API_URL}/collection/statistic/${retrievedValue}`);
-    Object.keys(response.data).forEach((key)=>{
+    Object.keys(response.data).forEach((key) => {
       // console.log(key,response.data[key])
       values.push(response.data[key])
 
@@ -72,10 +72,9 @@ export const getStatisticData = async () =>{
   }
 }
 
-export const getGroupData = async () =>{
-  const values = [];
+export const getGroupData = async () => {
 
-  const retrievedValue = localStorage.getItem("chartId");
+  const retrievedValue = localStorage.getItem("UsingchartId");
   try {
     const response = await axios.get(`${API_URL}/collection/groupData/${retrievedValue}`);
     // Object.keys(response.data).forEach((key)=>{
@@ -91,5 +90,38 @@ export const getGroupData = async () =>{
     return response.data;
   } catch (error) {
     console.error("Fetch error:", error);
+  }
+}
+
+export const patchNewData = async (userData) => {
+  const retrievedValue = localStorage.getItem("UsingchartId");
+
+
+  try {
+
+
+    const response = await axios.patch(
+      `${API_URL}/collection/edit/${retrievedValue}`,
+      {
+        name: userData.Name,
+        categories: userData.Categories,
+        values: userData.Values,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          accept: "*/*",
+        },
+      }
+    );
+    console.log("Response Patch Data", response.data)
+    // console.log("Response from server:", response.data);
+    localStorage.setItem("UsingchartId", response.data.chartId);
+    // localStorage.removeItem("UsinngchartId")
+    // Add any further handling of the response here, if needed
+    return response.data; // Returning data if necessary
+  } catch (error) {
+    console.error("Error while sending data:", error);
+    throw error; // Re-throw the error for further handling if necessary
   }
 }

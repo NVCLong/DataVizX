@@ -7,7 +7,7 @@ import { useState } from "react";
 import LineGraph from "./ChartType/LineGraph";
 import PieChart from "./ChartType/PieChart";
 import Table from "./ChartType/Table";
-import { getDataRaw, getStatisticData, getGroupData } from "./DataManager";
+import { getDataRaw, getStatisticData, getGroupData, patchNewData } from "./DataManager";
 import AdvancedOption from "./AdvancedOption";
 
 
@@ -69,19 +69,19 @@ function Chart() {
   const [buttonPressed, setButtonPressed] = useState(true);
 
   const [rawData, setRawData] = useState({
-    name: "",
-    categories :"",
-    values: ""
+    Name: inputName,
+    Categories :inputCategory,
+    Values: inputValue
   });
 
   const [statisData, setStatisData] = useState({})
   // const get_Data = getData();
 
   const [DataInput, setDataInput] = useState({
-    Graph: "",
-    Data: [],
+    Name: "",
+    Data: "",
     Category: "",
-    Sort: "",
+
   });
 
   const [findingValue, setFindingValue] = useState([]);
@@ -90,7 +90,6 @@ function Chart() {
 
   const [errorText, seterrorText] = useState("");
   const [errorName, seterrorName] = useState("");
-  const [errorSort, seterrorSort] = useState("");
   const [errorChart, seterrorChart] = useState("");
   const [errorCategory, seterrorCategory] = useState("");
 
@@ -108,7 +107,7 @@ function Chart() {
     fetchStatisticData();
     fetchGroupData();
   }, [
-    selectedOption
+    selectedOption,
   ]);
 
 
@@ -204,8 +203,8 @@ function Chart() {
 
     setStatisData({
       max: ObjArr[0],
-      median: ObjArr[1],
-      min: ObjArr[2],
+      min: ObjArr[1],
+      median: ObjArr[2],
       stand: ObjArr[3]
     })
 
@@ -265,8 +264,8 @@ function Chart() {
 
     setDataInput({
       Name: event.target.value,
-      Data: intArr,
-      Category: labelsChart,
+      Data: inputValue,
+      Category: inputCategory,
     });
   };
 
@@ -275,10 +274,9 @@ function Chart() {
     seterrorChart("");
 
     setDataInput({
-      Graph: event.target.value,
-      Data: intArr,
-      Category: labelsChart,
-      Sort: selectedSortedOption,
+      Name: inputName,
+      Data: inputValue,
+      Category: inputCategory,
     });
   };
 
@@ -288,10 +286,9 @@ function Chart() {
     // setLabelsChart(event.target.value.split(","));
 
     setDataInput({
-      Graph: selectedOption,
       Data: intArr,
-      Category: event.target.value.split(","),
-      Sort: selectedSortedOption,
+      Data: inputValue,
+      Category: event.target.value,
     });
   };
 
@@ -301,29 +298,28 @@ function Chart() {
     // setIntArr(event.target.value.split(",").map(Number));
 
     setDataInput({
-      Graph: selectedOption,
-      Data: event.target.value.split(",").map(Number),
-      Category: labelsChart,
-      Sort: selectedSortedOption,
+      Name: inputName,
+      Data: event.target.value,
+      Category: inputCategory,
+
     });
     // Update input value in state
   };
 
   //   document.getElementsByClassName("buttonToChart").style.display = "b";
 
-  const handleSortChange = (event) => {
-    setselectedSortedOption(event.target.value);
-    setDataInput({
-      Graph: selectedOption,
-      Data: intArr,
-      Category: labelsChart,
-      Sort: event.target.value,
-    });
-    // Gọi hàm xử lý sắp xếp từ component cha
-  };
+  // const handleSortChange = (event) => {
+  //   setselectedSortedOption(event.target.value);
+  //   setDataInput({
+  //     Graph: selectedOption,
+  //     Data: intArr,
+  //     Category: labelsChart,
+  //     Sort: event.target.value,
+  //   });
+  //   // Gọi hàm xử lý sắp xếp từ component cha
+  // };
 
   let onClick = () => {
-    console.log("Finding value", findingValue)
     setShowChart(true);
 
     setButtonPressed(true);
@@ -333,41 +329,17 @@ function Chart() {
       setShowChart(false);
     }
 
+    console.log("Data Input", DataInput)
     if (
       intArr.length > 2 &&
       labelsChart.length > 2 &&
       intArr.length == labelsChart.length &&
       buttonPressed
     ) {
-      // portData.portData(data)
-      setUserData({
-        labels: labelsChart,
-        datasets: [
-          {
-            label: "Data",
-            data: intArr,
-            backgroundColor: [
-              "#FF6633",
-              "#FFB399",
-              "#FF33FF",
-              "#FFFF99",
-              "#00B3E6",
-              "#E6B333",
-              "#3366E6",
-              "#999966",
-              "#99FF99",
-              "#B34D4D",
-              "#80B300",
-              "#809900",
-              "#E6B3B3",
-              "#6680B3",
-              "#66991A",
-            ],
-            borderColor: "white",
-            borderWidth: 4,
-          },
-        ],
-      });
+   
+        patchNewData(DataInput);
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
 
     } else {
       setShowChart(false);
@@ -459,14 +431,14 @@ function Chart() {
         </div>
 
         <div className="category-input-container">
-          <h3 className="input-category">Input Category:</h3>
+          <h3 className="input-category">Input labels:</h3>
           <form>
             <input
               type="text"
               className="input-field-category"
               value={inputCategory}
               onChange={handleInputCategory}
-              placeholder="Input category here..."
+              placeholder="Input labels here..."
               required
               minLength="5"
             />
@@ -475,7 +447,7 @@ function Chart() {
         </div>
 
         <button className="custom-button" onClick={onClick}>
-          Generate
+          Save Data
         </button>
       </div>
       {showChart && (

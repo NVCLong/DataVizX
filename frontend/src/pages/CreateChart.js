@@ -3,7 +3,7 @@ import "../App.css";
 import "./CreateChart.css"
 import NarBav from "../Comp_homepage/Navbar";
 import { useState } from "react";
-import {  axiosJWT, sendData } from "./DataManager";
+import {  sendData } from "./DataManager";
 import { useNavigate } from 'react-router-dom';
 
 function Chart() {
