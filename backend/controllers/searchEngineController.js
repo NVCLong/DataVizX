@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Collection = require("../models/collection.model");
 const binarySearch = require("../algorithm/binarySearch");
-const ChartSorting = require("../algorithm/chartSorting");
+const ChartSorting = require("../algorithm/CollectionSorting");
 
 const searchEngineController = {
 

@@ -1,5 +1,4 @@
 const Tree = require("../algorithm/Node");
-const chartSorting = require("../algorithm/chartSorting")
 
 const algorithm = {
 
@@ -150,10 +149,10 @@ const algorithm = {
         let median;
         this.sortArray(array)
         let mid = Math.floor(array.length / 2);
-        if (mid % 2 === 0) {
-            median = (array[mid] + array[mid + 1]) / 2;
+        if (array.length % 2 === 0) {
+            median = (array[mid].value + array[mid + 1].value) / 2;
         } else {
-            median = (array[mid])
+            median = (array[mid].value)
         }
         return median
     },

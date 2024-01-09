@@ -1,19 +1,20 @@
 import React from "react";
 
 const AnswerSec = ({ messages }) => {
+  console.log(messages);
   return (
     <div className="flex flex-col items-center m-8">
-      <div className="flex flex-col items-center m-5">
-        <hr className="w-10" />
-        <div className="w-10">
-          {messages.map((value, index) => {
-            return (
-              <div className="#" key={index}>
-                <p className="p-6 mt-2 bg-indigo-600 font-bold">{value.input}</p>
-                <p className=" p-10 bg-gray-800">{value.answer}</p>
-              </div>
-            );
-          })}
+      <div className="flex items-center m-5">
+        <div className="#">
+          <h1 className="flex flex-col items-center text-2xl font-bold text-white">Answer</h1>
+          {messages.map((message, index) => (
+            <p
+              key={index}
+              className="flex p-6 mt-2 rounded-3xl w-auto h-auto bg-slate-900 border-gray-700 text-gray-400 ring-gray-600 shadow-lg transition duration-300 transform hover:scale-110"
+            >
+              {message}
+            </p>
+          ))}
         </div>
       </div>
     </div>

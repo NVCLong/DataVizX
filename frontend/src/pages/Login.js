@@ -8,7 +8,7 @@ export default function LoginPage(){
     return(
         <>
         <div className="grid grid-cols-2 h-screen">
-        <div className="my-auto mx-auto">
+        <div className="my-auto mx-auto transition duration-200 transform hover:scale-110">
           <Logo>
           </Logo>
         </div>
