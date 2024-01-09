@@ -15,10 +15,9 @@ function HeroSection() {
           buttonStyle='btn--primary'
           buttonSize='btn--large'
           onClick={console.log('hey')}
+          linkUrl={"/login"}
         >
-         <Link to="/login">
            SIGN IN NOW <i className="fas fa-sign-in-alt" />
-          </Link>
         </Button>
       </div>
     </div>

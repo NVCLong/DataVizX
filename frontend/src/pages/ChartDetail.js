@@ -1,49 +1,33 @@
 import React, { useEffect } from "react";
 import "../App.css";
 import NarBav from "../Comp_homepage/Navbar";
-import "./EditChart.css";
+import "./ChartDetail.css";
 import BarChart from "./ChartType/BarChart";
 import { useState } from "react";
 import LineGraph from "./ChartType/LineGraph";
 import PieChart from "./ChartType/PieChart";
 import Table from "./ChartType/Table";
-import { DataManager } from "./DataManager";
+import { getDataRaw, getStatisticData } from "./DataManager";
 import AdvancedOption from "./AdvancedOption";
 
-const dataGet = {
-  name: "User 1",
-  categories: "a,b,d,f",
-  values: "21,31,11,25"
-}
-
-const staticData = {
-  max: 32,
-  min: 11,
-  median: 21,
-  mean: 22.25,
-  variance: 50.6875,
-  standard_deviation: 7.12
-
-}
-
-const findingValue = [
-  {
-    category : "a",
-    value: 21
-  },
-  {
-    category : "b",
-    value: 31
-  },
-  {
-    category : "d",
-    value: 11
-  },
-  {
-    category : "f",
-    value: 25
-  },
-]
+// const findingValue = [
+//   {
+//     category : "a",
+//     value: 21
+//   },
+//   {
+//     category : "b",
+//     value: 31
+//   },
+//   {
+//     category : "d",
+//     value: 11
+//   },
+//   {
+//     category : "f",
+//     value: 25
+//   },
+// ]
 
 const ascending = {
   categories: "d,a,f,b",
@@ -70,16 +54,42 @@ const lowMed ={
 function Chart() {
   const [showChart, setShowChart] = useState(true);
 
-  const [inputValue, setInputValue] = useState(dataGet.values);
-  const [inputCategory, setInputCategory] = useState(dataGet.categories);
+  const [inputValue, setInputValue] = useState("");
+  const [inputCategory, setInputCategory] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
-  const [inputName, setInputName] = useState(dataGet.name); // State to hold selected option
+  const [inputName, setInputName] = useState(""); // State to hold selected option
   const [selectedSortedOption, setselectedSortedOption] = useState("");
 
-  const [intArr, setIntArr] = useState(dataGet.values.split(",").map(Number));
-  const [labelsChart, setLabelsChart] = useState(dataGet.categories.split(","));
+  const [intArr, setIntArr] = useState();
+  const [labelsChart, setLabelsChart] = useState();
 
   const [buttonPressed, setButtonPressed] = useState(true);
+
+  const [rawData, setRawData] = useState({
+    name: "",
+    categories :"",
+    values: ""
+  });
+
+  const [statisData, setStatisData] = useState({
+    max: {
+      category: "" ,
+      value: "",
+    },
+    median:{
+      category: "" ,
+      value: "",
+    },
+    min: {
+      category: "" ,
+      value: "",
+    },
+    stand: {
+      category: "" ,
+      value: "",
+    },
+  })
+  // const get_Data = getData();
 
   const [DataInput, setDataInput] = useState({
     Graph: "",
@@ -88,34 +98,9 @@ function Chart() {
     Sort: "",
   });
 
-  const [userData, setUserData] = useState({
-    labels: labelsChart,
-    datasets: [
-      {
-        label: "Data",
-        data: intArr,
-        backgroundColor: [
-          "#FF6633",
-          "#FFB399",
-          "#FF33FF",
-          "#FFFF99",
-          "#00B3E6",
-          "#E6B333",
-          "#3366E6",
-          "#999966",
-          "#99FF99",
-          "#B34D4D",
-          "#80B300",
-          "#809900",
-          "#E6B3B3",
-          "#6680B3",
-          "#66991A",
-        ],
-        borderColor: "white",
-        borderWidth: 4,
-      },
-    ],
-  });
+  const [findingValue, setFindingValue] = useState([]);
+
+  const [userData, setUserData] = useState({});
 
   const [errorText, seterrorText] = useState("");
   const [errorName, seterrorName] = useState("");
@@ -123,7 +108,7 @@ function Chart() {
   const [errorChart, seterrorChart] = useState("");
   const [errorCategory, seterrorCategory] = useState("");
 
-  const portData = new DataManager();
+  // const portData = new DataManager();
   const data = {
     name: inputName,
     categories: inputCategory,
@@ -133,20 +118,116 @@ function Chart() {
   // document.getElementsByClassName("btn--medium").style.display="none";
 
   useEffect(() => {
-    console.log("int Arr", intArr)
-    console.log("Lables:", labelsChart)
+    fetchRawData();
+    fetchStatisticData();
+    console.log("statis Data", statisData)
   }, [
-    selectedOption,
-    selectedSortedOption,
-    inputValue,
-    DataInput,
-    userData,
-    labelsChart,
-    showChart,
-    buttonPressed,
-    intArr,
-    inputCategory,
+    selectedOption
   ]);
+
+
+  const fetchRawData = async ()=>{
+    const res = await getDataRaw();
+    
+    const ObjArr = []
+     res.values.map((item)=>{
+      ObjArr.push(item)
+    })
+
+    const cateList =[]
+     ObjArr.map((item)=>{
+        cateList.push(item.category)
+    })
+
+    const valueList = []
+    ObjArr.map((item)=>{
+      valueList.push(item.value)
+    })
+
+    const chartName = res.name;    
+    // console.log("cate List", cateList)
+    // console.log("val list",valueList)
+    // console.log("name",chartName)
+
+    // setChartLables(cateList);
+    // setChartValues(valueList)
+    // setChartName(chartName)
+
+    setFindingValue(ObjArr);
+
+    setIntArr(valueList)
+    setLabelsChart(cateList)
+    setInputName(chartName)
+
+    setInputValue(valueList.map(num => num.toString()).join(','))
+    setInputCategory(cateList.map(ele => ele).join(','))
+
+    setRawData({
+      name: chartName,
+      categories: cateList.map(ele => ele).join(','),
+      values: cateList.map(ele => ele).join(',')
+    })
+
+    setUserData({
+      labels: labelsChart,
+      datasets: [
+        {
+          label: "Data",
+          data: intArr,
+          backgroundColor: [
+            "#FF6633",
+            "#FFB399",
+            "#FF33FF",
+            "#FFFF99",
+            "#00B3E6",
+            "#E6B333",
+            "#3366E6",
+            "#999966",
+            "#99FF99",
+            "#B34D4D",
+            "#80B300",
+            "#809900",
+            "#E6B3B3",
+            "#6680B3",
+            "#66991A",
+          ],
+          borderColor: "white",
+          borderWidth: 4,
+        },
+      ],
+    })
+  }
+  
+  const fetchStatisticData = async () =>{
+    const res = await getStatisticData();
+
+    const ObjArr =[];
+    Object.keys(res).forEach((key)=>{
+      ObjArr.push(res[key]);
+    })
+
+    setStatisData({
+      max: {
+        category: ObjArr[0].category,
+        value: ObjArr[0].value,
+      },
+      median:{
+        category: ObjArr[1].category,
+        value: ObjArr[1].value,
+      },
+      min: {
+        category: ObjArr[2].category,
+        value: ObjArr[2].value,
+      },
+      stand: {
+        category: ObjArr[3].category,
+        value: ObjArr[3].value,
+      },
+    })
+
+    console.log("Obj sta", ObjArr)
+    console.log("statis Data", statisData)
+  }
 
   const renderChart = (key) => {
     switch (key) {
@@ -220,7 +301,7 @@ function Chart() {
   const handleInputCategory = (event) => {
     setInputCategory(event.target.value);
     seterrorCategory("");
-    setLabelsChart(event.target.value.split(","));
+    // setLabelsChart(event.target.value.split(","));
 
     setDataInput({
       Graph: selectedOption,
@@ -233,7 +314,7 @@ function Chart() {
   const handleInputDataChange = (event) => {
     setInputValue(event.target.value);
     seterrorText("");
-    setIntArr(event.target.value.split(",").map(Number));
+    // setIntArr(event.target.value.split(",").map(Number));
 
     setDataInput({
       Graph: selectedOption,
@@ -259,6 +340,7 @@ function Chart() {
   };
 
   let onClick = () => {
+    console.log("Finding value", findingValue)
     setShowChart(true);
 
     setButtonPressed(true);
@@ -337,6 +419,7 @@ function Chart() {
       <div className="nav-header">
         <NarBav />
       </div>
+      <div className="put_data">
       <div className="name-input-container">
           <h2 className="input-name">Input name of Chart:</h2>
           <form>
@@ -418,9 +501,11 @@ function Chart() {
       {showChart && (
         <div className="graph">{renderChart(selectedOption)}</div>
       )}
+      </div>
+ 
       <hr></hr>
       <AdvancedOption
-       staticData={staticData} 
+       statisData={statisData} 
        findingValue={findingValue} 
        ascending={ascending}
        descending={descending}

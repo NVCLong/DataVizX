@@ -9,7 +9,14 @@ import Table from "./ChartType/Table";
 
 let listFindingLabels = [];
 
-const AdvancedOption = ({ staticData, findingValue, ascending, descending, highMed, lowMed }) => {
+const AdvancedOption = ({
+  statisData,
+  findingValue,
+  ascending,
+  descending,
+  highMed,
+  lowMed,
+}) => {
   const [selectedSortedOption, setSelectedSortedOption] = useState("");
   const [selectedGroupingOption, setSelectedGroupingOption] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
@@ -88,7 +95,6 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending, highM
   });
 
   const renderChartSort = (key) => {
-
     switch (key) {
       case "Pie Chart":
         return <PieChart chartData={userDataSort} />;
@@ -104,7 +110,6 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending, highM
   };
 
   const renderChartGroup = (key) => {
-
     switch (key) {
       case "Pie Chart":
         return <PieChart chartData={userDataGroup} />;
@@ -122,7 +127,7 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending, highM
   const handleSortChange = (event) => {
     setSelectedSortedOption(event.target.value);
 
-    if(event.target.value == "ascending"){
+    if (event.target.value == "ascending") {
       setUserDataSort({
         labels: asc_labels,
         datasets: [
@@ -150,9 +155,8 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending, highM
             borderWidth: 4,
           },
         ],
-      })
-    }
-    else if (event.target.value == "descending"){
+      });
+    } else if (event.target.value == "descending") {
       setUserDataSort({
         labels: desc_labels,
         datasets: [
@@ -180,15 +184,15 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending, highM
             borderWidth: 4,
           },
         ],
-      })
+      });
     }
   };
 
   const handleGroupingChange = (event) => {
     setSelectedGroupingOption(event.target.value);
 
-    if(event.target.value == "high"){
-      console.log("true high")
+    if (event.target.value == "high") {
+      console.log("true high");
       setUserDataGroup({
         labels: highMed_labels,
         datasets: [
@@ -216,11 +220,9 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending, highM
             borderWidth: 4,
           },
         ],
-      })
-    }
-    else if(event.target.value == "low")
-    {
-      console.log("true high")
+      });
+    } else if (event.target.value == "low") {
+      console.log("true high");
       setUserDataGroup({
         labels: lowMed_labels,
         datasets: [
@@ -248,7 +250,7 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending, highM
             borderWidth: 4,
           },
         ],
-      })
+      });
     }
   };
 
@@ -260,15 +262,14 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending, highM
     setInputFindValue(event.target.value);
   };
 
-  useEffect(() => {
-  }, [
+  useEffect(() => {}, [
     selectedSortedOption,
     selectedGroupingOption,
     selectedOption,
     showStasticInfo,
     inputFindValue,
     selectedGroupingOption,
-        showFindingResult,
+    showFindingResult,
   ]);
 
   const onClick_Statistic = () => {
@@ -302,12 +303,21 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending, highM
           </button>
           {showStasticInfo && (
             <div className="sta_info">
-              <p>Max: {staticData.max}</p>
-              <p>Min: {staticData.min}</p>
-              <p>Median: {staticData.median}</p>
-              <p>Mean: {staticData.mean}</p>
-              <p>Variance: {staticData.variance}</p>
-              <p>Standard Deviation: {staticData.standard_deviation}</p>
+              <p>
+                Max: {statisData.max.value} ({statisData.max.category})
+              </p>
+              <p>
+                Min: {statisData.min.value} ({statisData.min.category})
+              </p>
+              <p>
+                Median: {statisData.median.value} ({statisData.median.category})
+              </p>
+              {statisData.stand.value == null && (
+                <p>Standard Deviation: empty </p>
+              )}
+              {statisData.stand.value != null && (
+                <p>Standard Deviation: {statisData.stand.value} </p>
+              )}
             </div>
           )}
         </div>
@@ -374,7 +384,11 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending, highM
           {selectedGroupingOption && (
             <p>You choose: {selectedGroupingOption}</p>
           )}
-          <div className="graphGroup">{selectedOption && selectedGroupingOption && renderChartGroup(selectedOption)}</div>
+          <div className="graphGroup">
+            {selectedOption &&
+              selectedGroupingOption &&
+              renderChartGroup(selectedOption)}
+          </div>
         </div>
 
         <div className="sort-container">
@@ -388,8 +402,12 @@ const AdvancedOption = ({ staticData, findingValue, ascending, descending, highM
             <option value="ascending">Ascending</option>
             <option value="descending">Descending</option>
           </select>
-          { selectedSortedOption && <p>You choose: {selectedSortedOption}</p>}
-        <div className="graphSort">{selectedOption && selectedSortedOption && renderChartSort(selectedOption)}</div>
+          {selectedSortedOption && <p>You choose: {selectedSortedOption}</p>}
+          <div className="graphSort">
+            {selectedOption &&
+              selectedSortedOption &&
+              renderChartSort(selectedOption)}
+          </div>
         </div>
       </div>
     </div>

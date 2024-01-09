@@ -3,8 +3,8 @@ import "../App.css";
 import "./CreateChart.css"
 import NarBav from "../Comp_homepage/Navbar";
 import { useState } from "react";
-import { DataManager } from "./DataManager";
-import { Navigate } from 'react-router-dom';
+import {  axiosJWT, sendData } from "./DataManager";
+import { useNavigate } from 'react-router-dom';
 
 function Chart() {
   const [inputValue, setInputValue] = useState("");
@@ -26,9 +26,8 @@ function Chart() {
   const [errorCategory, seterrorCategory] = useState("");
   const [errorName, seterrorName]=useState("");
 
-  const portData = new DataManager();
+  const navigate = useNavigate();
 
-  const [shouldNavigate, setShouldNavigate] = useState(false);
 
   useEffect(() => {}, [
     inputValue,
@@ -37,7 +36,6 @@ function Chart() {
     intArr,
     inputCategory,
     inputName,
-    shouldNavigate
   ]);
 
   const checkIntArray = (arr) => {
@@ -78,9 +76,9 @@ function Chart() {
     setLabelsChart(event.target.value.split(","));
 
     setDataInput({
-      Name: inputName,
-      Data: intArr,
-      Category: event.target.value.split(" "),
+      name: inputName,
+      categories: event.target.value,
+      values: inputValue,
     });
   };
 
@@ -90,9 +88,9 @@ function Chart() {
     setIntArr(event.target.value.split(",").map(Number));
 
     setDataInput({
-      Name: inputName,
-      Data: event.target.value.split(",").map(Number),
-      Category: labelsChart,
+      name: inputName,
+      categories: inputCategory,
+      values: event.target.value,
     });
     // Update input value in state
   };
@@ -102,14 +100,16 @@ function Chart() {
     seterrorName("");
 
     setDataInput({
-      Name: event.target.value,
-      Data: intArr,
-      Category: labelsChart,
+      name: event.target.value,
+      categories: inputCategory,
+      values: inputValue,
     })
   }
 
-  let onClick = () => {
+  let onClick = async (e) => {
+    e.preventDefault();
     setButtonPressed(true)
+    console.log("Data Input",DataInput)
 
     if (checkIntArray(intArr) || checkStr(labelsChart)) {
       setButtonPressed(false);
@@ -128,8 +128,16 @@ function Chart() {
       inputName.length > 0 &&
       buttonPressed
     ) {
-      // portData.portData(DataInput);
-      setShouldNavigate(true);
+      try{
+        const portData = await sendData(DataInput);
+        navigate('/chartDetail')
+
+      }
+      catch (error){
+        console.log("error", error.message)
+        throw error;
+                
+      }
     } else {
       if (intArr.length <= 2) {
         seterrorText("Input must be at least 3 characters long");
@@ -144,7 +152,6 @@ function Chart() {
       if(inputName.length<=0){
         seterrorName("Input a name for Chart please");
       }
-      setShouldNavigate(false);
     }
   };
 
@@ -200,12 +207,10 @@ function Chart() {
               minLength="5"
             />
           </form>
-          {errorCategory && <p style={{ color: "red" }}>{errorCategory}</p>}
         </div>
         <button className="custom-button" onClick={onClick}>
           Generate
         </button>
-        {shouldNavigate && <Navigate to="/editChart" />}
       </div>
       <div id="instruction">
         <p>

@@ -1,38 +1,73 @@
-import axios from 'axios';
+import axios from "axios";
+import { useState } from "react";
 
-export class DataManager{
+const API_URL = "http://localhost:3000";
+export const axiosJWT = axios.create();
 
-
-  async portData (userData) {
-    const baseUrl = "http://localhost:3000";
-    // e.preventDefault();
-    try {
-      axios.post(`${baseUrl}/collection/add`, {
-        name: "user1",
+export const sendData = async (userData) => {
+  // userData.preventDefault(); // preventDefault is used on events, not on data objects
+  console.log("user Data", userData);
+  try {
+    const response = await axios.post(
+      `${API_URL}/collection/add`,
+      {
+        name: userData.name,
         categories: userData.categories,
-        values: userData.values
-      }, {
+        values: userData.values,
+      },
+      {
         headers: {
           "Content-Type": "application/json",
-          "accept": "*/*"
-        }
-      })
-        .then(response => {
-          // Handle success
-          console.log('Response:', response.data);
-        })
-        .catch(error => {
-          // Handle error
-          console.error('Error:', error);
-        });
-      console.log("userInput categories",userData.categories)
-      console.log("userInput values", userData.values)
-      
-
-    } catch (error) {
-      console.error("Fetch error:", error);
-    }
-  };
- 
+          accept: "*/*",
+        },
+      }
+    );
+    // console.log("Response from server:", response.data);
+    localStorage.setItem("chartId", response.data.chartId);
+    // Add any further handling of the response here, if needed
+    return response.data; // Returning data if necessary
+  } catch (error) {
+    console.error("Error while sending data:", error);
+    throw error; // Re-throw the error for further handling if necessary
+  }
 };
 
+export const getDataRaw = async () => {
+  const values = [];
+
+  const retrievedValue = localStorage.getItem("chartId");
+  try {
+    const response = await axios.get(`${API_URL}/collection/${retrievedValue}`);
+    console.log("response value raw: ", response.data.values);
+    response.data.values.map((item) => {
+      values.push(item);
+    });
+    // console.log("values: ", values[0]);
+    return response.data;
+  } catch (error) {
+    console.error("Fetch error:", error);
+  }
+};
+
+
+export const getStatisticData = async () =>{
+  const values = [];
+
+  const retrievedValue = localStorage.getItem("chartId");
+  try {
+    const response = await axios.get(`${API_URL}/collection/statistic/${retrievedValue}`);
+    Object.keys(response.data).forEach((key)=>{
+      // console.log(key,response.data[key])
+      values.push(response.data[key])
+
+    })
+    console.log("response value statistic: ", response.data);
+    // response.data.map((item) => {
+    //   values.push(item);
+    // });
+    // console.log("values: ", values);
+    return response.data;
+  } catch (error) {
+    console.error("Fetch error:", error);
+  }
+}

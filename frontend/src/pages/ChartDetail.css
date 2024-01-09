@@ -11,11 +11,11 @@
 .nav-header{
   margin-bottom: 60px;
 }
-.name-input-container {
+.put_data > .name-input-container {
   display: block;
   padding: 10px 50px 20px;
-  margin: 20px auto; /* Set auto for left and right margins */
-  width: fit-content; /* Optional: Adjust width as needed */
+  margin: 20px auto;
+  width: fit-content;
   position: static;
 }
 
