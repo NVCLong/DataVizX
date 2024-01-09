@@ -210,6 +210,23 @@ const collectionController = {
         }catch (e) {
             console.log(e);
         }
+    },
+    //[GET] collection/sort/:id
+    async sortCollection(req,res){
+        try{
+            await Collection.findById(req.params.id)
+                .then((collection)=>{
+                    console.log(collection.values);
+                    const array= collection.values.sort((a,b)=>{return a.value-b.value});
+                    console.log(array)
+                    res.status(200).send({collectionName: collection.name, sortedCollection: array})
+                }).catch(function(e){
+                    console.log(e)
+                })
+
+        }catch (e) {
+            console.log(e);
+        }
     }
 };
 module.exports = collectionController;

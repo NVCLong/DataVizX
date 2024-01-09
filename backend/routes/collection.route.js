@@ -11,5 +11,5 @@ router.patch("/edit/:id",jwt_helpers.verifyAccessToken, collectionController.edi
 router.get('/statistic/:id', jwt_helpers.verifyAccessToken ,collectionController.statistic)
 router.post("/searchValues/:id",jwt_helpers.verifyAccessToken, collectionController.searchValues)
 router.delete("/delete/:id", jwt_helpers.verifyAccessToken, collectionController.deleteCollection)
-
+router.get('/sort/:id',collectionController.sortCollection)
 module.exports =  router
