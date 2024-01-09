@@ -18,7 +18,7 @@ const Sidebar = () => {
     {
       title: "Dashboard",
       src: dashboard_icon,
-      href: "./login",
+      href: "./chartList",
       onClick: () => setCurrentPageTitle("Dashboard"),
     },
     {
@@ -73,7 +73,7 @@ const Sidebar = () => {
             className={`cursor-pointer size-10 transition duration-200 transform hover:scale-110
             ${open && "rotate-[360deg]"}`}
             onClick={() => {
-              navigate("/");
+              navigate("/chartList");
             }}
           />
           <h1

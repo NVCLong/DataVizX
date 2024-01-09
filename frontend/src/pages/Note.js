@@ -1,7 +1,26 @@
 import Sidebar from "../components/Sidebar";
 import TextareaAutosize from "react-textarea-autosize";
+import React, {useState} from "react";
+import axios from "axios";
 
 const Note = () => {
+  const [note, setNote]= useState([])
+  const [error, setError]= useState([])
+  const API='http://localhost:3000'
+
+  const handleIpnut = (e) => {
+    setNote({...note, [e.target.name]: e.target.value})
+  }
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault()
+  //   try{
+  //     await axios.post(`${API}/note/create`)
+  //
+  //   }catch (e){
+  //     setError(e)
+  //   }
+  // }
+
   return (
     <div className="flex">
   <div className="#">
@@ -13,7 +32,7 @@ const Note = () => {
     <div id="inputClass" className="space-y-8">
       <div id="textInput">
         <label
-          for="note"
+          form="note"
           className="flex justify-center mb-2 text-lg font-medium tracking-wider text-white"
         >
           Note
@@ -23,6 +42,7 @@ const Note = () => {
           minRows="8"
           className="flex p-2.5 w-96 shadow-lg rounded-lg text-base bg-slate-900 border-gray-700 text-gray-400 ring-gray-600"
           placeholder="Write your note here..."
+          onChange={handleIpnut}
         />
       </div>
 
