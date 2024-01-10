@@ -28,25 +28,24 @@ const algorithm = {
 
     findPosition(array, value) {
         this.sortArray(array)
-        console.log(array)
         // array.sort(function(a,b){ return a-b})
         let upperBound = array.length;
         let lowerBound = 0;
         let curIndex = 0;
         if (array.length === 1) {
-            if (array[0] !== value) {
+            if (array[0].value !== value) {
                 return { msg: " can not find position" }
             }
             else return { msg: " found position", index: 0 }
         }
         while (true) {
             curIndex = Math.floor((upperBound + lowerBound) / 2)
-            if (array[curIndex] < value) {
+            if (array[curIndex].value < value) {
                 lowerBound = curIndex;
-            } else if (array[curIndex] > value) {
+            } else if (array[curIndex].value > value) {
                 upperBound = curIndex;
             }
-            else if (array[curIndex] === value) {
+            else if (array[curIndex].value === value) {
                 return { msg: " found position", index: curIndex }
             } else if (lowerBound > upperBound) {
                 return { msg: "can not find position" }
@@ -88,7 +87,7 @@ const algorithm = {
         let r = 0;
 
         while (l < leftSize && r < rightSize) {
-            if (leftArray[l] < rightArray[r]) {
+            if (leftArray[l].value < rightArray[r].value) {
                 array[i] = leftArray[l];
                 i++;
                 l++;
@@ -148,9 +147,11 @@ const algorithm = {
     findMedian(array) {
         let median;
         this.sortArray(array)
+        console.log('s  a'+array)
         let mid = Math.floor(array.length / 2);
+        console.log('mid: '+ mid)
         if (array.length % 2 === 0) {
-            median = (array[mid].value + array[mid + 1].value) / 2;
+            median = (array[mid].value + array[mid - 1].value) / 2;
         } else {
             median = (array[mid].value)
         }

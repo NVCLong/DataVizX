@@ -77,13 +77,14 @@ const collectionController = {
             await Collection.findOne({ _id: req.params.id })
                 .then(function (collection) {
                     let median = algorithm.findMedian(collection.values);
+                    console.log(median)
                     let colletcionBelowValues = algorithm.groupBelowData(
                         collection.values,
-                        median.value
+                        median
                     );
                     let collectionAboveValues = algorithm.groupAboveData(
                         collection.values,
-                        median.value
+                        median
                     );
                     let belowCollection = {
                         colletcionBelowValues: colletcionBelowValues,
@@ -120,7 +121,7 @@ const collectionController = {
             }
             await Collection.findOneAndUpdate(
                 { _id: req.params.id },
-                { values: collectionValues }
+                { values: collectionValues, name: req.body.name },
             )
                 .then(function (collection) {
                     console.log(collection);
@@ -145,7 +146,6 @@ const collectionController = {
                     for (const arrayElement of collection.values) {
                         array.push(arrayElement.value);
                     }
-                    console.log(array);
                     let result = algorithm.findValue(array, req.body.value);
                     let finalResult;
                     if (result) {
@@ -155,9 +155,8 @@ const collectionController = {
                             }
                         }
                     }
-                    let position = algorithm.findPosition(array, result.node.data);
+                    let position = algorithm.findPosition(collection.values, result.node.data);
                     position.index = array.length - position.index;
-                    console.log(position);
                     res.json({ finalResult, position });
                 })
                 .catch(function (err) {
@@ -176,6 +175,7 @@ const collectionController = {
                     const max= algorithm.findMax(collection.values)
                     const min= algorithm.findMin(collection.values)
                     const median= algorithm.findMedian(collection.values);
+                    console.log(median)
                     const standardDeviation= algorithm.standardDeviation(collection.values)
                     let maxElement;
                     let minElement;
@@ -207,6 +207,23 @@ const collectionController = {
                 .catch((err)=>{
                     console.log(err)
                 })
+        }catch (e) {
+            console.log(e);
+        }
+    },
+    //[GET] collection/sort/:id
+    async sortCollection(req,res){
+        try{
+            await Collection.findById(req.params.id)
+                .then((collection)=>{
+                    console.log(collection.values);
+                    const array= collection.values.sort((a,b)=>{return a.value-b.value});
+                    console.log(array)
+                    res.status(200).send({collectionName: collection.name, sortedCollection: array})
+                }).catch(function(e){
+                    console.log(e)
+                })
+
         }catch (e) {
             console.log(e);
         }
