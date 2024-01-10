@@ -128,8 +128,8 @@ export const patchNewData = async (userData) => {
       `${API_URL}/collection/edit/${retrievedValue}`,
       {
         "name": userData.Name,
-        "categories": userData.Category,
-        "values": userData.Data,
+        "categories": userData.Categories,
+        "values": userData.Values,
       },
     );
     console.log("Response Patch Data", response.data)

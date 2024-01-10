@@ -76,7 +76,7 @@ function Chart() {
     "#E6B3B3",
     "#6680B3",
     "#66991A",
-  ]
+  ];
   // const groupData = new getGroupData();
 
   const [showChart, setShowChart] = useState(true);
@@ -122,12 +122,7 @@ function Chart() {
   const [errorCategory, seterrorCategory] = useState("");
 
   // const portData = new DataManager();
-  const data = {
-    name: inputName,
-    categories: inputCategory,
-    values: inputValue,
-  };
-
+  
   const navigate = useNavigate();
 
   // document.getElementsByClassName("btn--medium").style.display="none";
@@ -140,9 +135,14 @@ function Chart() {
     // console.log("raw data cate detail", rawData.Categories)
   }, [selectedOption]);
 
+  useEffect(() => {
+    setLabelsChart(inputCategory.split(","))
+    setIntArr(inputValue.split(",").map(Number)
+  )}, [inputCategory, inputName, inputValue]);
+
   const fetchRawData = async () => {
     const res = await getDataRaw();
-    console.log("result:   "+res)
+    console.log("result:   " + res);
 
     const ObjArr = [];
     res.values.map((item) => {
@@ -213,7 +213,7 @@ function Chart() {
         values: highValues.join(","),
       });
 
-      console.log(highMed)
+      console.log(highMed);
 
       const lowCategories = Object.keys(collectionLow);
       const lowValues = lowCategories.map(
@@ -255,7 +255,7 @@ function Chart() {
   const fetchSortData = async () => {
     try {
       const res = await getSortData();
-      console.log(res)
+      console.log(res);
 
       const ascCollect = res.sortedCollection;
 
@@ -264,8 +264,8 @@ function Chart() {
 
       setAscending({
         categories: ascCategories,
-        values: ascValues, 
-      })
+        values: ascValues,
+      });
 
       // console.log("asc coll", ascCollect);
       // console.log("ascending collection",ascending)
@@ -333,8 +333,8 @@ function Chart() {
 
     setDataInput({
       Name: event.target.value,
-      Data: inputValue,
-      Category: inputCategory,
+      Values: inputValue,
+      Categories: inputCategory,
     });
   };
 
@@ -344,8 +344,8 @@ function Chart() {
 
     setDataInput({
       Name: inputName,
-      Data: inputValue,
-      Category: inputCategory,
+      Values: inputValue,
+      Categories: inputCategory,
     });
   };
 
@@ -368,8 +368,8 @@ function Chart() {
 
     setDataInput({
       Name: inputName,
-      Data: event.target.value,
-      Category: inputCategory,
+      Values: event.target.value,
+      Categories: inputCategory,
     });
     // Update input value in state
   };
@@ -392,6 +392,9 @@ function Chart() {
 
     setButtonPressed(true);
 
+    console.log("int Arr", intArr);
+    console.log("labels Chart", labelsChart);
+
     if (checkIntArray(intArr) || checkStr(labelsChart)) {
       setButtonPressed(false);
       if (checkIntArray(intArr)) {
@@ -404,11 +407,11 @@ function Chart() {
 
     setDataInput({
       Name: inputName,
-      Data: inputValue,
-      Category: inputCategory,
+      Values: inputValue,
+      Categories: inputCategory,
     });
 
-    console.log("raw data",rawData);
+    console.log("raw data", rawData);
     if (
       intArr.length > 2 &&
       labelsChart.length > 2 &&
@@ -417,14 +420,14 @@ function Chart() {
       buttonPressed
     ) {
       try {
-        // const patchData = await patchNewData(DataInput);
-        // navigate("/chartDetail");
+        const patchData = await patchNewData(DataInput);
+        navigate("/chartDetail");
       } catch (error) {
         alert("Cannot patch");
         console.log("error", error.message);
         throw error;
       }
-      // location.reload();
+      location.reload();
     } else {
       setShowChart(false);
       if (intArr.length <= 2) {
@@ -456,15 +459,15 @@ function Chart() {
         <NarBav />
       </div>
       <div className="btn-chartList">
-          <Button
-            className="btns"
-            buttonSize="btn--medium"
-            buttonStyle="btn--outline"
-            linkUrl={"/chartList"}
-          >
-            Go back to Chart List
-          </Button>
-        </div>
+        <Button
+          className="btns"
+          buttonSize="btn--medium"
+          buttonStyle="btn--outline"
+          linkUrl={"/chartList"}
+        >
+          Go back to Chart List
+        </Button>
+      </div>
       <div className="put_data">
         <div className="name-input-container">
           <h2 className="input-name">Input name of Chart:</h2>
