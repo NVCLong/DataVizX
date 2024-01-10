@@ -17,7 +17,6 @@ class AuthenticationController {
     static async register(req, res, next) {
         try {
             // If email or password field is blank it will return an error
-            // if(!email || !password) throw createError.BadRequest
             const result = {
                 userName: req.body.userName,
                 email: req.body.email,
@@ -56,12 +55,11 @@ class AuthenticationController {
                 identifier: req.body.identifier,
                 password: req.body.password
             };
-            console.log(result);
+
             // Return email if it is registered
             const user = await User.findOne({
                 $or: [{ email: result.identifier }, { userName: result.identifier }],
             });
-            console.log(user)
 
             // If not: throw an error
             if (!user) throw createError.NotFound("User not registered!");
@@ -84,8 +82,10 @@ class AuthenticationController {
                 secure: true,
             });
             res.cookie("userId", user.id);
+            
+            const userDetails = await User.findOne({ _id: user.id }).select("userName");
 
-            res.send({ accessToken, refreshToken, user });
+            res.json({ accessToken, refreshToken, userDetails });
         } catch (error) {
             // Return an error statement if validation error is found
             if (error.isJoi === true)
