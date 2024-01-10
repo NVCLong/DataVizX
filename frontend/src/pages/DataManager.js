@@ -7,9 +7,11 @@ export const axiosJWT = axios.create();
 export const sendData = async (userData) => {
   // userData.preventDefault(); // preventDefault is used on events, not on data objects
   try {
+     console.log(localStorage.getItem("userId"))
     const response = await axios.post(
       `${API_URL}/collection/add`,
       {
+        userId: localStorage.getItem('userId'),
         name: userData.name,
         categories: userData.categories,
         values: userData.values,
@@ -22,7 +24,7 @@ export const sendData = async (userData) => {
       }
     );
     // console.log("Response from server:", response.data);
-    localStorage.setItem("UsingchartId", response.data.chartId);
+    localStorage.setItem("chartId", response.data.chartId);
     // localStorage.removeItem("UsinngchartId")
     // Add any further handling of the response here, if needed
     return response.data; // Returning data if necessary
@@ -35,9 +37,10 @@ export const sendData = async (userData) => {
 export const getDataRaw = async () => {
   const values = [];
 
-  const retrievedValue = localStorage.getItem("UsingchartId");
+  const retrievedValue = localStorage.getItem("chartID");
   try {
     const response = await axios.get(`${API_URL}/collection/${retrievedValue}`);
+    console.log(response)
     console.log("response value raw: ", response.data.values);
     response.data.values.map((item) => {
       values.push(item);
@@ -53,7 +56,7 @@ export const getDataRaw = async () => {
 export const getStatisticData = async () => {
   const values = [];
 
-  const retrievedValue = localStorage.getItem("UsingchartId");
+  const retrievedValue = localStorage.getItem("chartID");
   try {
     const response = await axios.get(`${API_URL}/collection/statistic/${retrievedValue}`);
     Object.keys(response.data).forEach((key) => {
@@ -74,7 +77,7 @@ export const getStatisticData = async () => {
 
 export const getGroupData = async () => {
 
-  const retrievedValue = localStorage.getItem("UsingchartId");
+  const retrievedValue = localStorage.getItem("chartID");
   try {
     const response = await axios.get(`${API_URL}/collection/groupData/${retrievedValue}`);
     // Object.keys(response.data).forEach((key)=>{
@@ -95,7 +98,7 @@ export const getGroupData = async () => {
 
 export const getSortData = async () => {
 
-  const retrievedValue = localStorage.getItem("UsingchartId");
+  const retrievedValue = localStorage.getItem("chartID");
   try {
     const response = await axios.get(`${API_URL}/collection/sort/${retrievedValue}`);
     // Object.keys(response.data).forEach((key)=>{
@@ -116,7 +119,7 @@ export const getSortData = async () => {
 
 
 export const patchNewData = async (userData) => {
-  const retrievedValue = localStorage.getItem("UsingchartId");
+  const retrievedValue = localStorage.getItem("chartID");
 
 
   try {

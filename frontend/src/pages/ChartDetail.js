@@ -122,6 +122,7 @@ function Chart() {
 
   const fetchRawData = async () => {
     const res = await getDataRaw();
+    console.log("result:   "+res)
 
     const ObjArr = [];
     res.values.map((item) => {
@@ -208,6 +209,8 @@ function Chart() {
         values: highValues.join(","),
       });
 
+      console.log(highMed)
+
       const lowCategories = Object.keys(collectionLow);
       const lowValues = lowCategories.map(
         (category) => collectionLow[category][0].value
@@ -248,6 +251,7 @@ function Chart() {
   const fetchSortData = async () => {
     try {
       const res = await getSortData();
+      console.log(res)
 
       const ascCollect = res.sortedCollection;
 
@@ -346,11 +350,11 @@ function Chart() {
     seterrorCategory("");
     // setLabelsChart(event.target.value.split(","));
 
-    setDataInput({
-      Data: intArr,
-      Data: inputValue,
-      Category: event.target.value,
-    });
+    // setDataInput({
+    //   Data: intArr,
+    //   Data: inputValue,
+    //   Category: event.target.value,
+    // });
   };
 
   const handleInputDataChange = (event) => {
