@@ -113,6 +113,10 @@ function Chart() {
     categories: "",
     values: "",
   });
+  const [descending, setDescending] =useState({
+    categories: "",
+    values: "",
+  })
 
   const [userData, setUserData] = useState({});
 
@@ -258,13 +262,21 @@ function Chart() {
       console.log(res)
 
       const ascCollect = res.sortedCollection;
+      const descCollect = res.sortedCollectionDesc
 
       const ascCategories = ascCollect.map((item) => item.category).join(",");
       const ascValues = ascCollect.map((item) => item.value).join(",");
 
+      const descCategories = descCollect.map((item)=>{return item.category}).join(",");
+      const descValues = descCollect.map((item)=>{return item.value}).join(",")
+
       setAscending({
         categories: ascCategories,
         values: ascValues, 
+      })
+      setDescending({
+        categories: descCategories,
+        values: descValues
       })
 
       // console.log("asc coll", ascCollect);
