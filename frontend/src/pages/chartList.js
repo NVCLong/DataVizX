@@ -23,6 +23,7 @@ function ChartListPage() {
   const fetchChartData = async () => {
     setIsLoading(true);
     try {
+      localStorage.removeItem("chartId");
       const userId = localStorage.getItem("userId");
       if (!userId) {
         throw new Error("Do not have userId");
@@ -213,7 +214,7 @@ function ChartListPage() {
                   type="button"
                   className="px-4 py-2 text-sm font-medium  border rounded-s-lg focus:z-10 focus:ring-2 bg-purple-600 border-purple-800 text-white hover:text-white hover:bg-purple-400 focus:ring-blue-500 focus:text-white transition duration-300 transform hover:scale-110"
                   onClick={() => {
-                    localStorage.setItem("chartID", chartID[index]);
+                    localStorage.setItem("chartId", chartID[index]);
                     navigate("/chartDetail");
                   }}
                 >
