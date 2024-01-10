@@ -3,6 +3,9 @@ import axios from "axios";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import Sidebar from "../components/Sidebar";
+import { Button } from "../Comp_homepage/Button";
+import "../Comp_homepage/Button.css";
+import {useNavigate} from "react-router-dom";
 
 Chart.defaults.font.size = 16;
 Chart.defaults.font.family = "'SF Pro Display', sans-serif";
@@ -15,6 +18,7 @@ function ChartListPage() {
   const [chartID, setChartID] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const fetchChartData = async () => {
     setIsLoading(true);
@@ -151,7 +155,6 @@ function ChartListPage() {
           <div className="#">
             <Sidebar />
           </div>
-
           <div className="pt-96 pr-10 mx-auto">
             <button
               type="button"
@@ -186,7 +189,16 @@ function ChartListPage() {
       <div className="fixed top-0 left-0 h-screen w-160 z-50">
         <Sidebar />
       </div>
-
+      <div className="btn-chartList">
+          <Button
+            className="btns"
+            buttonSize="btn--medium"
+            buttonStyle="btn--outline"
+            linkUrl={"/createChart"}
+          >
+            + Add new Chart
+          </Button>
+        </div>
       <div className="col-start-2 space-y-20 pt-28 pr-10">
         {chartConfig.map((config, index) => (
           <div
@@ -202,7 +214,7 @@ function ChartListPage() {
                   className="px-4 py-2 text-sm font-medium  border rounded-s-lg focus:z-10 focus:ring-2 bg-purple-600 border-purple-800 text-white hover:text-white hover:bg-purple-400 focus:ring-blue-500 focus:text-white transition duration-300 transform hover:scale-110"
                   onClick={() => {
                     localStorage.setItem("chartID", chartID[index]);
-                    navigator("/chart");
+                    navigate("/chartDetail");
                   }}
                 >
                   Edit

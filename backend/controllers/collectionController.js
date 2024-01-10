@@ -41,7 +41,7 @@ const collectionController = {
                 values: collectionValues,
             });
             newCollection.save();
-            const userId = req.cookies.userId;
+            const userId = req.body.userId;
             const userChartList=await chartList.findOne({userId: userId});
             if (userChartList) {
                 await chartList
@@ -108,7 +108,7 @@ const collectionController = {
         }
     },
 
-    // [PUT]   /collection/edit/:id
+    // [Patch]   /collection/edit/:id
     async editCollection(req, res) {
         try {
             let collectionValues = [];
@@ -218,8 +218,10 @@ const collectionController = {
                 .then((collection)=>{
                     console.log(collection.values);
                     const array= collection.values.sort((a,b)=>{return a.value-b.value});
+                    const arrayDesc= collection.values.sort((a,b)=>{return b.value-a.value});
+                    console.log( arrayDesc)
                     console.log(array)
-                    res.status(200).send({collectionName: collection.name, sortedCollection: array})
+                    res.status(200).send({collectionName: collection.name, sortedCollection: array, sortedCollectionDesc: arrayDesc})
                 }).catch(function(e){
                     console.log(e)
                 })

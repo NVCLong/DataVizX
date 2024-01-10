@@ -1,6 +1,6 @@
 export default function FormExtra(){
         return(
-                <div className="flex items-center justify-between drop-shadow-lg">
+                <div className="flex items-center justify-between">
                 <div className="flex items-center">
                     <input
                         id="remember-me"

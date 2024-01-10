@@ -20,4 +20,7 @@ router.post("/logout", AuthenticationController.logout);
 // Test route
 // router.get("/getAllUser", AuthenticationController.getAllUser);
 
+// Test route
+// router.get("/getAllUser", AuthenticationController.getAllUser);
+
 module.exports = router;

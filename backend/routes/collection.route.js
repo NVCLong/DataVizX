@@ -4,12 +4,12 @@ const collectionController= require('../controllers/collectionController');
 const jwt_helpers= require('../helpers/jwt_helper')
 
 //;route cannot return
-router.get('/:id',jwt_helpers.verifyAccessToken ,collectionController.getCollectionDetails)
-router.post('/add',jwt_helpers.verifyAccessToken  ,collectionController.addNewCollection)
-router.get('/groupData/:id', jwt_helpers.verifyAccessToken ,collectionController.groupingData)
-router.patch("/edit/:id",jwt_helpers.verifyAccessToken, collectionController.editCollection)
-router.get('/statistic/:id', jwt_helpers.verifyAccessToken ,collectionController.statistic)
-router.post("/searchValues/:id",jwt_helpers.verifyAccessToken, collectionController.searchValues)
-router.delete("/delete/:id", jwt_helpers.verifyAccessToken, collectionController.deleteCollection)
+router.get('/:id', collectionController.getCollectionDetails)
+router.post('/add' ,collectionController.addNewCollection)
+router.get('/groupData/:id' ,collectionController.groupingData)
+router.patch("/edit/:id", collectionController.editCollection)
+router.get('/statistic/:id' ,collectionController.statistic)
+router.post("/searchValues/:id", collectionController.searchValues)
+router.delete("/delete/:id", collectionController.deleteCollection)
 router.get('/sort/:id',collectionController.sortCollection)
 module.exports =  router

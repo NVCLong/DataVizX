@@ -31,7 +31,7 @@ function Navbar() {
       <nav className='navbar'>
         <div className='navbar-container'>
           <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-            <img src={logoMain} alt="DataVizX Logo" className="h-10 w-10" />
+            <img src={logoMain} alt="DataVizX Logo" className="logo_img" />
             <span style={{ marginLeft: '5px' }}>DataVizX</span>
           </Link>
           <div className='menu-icon' onClick={handleClick}>

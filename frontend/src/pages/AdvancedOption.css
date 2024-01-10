@@ -1,0 +1,133 @@
+.static_button{
+    padding: 20px 90px;
+    font-size: 16px;
+    border: none;
+    background-color: #00ccffa1;
+    border-radius: 10px;
+    color: #fff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 20px;
+}
+
+.static_button:hover{
+    background-color: #712fffa1;
+    border-radius: 90px;
+    transition: 250ms;
+    transition: all 0.5s ease-in-out;
+}
+
+.show_info {
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(1, auto);
+    grid-gap: 300px;
+    list-style: georgian;
+    text-align: center;
+    width: 95vw;
+    justify-content: center; /* Aligns items in the middle horizontally */
+    margin-top: 20px;
+    position: relative;
+    font-size: 15px;
+    place-items: center;
+    height: 337px;
+  }
+
+.sta_info{
+    border: 2px solid rgb(204,204,204);
+    padding: 5px;
+    border-radius: 20px;
+    background-color: rgba(10, 20, 30, 0.7);
+}
+
+
+
+h2{
+    margin: 0px
+}
+
+.input-find-value{
+    margin: 20px;
+    padding: 8px;
+    font-size: 16px;
+    border: 10px solid #ccc;
+    border-radius: 4px;
+    width: 275px;
+}
+
+div.static-container{
+    width: min-content;
+}
+
+.selectGrouping{
+    margin: 10px;
+}
+
+.show_ad_chart{
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(1, auto);
+    grid-gap: 100px;
+    list-style: georgian;
+    text-align: center;
+    width: 95vw;
+    justify-content: center; /* Aligns items in the middle horizontally */
+    margin-top: 20px;
+    position: relative;
+    font-size: 15px;
+    place-items: center;
+    height: 337px;
+}
+
+.graphSort {
+    display: flex;
+  width: 700px;
+  height: 700px;
+  margin: 20px auto;
+  justify-items: center;
+  justify-content: center;
+  padding: 5px;
+  border: 5px solid #ccc;
+  border-radius: 50px;
+  background-color: rgba(10,20,30,0.6);
+  align-items: center;
+
+}
+
+.graphGroup{
+    display: flex;
+    width: 700px;
+    height: 700px;
+    margin: 20px auto;
+    justify-items: center;
+    justify-content: center;
+    padding: 5px;
+    border: 5px solid #ccc;
+    border-radius: 50px;
+    background-color: rgba(10,20,30,0.6);
+    align-items: center;
+}
+
+
+table {
+    width: 100%;
+    height: 100%;
+    color: aliceblue;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .Table {
+    width: 90vw;
+    height: 90vh;
+    color: aliceblue;
+    font-size: 20px;
+    text-align: center;
+  }
+  
+  select.selectSort{
+    margin: 10px;
+  }
