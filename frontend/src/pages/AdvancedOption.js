@@ -101,7 +101,7 @@ const AdvancedOption = ({
 
   const binarySearchColor = (arr, target) => {
     console.log("binary array", arr);
-    console.log("binary target",target)
+    console.log("binary target", target);
     let left = 0;
     let right = arr.length - 1;
 
@@ -120,17 +120,17 @@ const AdvancedOption = ({
   };
 
   const completeColor = async (array, templateColor) => {
-    console.log("array demo",array)
+    console.log("array demo", array);
     array.forEach((element, index) => {
       const indexSearch = binarySearchColor(rawDataCategories, element);
-      // console.log("index search",indexSearch)
-      // console.log("element",element)
-      // console.log("raw cate",rawDataCategories)
-      templateColor.push(colorTemplate[indexSearch]);
+      if (indexSearch <= (colorTemplate.length - 1)) {
+        templateColor.push(colorTemplate[indexSearch]);
+      }
+      else{
+        templateColor.push(colorTemplate[indexSearch-colorTemplate.length-1])
+      }
       // console.log("element", element)
     });
-    // console.log("color template", colorTemplateSortAsc)
-    // console.log("test binary search",binarySearchColor(["a","b","c"],"b"))
   };
 
   const handleSortChange = (event) => {
@@ -171,7 +171,7 @@ const AdvancedOption = ({
     setSelectedGroupingOption(event.target.value);
 
     if (event.target.value == "high") {
-      console.log("high Med", highMed)
+      console.log("high Med", highMed);
       completeColor(highMed_labels, colorTemplateGroupHigh);
       setUserDataGroup({
         labels: highMed_labels,
