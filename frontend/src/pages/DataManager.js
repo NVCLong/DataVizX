@@ -103,16 +103,10 @@ export const patchNewData = async (userData) => {
     const response = await axios.patch(
       `${API_URL}/collection/edit/${retrievedValue}`,
       {
-        name: userData.Name,
-        categories: userData.Categories,
-        values: userData.Values,
+        "name": userData.Name,
+        "categories": userData.Categories,
+        "values": userData.Values,
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "*/*",
-        },
-      }
     );
     console.log("Response Patch Data", response.data)
     // console.log("Response from server:", response.data);

@@ -7,9 +7,14 @@ import { useState } from "react";
 import LineGraph from "./ChartType/LineGraph";
 import PieChart from "./ChartType/PieChart";
 import Table from "./ChartType/Table";
-import { getDataRaw, getStatisticData, getGroupData, patchNewData } from "./DataManager";
+import {
+  getDataRaw,
+  getStatisticData,
+  getGroupData,
+  patchNewData,
+} from "./DataManager";
 import AdvancedOption from "./AdvancedOption";
-
+import { useNavigate } from "react-router-dom";
 
 // const findingValue = [
 //   {
@@ -32,25 +37,23 @@ import AdvancedOption from "./AdvancedOption";
 
 const ascending = {
   categories: "d,a,f,b",
-  values: "11,21,25,31"
-
-}
+  values: "11,21,25,31",
+};
 
 const descending = {
   categories: "b,f,a,d",
-  values: "31,25,21,11"
-
-}
+  values: "31,25,21,11",
+};
 
 const highMed = {
   categories: "a,f,b",
-  values: "21,25,31"
-}
+  values: "21,25,31",
+};
 
-const lowMed ={
+const lowMed = {
   categories: "d,a,f",
-  values: "11,21,25"
-}
+  values: "11,21,25",
+};
 
 function Chart() {
   // const groupData = new getGroupData();
@@ -70,19 +73,12 @@ function Chart() {
 
   const [rawData, setRawData] = useState({
     Name: inputName,
-    Categories :inputCategory,
-    Values: inputValue
+    Categories: inputCategory,
+    Values: inputValue,
   });
 
-  const [statisData, setStatisData] = useState({})
+  const [statisData, setStatisData] = useState({});
   // const get_Data = getData();
-
-  const [DataInput, setDataInput] = useState({
-    Name: "",
-    Data: "",
-    Category: "",
-
-  });
 
   const [findingValue, setFindingValue] = useState([]);
 
@@ -100,36 +96,35 @@ function Chart() {
     values: inputValue,
   };
 
+  const navigate = useNavigate();
+
   // document.getElementsByClassName("btn--medium").style.display="none";
 
   useEffect(() => {
     fetchRawData();
     fetchStatisticData();
     fetchGroupData();
-  }, [
-    selectedOption,
-  ]);
+  }, [selectedOption]);
 
-
-  const fetchRawData = async ()=>{
+  const fetchRawData = async () => {
     const res = await getDataRaw();
-    
-    const ObjArr = []
-     res.values.map((item)=>{
-      ObjArr.push(item)
-    })
 
-    const cateList =[]
-     ObjArr.map((item)=>{
-        cateList.push(item.category)
-    })
+    const ObjArr = [];
+    res.values.map((item) => {
+      ObjArr.push(item);
+    });
 
-    const valueList = []
-    ObjArr.map((item)=>{
-      valueList.push(item.value)
-    })
+    const cateList = [];
+    ObjArr.map((item) => {
+      cateList.push(item.category);
+    });
 
-    const chartName = res.name;    
+    const valueList = [];
+    ObjArr.map((item) => {
+      valueList.push(item.value);
+    });
+
+    const chartName = res.name;
     // console.log("cate List", cateList)
     // console.log("val list",valueList)
     // console.log("name",chartName)
@@ -140,20 +135,18 @@ function Chart() {
 
     setFindingValue(ObjArr);
 
-    setIntArr(valueList)
-    setLabelsChart(cateList)
-    setInputName(chartName)
+    setIntArr(valueList);
+    setLabelsChart(cateList);
+    setInputName(chartName);
 
-    setInputValue(valueList.map(num => num.toString()).join(','))
-    setInputCategory(cateList.map(ele => ele).join(','))
+    setInputValue(valueList.map((num) => num.toString()).join(","));
+    setInputCategory(cateList.map((ele) => ele).join(","));
 
     setRawData({
       name: chartName,
-      categories: cateList.map(ele => ele).join(','),
-      values: valueList.map(ele => ele).join(',')
-    })
-
-
+      categories: cateList.map((ele) => ele).join(","),
+      values: valueList.map((ele) => ele).join(","),
+    });
 
     setUserData({
       labels: labelsChart,
@@ -182,40 +175,46 @@ function Chart() {
           borderWidth: 4,
         },
       ],
-    })
-  }
+    });
+  };
 
-  const fetchGroupData = async () =>{
+  const fetchGroupData = async () => {
     try {
       const res = await getGroupData();
     } catch (error) {
-      console.log("error group", error)
+      console.log("error group", error);
     }
-  }
-  
-  const fetchStatisticData = async () =>{
+  };
+
+  const fetchStatisticData = async () => {
     const res = await getStatisticData();
 
-    const ObjArr =[];
-    Object.keys(res).forEach((key)=>{
+    const ObjArr = [];
+    Object.keys(res).forEach((key) => {
       ObjArr.push(res[key]);
-    })
+    });
 
     setStatisData({
       max: ObjArr[0],
       min: ObjArr[1],
       median: ObjArr[2],
-      stand: ObjArr[3]
-    })
+      stand: ObjArr[3],
+    });
 
     // console.log("Obj sta", ObjArr)
     // console.log("statis Data", statisData)
-  }
+  };
+
+  const [DataInput, setDataInput] = useState({
+    Name: inputName,
+    Categories: inputCategory,
+    Values: inputValue,
+  });
 
   const renderChart = (key) => {
     switch (key) {
       case "Pie Chart":
-        return <PieChart  chartData={userData} />;
+        return <PieChart chartData={userData} />;
       case "Line Graph":
         return <LineGraph chartData={userData} />;
       case "Bar Chart":
@@ -301,7 +300,6 @@ function Chart() {
       Name: inputName,
       Data: event.target.value,
       Category: inputCategory,
-
     });
     // Update input value in state
   };
@@ -319,28 +317,42 @@ function Chart() {
   //   // Gọi hàm xử lý sắp xếp từ component cha
   // };
 
-  let onClick = () => {
+  let onClick = async (e) => {
     setShowChart(true);
 
     setButtonPressed(true);
 
     if (checkIntArray(intArr) || checkStr(labelsChart)) {
       setButtonPressed(false);
-      setShowChart(false);
+      if (checkIntArray(intArr)) {
+        seterrorText("Input right format of Data");
+      }
+      if (checkStr(labelsChart)) {
+        seterrorCategory("Input right format of Labels");
+      }
     }
 
-    console.log("Data Input", DataInput)
+    console.log("Data Input", DataInput);
     if (
       intArr.length > 2 &&
       labelsChart.length > 2 &&
       intArr.length == labelsChart.length &&
+      inputName.length > 0 &&
       buttonPressed
     ) {
-   
-        patchNewData(DataInput);
-        // eslint-disable-next-line no-restricted-globals
-        location.reload();
-
+      try {
+        const patchData = await patchNewData({
+          Name: "finish test patch",
+          Categories: "a,b,k,t",
+          Values: "1,6,3,5",
+        });
+        navigate("/chartDetail");
+      } catch (error) {
+        alert("Cannot patch");
+        console.log("error", error.message);
+        throw error;
+      }
+      // location.reload();
     } else {
       setShowChart(false);
       if (intArr.length <= 2) {
@@ -372,7 +384,7 @@ function Chart() {
         <NarBav />
       </div>
       <div className="put_data">
-      <div className="name-input-container">
+        <div className="name-input-container">
           <h2 className="input-name">Input name of Chart:</h2>
           <form>
             <input
@@ -387,83 +399,83 @@ function Chart() {
           </form>
           {errorCategory && <p style={{ color: "red" }}>{errorName}</p>}
         </div>
-      <div className="user-input">
-        <div className="select-container">
-          <h2 className="select-label">Choose one graph:</h2>
-          <select
-            className="select-dropdown"
-            value={selectedOption}
-            onChange={handleChartChange}
-          >
-            <option value="">Choose Graph</option>
-            <option value="Pie Chart" className="select-option">
-              Pie Chart
-            </option>
-            <option value="Line Graph" className="select-option">
-              Line Graph
-            </option>
-            <option value="Bar Chart" className="select-option">
-              Bar Chart
-            </option>
-            <option value="Table" className="select-option">
-              Table
-            </option>
-          </select>
-          {selectedOption && <p>You choose: {DataInput.Graph}</p>}
-          {errorChart && <p style={{ color: "red" }}>{errorChart}</p>}
+        <div className="user-input">
+          <div className="select-container">
+            <h2 className="select-label">Choose one graph:</h2>
+            <select
+              className="select-dropdown"
+              value={selectedOption}
+              onChange={handleChartChange}
+            >
+              <option value="">Choose Graph</option>
+              <option value="Pie Chart" className="select-option">
+                Pie Chart
+              </option>
+              <option value="Line Graph" className="select-option">
+                Line Graph
+              </option>
+              <option value="Bar Chart" className="select-option">
+                Bar Chart
+              </option>
+              <option value="Table" className="select-option">
+                Table
+              </option>
+            </select>
+            {selectedOption && <p>You choose: {DataInput.Graph}</p>}
+            {errorChart && <p style={{ color: "red" }}>{errorChart}</p>}
+          </div>
+
+          <div className="text-input-container">
+            <h2 className="input-label">Input Data:</h2>
+            <form>
+              <input
+                type="text"
+                className="input-field"
+                value={inputValue}
+                onChange={handleInputDataChange}
+                placeholder="Input here..."
+                required
+                minLength="3"
+              />
+            </form>
+
+            {errorText && <p style={{ color: "red" }}>{errorText}</p>}
+          </div>
+
+          <div className="category-input-container">
+            <h3 className="input-category">Input labels:</h3>
+            <form>
+              <input
+                type="text"
+                className="input-field-category"
+                value={inputCategory}
+                onChange={handleInputCategory}
+                placeholder="Input labels here..."
+                required
+                minLength="5"
+              />
+            </form>
+            {errorCategory && <p style={{ color: "red" }}>{errorCategory}</p>}
+          </div>
+
+          <button className="custom-button" onClick={onClick}>
+            Save Data
+          </button>
         </div>
-
-        <div className="text-input-container">
-          <h2 className="input-label">Input Data:</h2>
-          <form>
-            <input
-              type="text"
-              className="input-field"
-              value={inputValue}
-              onChange={handleInputDataChange}
-              placeholder="Input here..."
-              required
-              minLength="3"
-            />
-          </form>
-
-          {errorText && <p style={{ color: "red" }}>{errorText}</p>}
-        </div>
-
-        <div className="category-input-container">
-          <h3 className="input-category">Input labels:</h3>
-          <form>
-            <input
-              type="text"
-              className="input-field-category"
-              value={inputCategory}
-              onChange={handleInputCategory}
-              placeholder="Input labels here..."
-              required
-              minLength="5"
-            />
-          </form>
-          {errorCategory && <p style={{ color: "red" }}>{errorCategory}</p>}
-        </div>
-
-        <button className="custom-button" onClick={onClick}>
-          Save Data
-        </button>
+        {showChart && (
+          <div className="graph">{renderChart(selectedOption)}</div>
+        )}
       </div>
-      {showChart && (
-        <div className="graph">{renderChart(selectedOption)}</div>
-      )}
-      </div>
- 
+
       <hr></hr>
       <AdvancedOption
-       statisData={statisData} 
-       findingValue={findingValue} 
-       ascending={ascending}
-       descending={descending}
-       highMed={highMed}
-       lowMed={lowMed}
-       />
+        statisData={statisData}
+        findingValue={findingValue}
+        ascending={ascending}
+        descending={descending}
+        highMed={highMed}
+        lowMed={lowMed}
+      />
     </div>
   );
 }
