@@ -31,10 +31,10 @@ function ImageUpload() {
     }
   };
   return (
-    <div className="text-center grid gap-8 p-6 m-auto mt-16">
+        <div className="text-center grid gap-8 p-6 m-auto mt-16">
       <label htmlFor="file" className="cursor-pointer px-6 py-2 text-sm font-medium border rounded focus:z-10 focus:ring-2 bg-purple-600 border-purple-900 text-white hover:text-white hover:bg-purple-600 focus:ring-blue-500 focus:text-white transition duration-300 transform hover:scale-110">
         {" "}
-        Select file
+        Select image
       </label>
       {file && <center> {file.name}</center>}
       <input
@@ -44,7 +44,7 @@ function ImageUpload() {
         multiple={false}
         className="hidden"
       />
-      <code className="grid p-4 bg-black rounded-xl">
+      <code className="p-4 bg-black rounded-xl hidden">
         {Object.keys(res).length > 0
           ? Object.keys(res).map((key) => (
               <p className="block text-xl bg-black m-auto " key={key}>
