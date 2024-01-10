@@ -33,15 +33,15 @@ export const sendData = async (userData) => {
 };
 
 export const getDataRaw = async () => {
-  const values = [];
+  // const values = [];
 
   const retrievedValue = localStorage.getItem("UsingchartId");
   try {
     const response = await axios.get(`${API_URL}/collection/${retrievedValue}`);
     console.log("response value raw: ", response.data.values);
-    response.data.values.map((item) => {
-      values.push(item);
-    });
+    // response.data.values.map((item) => {
+    //   values.push(item);
+    // });
     // console.log("values: ", values[0]);
     return response.data;
   } catch (error) {
