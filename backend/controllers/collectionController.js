@@ -217,10 +217,8 @@ const collectionController = {
             await Collection.findById(req.params.id)
                 .then((collection)=>{
                     const  newArray= collection.values
-                    const  array1= collection.values
                     let arrayDesc= newArray.sort((a,b)=>{return b.value - a.value});
-                    algorithm.sortArray(collection.values)
-                    let arrayAsc= collection.values
+                    let arrayAsc= newArray.slice().sort((a,b)=>{return a.value - b.value});
                     res.status(200).send({collectionName: collection.name, sortedCollection: arrayAsc, sortedCollectionDesc: arrayDesc})
                 }).catch(function(e){
                     console.log(e)
