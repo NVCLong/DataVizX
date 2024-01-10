@@ -44,10 +44,7 @@ import "../Comp_homepage/Button.css";
 //   values: "11,21,25,31",
 // };
 
-const descending = {
-  categories: "b,f,a,d",
-  values: "31,25,21,11",
-};
+// 
 
 // const highMed = {
 //   categories: "a,f,b",
@@ -114,6 +111,11 @@ function Chart() {
     values: "",
   });
 
+  const [descending, setDescending] = useState({
+    categories: "",
+    values: "",
+  });
+
   const [userData, setUserData] = useState({});
 
   const [errorText, seterrorText] = useState("");
@@ -132,6 +134,8 @@ function Chart() {
     fetchStatisticData();
     fetchGroupData();
     fetchSortData();
+    // console.log("asc",ascending)
+    // console.log("desc",descending)
     // console.log("raw data cate detail", rawData.Categories)
   }, [selectedOption]);
 
@@ -262,13 +266,26 @@ function Chart() {
       const ascCategories = ascCollect.map((item) => item.category).join(",");
       const ascValues = ascCollect.map((item) => item.value).join(",");
 
+      const descCollect = res.sortedCollectionDesc;
+
+      const descCategories = descCollect.map((item) => item.category).join(",");
+      const descValues = descCollect.map((item) => item.value).join(",");
+
+
       setAscending({
         categories: ascCategories,
         values: ascValues,
       });
 
-      // console.log("asc coll", ascCollect);
-      // console.log("ascending collection",ascending)
+      setDescending({
+        categories: descCategories,
+        values: descValues,
+      });
+
+      console.log("asc", ascending)
+      console.log("desc",descending)
+      // console.log("desc coll", ascCollect);
+      console.log("descending collection",descending)
     } catch (error) {
       console.log("error sort", error);
       throw error;

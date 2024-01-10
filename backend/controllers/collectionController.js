@@ -217,8 +217,8 @@ const collectionController = {
             await Collection.findById(req.params.id)
                 .then((collection)=>{
                     console.log(collection.values);
-                    const array= collection.values.sort((a,b)=>{return a.value-b.value});
-                    const arrayDesc= collection.values.sort((a,b)=>{return b.value-a.value});
+                    const array= collection.values.slice().sort((a,b)=>{return a.value-b.value});
+                    const arrayDesc= collection.values.slice().sort((a,b)=>{return b.value-a.value});
                     console.log( arrayDesc)
                     console.log(array)
                     res.status(200).send({collectionName: collection.name, sortedCollection: array, sortedCollectionDesc: arrayDesc})

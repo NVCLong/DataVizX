@@ -39,7 +39,7 @@ export const getDataRaw = async () => {
   const retrievedValue = localStorage.getItem("chartId");
   try {
     const response = await axios.get(`${API_URL}/collection/${retrievedValue}`);
-    console.log(response)
+    // console.log(response)
     console.log("response value raw: ", response.data.values);
     // response.data.values.map((item) => {
     //   values.push(item);
