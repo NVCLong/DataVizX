@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import DataVizX from "../images/DataVizX.png";
 import axios from "axios";
+import ImageUpload from "../components/ImageUpload";
 
 const User = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,12 +16,13 @@ const User = () => {
       if (!userId) {
         throw new Error("Do not have userId");
       }
-      console.log(userId);
+      // console.log(userId);
       const response = await axios.get(`http://localhost:3000/user/${userId}`);
       setUserData(response.data);
 
-      const userImage = response.data.imageUrl;
-      console.log(userImage);
+      console.log(response.data)
+      // const userImage = response.data.imageUrl;
+      // console.log(userImage);
     } catch (error) {
       setError(error);
     } finally {
@@ -67,12 +69,16 @@ const User = () => {
         <div className="mx-auto">
           <div>
             <div className="bg-white relative shadow rounded-lg mx-auto pb-3 w-auto">
-              <div className="flex justify-center">
+              <div className="flex justify-center pb-10">
                 <img
                   src={userData.imageUrl ? userData.imageUrl : DataVizX}
                   alt="logoMain"
-                  className="object-cover rounded-full mx-auto absolute -top-20  w-56 h-56 shadow-md border-4 border-white transition duration-300 transform hover:scale-110"
+                  className="object-cover rounded-full mx-auto absolute -top-20 w-56 h-56 shadow-2xl border-4 border-white transition duration-300 transform hover:scale-110"
                 />
+              </div>
+
+              <div className="flex pt-16">
+                <ImageUpload/>
               </div>
 
               <div className="mt-16 pt-24">
@@ -80,14 +86,14 @@ const User = () => {
                   {userData ? userData.userName : "DataVizX"}
                 </h1>
                 <p className="text-center text-sm text-gray-400 font-medium">
-                  DataVizX Premimum User
+                  DataVizX Premium User
                 </p>
                 <div className="my-5 px-6">
                   <a
                     href="/chartList"
-                    className="text-gray-200 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-gray-900 hover:bg-black hover:text-white transition duration-300 transform hover:scale-110"
+                    className="text-gray-50 block rounded-full text-center font-semibold leading-6 px-6 py-3 bg-purple-600 hover:bg-purple hover:text-white transition duration-300 transform hover:scale-110"
                   >
-                    View chart of <span className="font-bold">@DataVizX</span>
+                    View chart of <span className="font-bold">@{userData.userName}</span>
                   </a>
                 </div>
               </div>

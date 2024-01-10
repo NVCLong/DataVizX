@@ -82,7 +82,7 @@ class AuthenticationController {
                 secure: true,
             });
             res.cookie("userId", user.id);
-            
+
             const userDetails = await User.findOne({ _id: user.id }).select("userName");
 
             res.json({ accessToken, refreshToken, userDetails });
