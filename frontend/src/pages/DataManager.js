@@ -110,7 +110,6 @@ export const patchNewData = async (userData) => {
     );
     console.log("Response Patch Data", response.data)
     // console.log("Response from server:", response.data);
-    localStorage.setItem("UsingchartId", response.data.chartId);
     // localStorage.removeItem("UsinngchartId")
     // Add any further handling of the response here, if needed
     return response.data; // Returning data if necessary
