@@ -146,7 +146,6 @@ const collectionController = {
                     for (const arrayElement of collection.values) {
                         array.push(arrayElement.value);
                     }
-                    console.log(array);
                     let result = algorithm.findValue(array, req.body.value);
                     let finalResult;
                     if (result) {
@@ -156,9 +155,8 @@ const collectionController = {
                             }
                         }
                     }
-                    let position = algorithm.findPosition(array, result.node.data);
+                    let position = algorithm.findPosition(collection.values, result.node.data);
                     position.index = array.length - position.index;
-                    console.log(position);
                     res.json({ finalResult, position });
                 })
                 .catch(function (err) {
@@ -177,6 +175,7 @@ const collectionController = {
                     const max= algorithm.findMax(collection.values)
                     const min= algorithm.findMin(collection.values)
                     const median= algorithm.findMedian(collection.values);
+                    console.log(median)
                     const standardDeviation= algorithm.standardDeviation(collection.values)
                     let maxElement;
                     let minElement;

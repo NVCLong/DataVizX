@@ -20,6 +20,7 @@ module.exports= class Tree{
         }
         if (data < node.data) {
             node.leftChild = this.searchTree(node.leftChild, data);
+            console.log("insert")
         } else if (data > node.data) {
             node.rightChild = this.searchTree(node.rightChild, data);
         }
@@ -37,13 +38,15 @@ module.exports= class Tree{
 
     findNode(data) {
         let node = this.root;
+        console.log(data);
         while (node !== null) {
+            console.log(node.data)
             if (data < node.data) {
                 node = node.leftChild;
             } else if (data > node.data) {
                 node = node.rightChild;
             } else {
-                return {msg:`Find the node with data ${node.data}`, node: node }
+                return { msg:`Find the node with data ${node.data}`, node: node }
             }
         }
         return null;
