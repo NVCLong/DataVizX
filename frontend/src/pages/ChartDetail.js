@@ -17,6 +17,8 @@ import {
 } from "./DataManager";
 import AdvancedOption from "./AdvancedOption";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../Comp_homepage/Button";
+import "../Comp_homepage/Button.css";
 
 // const findingValue = [
 //   {
@@ -58,6 +60,23 @@ const descending = {
 // };
 
 function Chart() {
+  const colorTemplate = [
+    "#FF6633",
+    "#FFB399",
+    "#FF33FF",
+    "#FFFF99",
+    "#00B3E6",
+    "#E6B333",
+    "#3366E6",
+    "#999966",
+    "#99FF99",
+    "#B34D4D",
+    "#80B300",
+    "#809900",
+    "#E6B3B3",
+    "#6680B3",
+    "#66991A",
+  ]
   // const groupData = new getGroupData();
 
   const [showChart, setShowChart] = useState(true);
@@ -75,8 +94,8 @@ function Chart() {
 
   const [rawData, setRawData] = useState({
     Name: inputName,
-    Categories: inputCategory,
-    Values: inputValue,
+    Categories: inputCategory.split(","),
+    Values: inputValue.split(",").map(Number),
   });
 
   const [statisData, setStatisData] = useState({});
@@ -118,6 +137,7 @@ function Chart() {
     fetchStatisticData();
     fetchGroupData();
     fetchSortData();
+    // console.log("raw data cate detail", rawData.Categories)
   }, [selectedOption]);
 
   const fetchRawData = async () => {
@@ -159,8 +179,8 @@ function Chart() {
 
     setRawData({
       name: chartName,
-      categories: cateList.map((ele) => ele).join(","),
-      values: valueList.map((ele) => ele).join(","),
+      categories: cateList,
+      values: valueList.map(Number),
     });
 
     setUserData({
@@ -169,23 +189,7 @@ function Chart() {
         {
           label: "Data",
           data: intArr,
-          backgroundColor: [
-            "#FF6633",
-            "#FFB399",
-            "#FF33FF",
-            "#FFFF99",
-            "#00B3E6",
-            "#E6B333",
-            "#3366E6",
-            "#999966",
-            "#99FF99",
-            "#B34D4D",
-            "#80B300",
-            "#809900",
-            "#E6B3B3",
-            "#6680B3",
-            "#66991A",
-          ],
+          backgroundColor: colorTemplate,
           borderColor: "white",
           borderWidth: 4,
         },
@@ -264,7 +268,7 @@ function Chart() {
       })
 
       // console.log("asc coll", ascCollect);
-      console.log("ascending collection",ascending)
+      // console.log("ascending collection",ascending)
     } catch (error) {
       console.log("error sort", error);
       throw error;
@@ -404,7 +408,7 @@ function Chart() {
       Category: inputCategory,
     });
 
-    console.log("Data Input", DataInput);
+    console.log("raw data",rawData);
     if (
       intArr.length > 2 &&
       labelsChart.length > 2 &&
@@ -413,14 +417,14 @@ function Chart() {
       buttonPressed
     ) {
       try {
-        const patchData = await patchNewData(DataInput);
-        navigate("/chartDetail");
+        // const patchData = await patchNewData(DataInput);
+        // navigate("/chartDetail");
       } catch (error) {
         alert("Cannot patch");
         console.log("error", error.message);
         throw error;
       }
-      location.reload();
+      // location.reload();
     } else {
       setShowChart(false);
       if (intArr.length <= 2) {
@@ -451,6 +455,16 @@ function Chart() {
       <div className="nav-header">
         <NarBav />
       </div>
+      <div className="btn-chartList">
+          <Button
+            className="btns"
+            buttonSize="btn--medium"
+            buttonStyle="btn--outline"
+            linkUrl={"/chartList"}
+          >
+            Go back to Chart List
+          </Button>
+        </div>
       <div className="put_data">
         <div className="name-input-container">
           <h2 className="input-name">Input name of Chart:</h2>
@@ -543,6 +557,8 @@ function Chart() {
         descending={descending}
         highMed={highMed}
         lowMed={lowMed}
+        colorTemplate={colorTemplate}
+        rawDataCategories={rawData.categories}
       />
     </div>
   );

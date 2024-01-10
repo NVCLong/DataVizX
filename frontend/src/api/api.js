@@ -10,7 +10,7 @@ export const login = async (identifier, password) => {
     });
     localStorage.setItem("accessToken", response.data.accessToken);
     localStorage.setItem("refreshToken", response.data.refreshToken);
-    localStorage.setItem("userId", response.data.user._id);
+    localStorage.setItem("userId", response.data.userDetails._id);
     //get cookie from response
     return response.data;
   } catch (error) {

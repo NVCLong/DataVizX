@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import "../App.css";
-import "./CreateChart.css"
+import "./CreateChart.css";
 import NarBav from "../Comp_homepage/Navbar";
 import { useState } from "react";
-import {  sendData } from "./DataManager";
-import { useNavigate } from 'react-router-dom';
+import { sendData } from "./DataManager";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "../Comp_homepage/Button";
+import "../Comp_homepage/Button.css";
 
 function Chart() {
   const [inputValue, setInputValue] = useState("");
@@ -24,10 +26,9 @@ function Chart() {
 
   const [errorText, seterrorText] = useState("");
   const [errorCategory, seterrorCategory] = useState("");
-  const [errorName, seterrorName]=useState("");
+  const [errorName, seterrorName] = useState("");
 
   const navigate = useNavigate();
-
 
   useEffect(() => {}, [
     inputValue,
@@ -95,7 +96,7 @@ function Chart() {
     // Update input value in state
   };
 
-  const handleInputName = (event) =>{
+  const handleInputName = (event) => {
     setInputName(event.target.value);
     seterrorName("");
 
@@ -103,13 +104,13 @@ function Chart() {
       name: event.target.value,
       categories: inputCategory,
       values: inputValue,
-    })
-  }
+    });
+  };
 
   let onClick = async (e) => {
     e.preventDefault();
-    setButtonPressed(true)
-    console.log("Data Input",DataInput)
+    setButtonPressed(true);
+    console.log("Data Input", DataInput);
 
     if (checkIntArray(intArr) || checkStr(labelsChart)) {
       setButtonPressed(false);
@@ -128,15 +129,12 @@ function Chart() {
       inputName.length > 0 &&
       buttonPressed
     ) {
-      try{
+      try {
         const portData = await sendData(DataInput);
-        navigate('/chartDetail')
-
-      }
-      catch (error){
-        console.log("error", error.message)
+        navigate("/chartDetail");
+      } catch (error) {
+        console.log("error", error.message);
         throw error;
-                
       }
     } else {
       if (intArr.length <= 2) {
@@ -149,7 +147,7 @@ function Chart() {
         seterrorCategory("Please input number of labels = number of data");
         seterrorText("Please input number of data = number of lables");
       }
-      if(inputName.length<=0){
+      if (inputName.length <= 0) {
         seterrorName("Input a name for Chart please");
       }
     }
@@ -160,6 +158,16 @@ function Chart() {
       <div className="nav-header">
         <NarBav />
       </div>
+      <div className="btn-chartList">
+          <Button
+            className="btns"
+            buttonSize="btn--medium"
+            buttonStyle="btn--outline"
+            linkUrl={"/chartList"}
+          >
+            Go back to Chart List
+          </Button>
+        </div>
       <div className="user-input">
         <div className="name-input-container">
           <h2 className="input-name">Input name of Chart:</h2>
