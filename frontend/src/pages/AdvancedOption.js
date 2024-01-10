@@ -100,8 +100,8 @@ const AdvancedOption = ({
   };
 
   const binarySearchColor = (arr, target) => {
-    console.log("binary array", arr);
-    console.log("binary target", target);
+    // console.log("binary array", arr);
+    // console.log("binary target", target);
     let left = 0;
     let right = arr.length - 1;
 
@@ -120,7 +120,7 @@ const AdvancedOption = ({
   };
 
   const completeColor = async (array, templateColor) => {
-    console.log("array demo", array);
+    // console.log("array demo", array);
     array.forEach((element, index) => {
       const indexSearch = binarySearchColor(rawDataCategories, element);
       if (indexSearch <= (colorTemplate.length - 1)) {
@@ -151,7 +151,7 @@ const AdvancedOption = ({
         ],
       });
     } else if (event.target.value == "descending") {
-      // completeColor(desc_labels, colorTemplateSortDesc);
+      completeColor(desc_labels, colorTemplateSortDesc);
       setUserDataSort({
         labels: desc_labels,
         datasets: [
@@ -214,6 +214,8 @@ const AdvancedOption = ({
   useEffect(() => {
     // console.log("Asc color", colorTemplateSortAsc)
     // console.log("raw data categpries advance",rawDataCategories)
+    // console.log("asc", ascending);
+    // console.log("desc",descending)
   }, [
     selectedSortedOption,
     selectedGroupingOption,
