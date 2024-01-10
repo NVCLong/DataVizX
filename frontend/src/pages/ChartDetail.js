@@ -12,6 +12,7 @@ import {
   getDataRaw,
   getStatisticData,
   getGroupData,
+  getSortData,
   patchNewData,
 } from "./DataManager";
 import AdvancedOption from "./AdvancedOption";
@@ -36,25 +37,25 @@ import { useNavigate } from "react-router-dom";
 //   },
 // ]
 
-const ascending = {
-  categories: "d,a,f,b",
-  values: "11,21,25,31",
-};
+// const ascending = {
+//   categories: "d,a,f,b",
+//   values: "11,21,25,31",
+// };
 
 const descending = {
   categories: "b,f,a,d",
   values: "31,25,21,11",
 };
 
-const highMed = {
-  categories: "a,f,b",
-  values: "21,25,31",
-};
+// const highMed = {
+//   categories: "a,f,b",
+//   values: "21,25,31",
+// };
 
-const lowMed = {
-  categories: "d,a,f",
-  values: "11,21,25",
-};
+// const lowMed = {
+//   categories: "d,a,f",
+//   values: "11,21,25",
+// };
 
 function Chart() {
   // const groupData = new getGroupData();
@@ -79,9 +80,20 @@ function Chart() {
   });
 
   const [statisData, setStatisData] = useState({});
-  // const get_Data = getData();
-
   const [findingValue, setFindingValue] = useState([]);
+  const [highMed, setHighMed] = useState({
+    categories: "",
+    values: "",
+  });
+  const [lowMed, setLowMed] = useState({
+    categories: "",
+    values: "",
+  });
+
+  const [ascending, setAscending] = useState({
+    categories: "",
+    values: "",
+  });
 
   const [userData, setUserData] = useState({});
 
@@ -105,6 +117,7 @@ function Chart() {
     fetchRawData();
     fetchStatisticData();
     fetchGroupData();
+    fetchSortData();
   }, [selectedOption]);
 
   const fetchRawData = async () => {
@@ -182,6 +195,32 @@ function Chart() {
   const fetchGroupData = async () => {
     try {
       const res = await getGroupData();
+
+      const collectionHigh = res.collectionAboveValues.collectionAboveValues;
+      const collectionLow = res.colletcionBelowValues.colletcionBelowValues;
+
+      const highCategories = Object.keys(collectionHigh);
+      const highValues = highCategories.map(
+        (category) => collectionHigh[category][0].value
+      );
+      setHighMed({
+        categories: highCategories.join(","),
+        values: highValues.join(","),
+      });
+
+      const lowCategories = Object.keys(collectionLow);
+      const lowValues = lowCategories.map(
+        (category) => collectionLow[category][0].value
+      );
+      setLowMed({
+        categories: lowCategories.join(","),
+        values: lowValues.join(","),
+      });
+
+      // console.log("collection high:",collectionHigh);
+      // console.log("collection low",collectionLow);
+      // console.log("high med",highMed)
+      // console.log("low med",lowMed)
     } catch (error) {
       console.log("error group", error);
     }
@@ -204,6 +243,28 @@ function Chart() {
 
     // console.log("Obj sta", ObjArr)
     // console.log("statis Data", statisData)
+  };
+
+  const fetchSortData = async () => {
+    try {
+      const res = await getSortData();
+
+      const ascCollect = res.sortedCollection;
+
+      const ascCategories = ascCollect.map((item) => item.category).join(",");
+      const ascValues = ascCollect.map((item) => item.value).join(",");
+
+      setAscending({
+        categories: ascCategories,
+        values: ascValues, 
+      })
+
+      // console.log("asc coll", ascCollect);
+      console.log("ascending collection",ascending)
+    } catch (error) {
+      console.log("error sort", error);
+      throw error;
+    }
   };
 
   const [DataInput, setDataInput] = useState({

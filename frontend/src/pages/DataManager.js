@@ -93,6 +93,28 @@ export const getGroupData = async () => {
   }
 }
 
+export const getSortData = async () => {
+
+  const retrievedValue = localStorage.getItem("UsingchartId");
+  try {
+    const response = await axios.get(`${API_URL}/collection/sort/${retrievedValue}`);
+    // Object.keys(response.data).forEach((key)=>{
+    //   // console.log(key,response.data[key])
+    //   values.push(response.data[key])
+
+    // })
+    console.log("response value sort: ", response.data);
+    // response.data.map((item) => {
+    //   values.push(item);
+    // });
+    // console.log("values: ", values);
+    return response.data;
+  } catch (error) {
+    console.error("Fetch error:", error);
+  }
+}
+
+
 export const patchNewData = async (userData) => {
   const retrievedValue = localStorage.getItem("UsingchartId");
 
@@ -118,3 +140,4 @@ export const patchNewData = async (userData) => {
     throw error; // Re-throw the error for further handling if necessary
   }
 }
+
