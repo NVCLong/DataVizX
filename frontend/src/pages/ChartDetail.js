@@ -192,6 +192,7 @@ function Chart() {
       datasets: [
         {
           label: "Data",
+          fill: true,
           data: intArr,
           backgroundColor: colorTemplate,
           borderColor: "white",

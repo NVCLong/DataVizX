@@ -49,6 +49,7 @@ const AdvancedOption = ({
       {
         label: "Data",
         data: [],
+        fill: true,
         backgroundColor: [],
         borderColor: "white",
         borderWidth: 4,
@@ -143,6 +144,7 @@ const AdvancedOption = ({
         datasets: [
           {
             label: "Data",
+            fill: true,
             data: asc_values,
             backgroundColor: colorTemplateSortAsc,
             borderColor: "white",
@@ -157,6 +159,7 @@ const AdvancedOption = ({
         datasets: [
           {
             label: "Data",
+            fill: true,
             data: desc_values,
             backgroundColor: colorTemplateSortDesc,
             borderColor: "white",
