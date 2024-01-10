@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useState } from "react";
 
 const API_URL = "http://localhost:3000";
 export const axiosJWT = axios.create();
@@ -37,7 +36,7 @@ export const sendData = async (userData) => {
 export const getDataRaw = async () => {
   // const values = [];
 
-  const retrievedValue = localStorage.getItem("chartID");
+  const retrievedValue = localStorage.getItem("chartId");
   try {
     const response = await axios.get(`${API_URL}/collection/${retrievedValue}`);
     console.log(response)
@@ -56,7 +55,7 @@ export const getDataRaw = async () => {
 export const getStatisticData = async () => {
   const values = [];
 
-  const retrievedValue = localStorage.getItem("chartID");
+  const retrievedValue = localStorage.getItem("chartId");
   try {
     const response = await axios.get(`${API_URL}/collection/statistic/${retrievedValue}`);
     Object.keys(response.data).forEach((key) => {
@@ -77,7 +76,7 @@ export const getStatisticData = async () => {
 
 export const getGroupData = async () => {
 
-  const retrievedValue = localStorage.getItem("chartID");
+  const retrievedValue = localStorage.getItem("chartId");
   try {
     const response = await axios.get(`${API_URL}/collection/groupData/${retrievedValue}`);
     // Object.keys(response.data).forEach((key)=>{
@@ -98,7 +97,7 @@ export const getGroupData = async () => {
 
 export const getSortData = async () => {
 
-  const retrievedValue = localStorage.getItem("chartID");
+  const retrievedValue = localStorage.getItem("chartId");
   try {
     const response = await axios.get(`${API_URL}/collection/sort/${retrievedValue}`);
     // Object.keys(response.data).forEach((key)=>{
@@ -119,7 +118,7 @@ export const getSortData = async () => {
 
 
 export const patchNewData = async (userData) => {
-  const retrievedValue = localStorage.getItem("chartID");
+  const retrievedValue = localStorage.getItem("chartId");
 
 
   try {
