@@ -104,8 +104,8 @@ export const patchNewData = async (userData) => {
       `${API_URL}/collection/edit/${retrievedValue}`,
       {
         "name": userData.Name,
-        "categories": userData.Categories,
-        "values": userData.Values,
+        "categories": userData.Category,
+        "values": userData.Data,
       },
     );
     console.log("Response Patch Data", response.data)

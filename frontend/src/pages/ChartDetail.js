@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, { useEffect } from "react";
 import "../App.css";
 import NarBav from "../Comp_homepage/Navbar";
@@ -332,6 +333,12 @@ function Chart() {
       }
     }
 
+    setDataInput({
+      Name: inputName,
+      Data: inputValue,
+      Category: inputCategory,
+    });
+
     console.log("Data Input", DataInput);
     if (
       intArr.length > 2 &&
@@ -341,18 +348,14 @@ function Chart() {
       buttonPressed
     ) {
       try {
-        const patchData = await patchNewData({
-          Name: "finish test patch",
-          Categories: "a,b,k,t",
-          Values: "1,6,3,5",
-        });
+        const patchData = await patchNewData(DataInput);
         navigate("/chartDetail");
       } catch (error) {
         alert("Cannot patch");
         console.log("error", error.message);
         throw error;
       }
-      // location.reload();
+      location.reload();
     } else {
       setShowChart(false);
       if (intArr.length <= 2) {
