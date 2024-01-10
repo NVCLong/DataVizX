@@ -16,6 +16,8 @@ const AdvancedOption = ({
   descending,
   highMed,
   lowMed,
+  colorTemplate,
+  rawDataCategories,
 }) => {
   const [selectedSortedOption, setSelectedSortedOption] = useState("");
   const [selectedGroupingOption, setSelectedGroupingOption] = useState("");
@@ -36,29 +38,18 @@ const AdvancedOption = ({
   const lowMed_labels = lowMed.categories.split(",");
   const lowMed_values = lowMed.values.split(",").map(Number);
 
+  const colorTemplateGroupHigh = [];
+  const colorTemplateGroupLow = [];
+  const colorTemplateSortAsc = [];
+  const colorTemplateSortDesc = [];
+
   const [userDataSort, setUserDataSort] = useState({
     labels: [],
     datasets: [
       {
         label: "Data",
         data: [],
-        backgroundColor: [
-          "#FF6633",
-          "#FFB399",
-          "#FF33FF",
-          "#FFFF99",
-          "#00B3E6",
-          "#E6B333",
-          "#3366E6",
-          "#999966",
-          "#99FF99",
-          "#B34D4D",
-          "#80B300",
-          "#809900",
-          "#E6B3B3",
-          "#6680B3",
-          "#66991A",
-        ],
+        backgroundColor: [],
         borderColor: "white",
         borderWidth: 4,
       },
@@ -71,23 +62,7 @@ const AdvancedOption = ({
       {
         label: "Data",
         data: [],
-        backgroundColor: [
-          "#FF6633",
-          "#FFB399",
-          "#FF33FF",
-          "#FFFF99",
-          "#00B3E6",
-          "#E6B333",
-          "#3366E6",
-          "#999966",
-          "#99FF99",
-          "#B34D4D",
-          "#80B300",
-          "#809900",
-          "#E6B3B3",
-          "#6680B3",
-          "#66991A",
-        ],
+        backgroundColor: [],
         borderColor: "white",
         borderWidth: 4,
       },
@@ -124,62 +99,66 @@ const AdvancedOption = ({
     }
   };
 
+  const binarySearchColor = (arr, target) => {
+    console.log("binary array", arr);
+    console.log("binary target",target)
+    let left = 0;
+    let right = arr.length - 1;
+
+    while (left <= right) {
+      let mid = Math.floor((left + right) / 2);
+
+      if (arr[mid] == target) {
+        return mid;
+      } else if (arr[mid] < target) {
+        left = mid + 1;
+      } else {
+        right = mid - 1;
+      }
+      // if(arr[mid])
+    }
+  };
+
+  const completeColor = async (array, templateColor) => {
+    console.log("array demo",array)
+    array.forEach((element, index) => {
+      const indexSearch = binarySearchColor(rawDataCategories, element);
+      // console.log("index search",indexSearch)
+      // console.log("element",element)
+      // console.log("raw cate",rawDataCategories)
+      templateColor.push(colorTemplate[indexSearch]);
+      // console.log("element", element)
+    });
+    // console.log("color template", colorTemplateSortAsc)
+    // console.log("test binary search",binarySearchColor(["a","b","c"],"b"))
+  };
+
   const handleSortChange = (event) => {
     setSelectedSortedOption(event.target.value);
 
     if (event.target.value == "ascending") {
+      completeColor(asc_labels, colorTemplateSortAsc);
       setUserDataSort({
         labels: asc_labels,
         datasets: [
           {
             label: "Data",
             data: asc_values,
-            backgroundColor: [
-              "#FF6633",
-              "#FFB399",
-              "#FF33FF",
-              "#FFFF99",
-              "#00B3E6",
-              "#E6B333",
-              "#3366E6",
-              "#999966",
-              "#99FF99",
-              "#B34D4D",
-              "#80B300",
-              "#809900",
-              "#E6B3B3",
-              "#6680B3",
-              "#66991A",
-            ],
+            backgroundColor: colorTemplateSortAsc,
             borderColor: "white",
             borderWidth: 4,
           },
         ],
       });
     } else if (event.target.value == "descending") {
+      // completeColor(desc_labels, colorTemplateSortDesc);
       setUserDataSort({
         labels: desc_labels,
         datasets: [
           {
             label: "Data",
             data: desc_values,
-            backgroundColor: [
-              "#FF6633",
-              "#FFB399",
-              "#FF33FF",
-              "#FFFF99",
-              "#00B3E6",
-              "#E6B333",
-              "#3366E6",
-              "#999966",
-              "#99FF99",
-              "#B34D4D",
-              "#80B300",
-              "#809900",
-              "#E6B3B3",
-              "#6680B3",
-              "#66991A",
-            ],
+            backgroundColor: colorTemplateSortDesc,
             borderColor: "white",
             borderWidth: 4,
           },
@@ -192,36 +171,22 @@ const AdvancedOption = ({
     setSelectedGroupingOption(event.target.value);
 
     if (event.target.value == "high") {
-      console.log("true high");
+      console.log("high Med", highMed)
+      completeColor(highMed_labels, colorTemplateGroupHigh);
       setUserDataGroup({
         labels: highMed_labels,
         datasets: [
           {
             label: "Data",
             data: highMed_values,
-            backgroundColor: [
-              "#FF6633",
-              "#FFB399",
-              "#FF33FF",
-              "#FFFF99",
-              "#00B3E6",
-              "#E6B333",
-              "#3366E6",
-              "#999966",
-              "#99FF99",
-              "#B34D4D",
-              "#80B300",
-              "#809900",
-              "#E6B3B3",
-              "#6680B3",
-              "#66991A",
-            ],
+            backgroundColor: colorTemplateGroupHigh,
             borderColor: "white",
             borderWidth: 4,
           },
         ],
       });
     } else if (event.target.value == "low") {
+      completeColor(lowMed_labels, colorTemplateGroupLow);
       console.log("true high");
       setUserDataGroup({
         labels: lowMed_labels,
@@ -229,23 +194,7 @@ const AdvancedOption = ({
           {
             label: "Data",
             data: lowMed_values,
-            backgroundColor: [
-              "#FF6633",
-              "#FFB399",
-              "#FF33FF",
-              "#FFFF99",
-              "#00B3E6",
-              "#E6B333",
-              "#3366E6",
-              "#999966",
-              "#99FF99",
-              "#B34D4D",
-              "#80B300",
-              "#809900",
-              "#E6B3B3",
-              "#6680B3",
-              "#66991A",
-            ],
+            backgroundColor: colorTemplateGroupLow,
             borderColor: "white",
             borderWidth: 4,
           },
@@ -262,7 +211,10 @@ const AdvancedOption = ({
     setInputFindValue(event.target.value);
   };
 
-  useEffect(() => { }, [
+  useEffect(() => {
+    // console.log("Asc color", colorTemplateSortAsc)
+    // console.log("raw data categpries advance",rawDataCategories)
+  }, [
     selectedSortedOption,
     selectedGroupingOption,
     selectedOption,
@@ -306,20 +258,14 @@ const AdvancedOption = ({
               <p>
                 Max: {statisData.max.value} ({statisData.max.category})
               </p>
-              {statisData.min == null && <p>
-                Min: empty
-              </p>}
-              {statisData.min != null && <p>
-                Min: {statisData.min.value} ({statisData.min.category})
-              </p>}
-              {statisData.median == null &&
+              {statisData.min == null && <p>Min: empty</p>}
+              {statisData.min != null && (
                 <p>
-                  Median: empty
-                </p>}
-              {statisData.median != null &&
-                <p>
-                  Median: {statisData.median} 
-                </p>}
+                  Min: {statisData.min.value} ({statisData.min.category})
+                </p>
+              )}
+              {statisData.median == null && <p>Median: empty</p>}
+              {statisData.median != null && <p>Median: {statisData.median}</p>}
               {/* {statisData.stand == null && 
                 <p>Standard Deviation: empty </p>} */}
               {statisData.stand != null && (

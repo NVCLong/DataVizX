@@ -3,6 +3,8 @@ import axios from "axios";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import Sidebar from "../components/Sidebar";
+import { Button } from "../Comp_homepage/Button";
+import "../Comp_homepage/Button.css";
 
 Chart.defaults.font.size = 16;
 Chart.defaults.font.family = "'SF Pro Display', sans-serif";
@@ -151,7 +153,6 @@ function ChartListPage() {
           <div className="#">
             <Sidebar />
           </div>
-
           <div className="pt-96 pr-10 mx-auto">
             <button
               type="button"
@@ -186,7 +187,16 @@ function ChartListPage() {
       <div className="fixed top-0 left-0 h-screen w-160 z-50">
         <Sidebar />
       </div>
-
+      <div className="btn-chartList">
+          <Button
+            className="btns"
+            buttonSize="btn--medium"
+            buttonStyle="btn--outline"
+            linkUrl={"/createChart"}
+          >
+            + Add new Chart
+          </Button>
+        </div>
       <div className="col-start-2 space-y-20 pt-28 pr-10">
         {chartConfig.map((config, index) => (
           <div
