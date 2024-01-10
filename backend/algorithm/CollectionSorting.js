@@ -1,5 +1,3 @@
-// utils/CollectionSorting.js
-
 class CollectionSorting {
     // Ascending order
     static quickSortAsc(arr, key) {
@@ -27,7 +25,7 @@ class CollectionSorting {
         ];
     }
 
-    static sortByValueAndCategoryAsc(data, key) {
+    static sortByAlphabetAsc(data, key) {
         return CollectionSorting.quickSortAsc(data, key);
     }
 
@@ -56,7 +54,7 @@ class CollectionSorting {
         ];
     }
 
-    static sortByValueAndCategoryDesc(data, key) {
+    static sortByAlphabetDesc(data, key) {
         return CollectionSorting.quickSortDesc(data, key);
     }
 }
