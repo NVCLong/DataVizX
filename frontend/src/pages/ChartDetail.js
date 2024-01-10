@@ -371,11 +371,11 @@ function Chart() {
     seterrorCategory("");
     // setLabelsChart(event.target.value.split(","));
 
-    // setDataInput({
-    //   Data: intArr,
-    //   Data: inputValue,
-    //   Category: event.target.value,
-    // });
+    setDataInput({
+      Name: inputName,
+      Values: inputValue,
+      Categories: event.target.value,
+    });
   };
 
   const handleInputDataChange = (event) => {
@@ -438,7 +438,7 @@ function Chart() {
     ) {
       try {
         const patchData = await patchNewData(DataInput);
-        navigate("/chartDetail");
+        // navigate("/chartDetail");
       } catch (error) {
         alert("Cannot patch");
         console.log("error", error.message);
