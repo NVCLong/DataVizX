@@ -20,6 +20,28 @@ function ChartListPage() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  const handleDelete = async (chartId) => {
+    try {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        throw new Error("Do not have userId");
+      }
+
+      if (!chartId) {
+        throw new Error("Do not have chartId");
+      }
+      const response = await axios.delete(
+        `http://localhost:3000/chartList/${userId}/${chartId}`
+      );
+      console.log("response", response);
+      // alert("Chart has been deleted");
+      // window.location.reload();
+      // navigate("/chartList");
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
   const fetchChartData = async () => {
     setIsLoading(true);
     try {
@@ -178,7 +200,7 @@ function ChartListPage() {
         <div className="pt-96 pr-10 mx-auto ">
           <div className="flex justify-center items-center py-2.5 px-5 me-2 mb-2 text-xl font-semibold w-auto h-auto focus:outline-none rounded-lg border  focus:z-10 focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700 transition duration-300 transform hover:scale-110">
             <h1>Error: {error.message}</h1>
-            </div>;
+            </div>
         </div>
       </div>
     );
@@ -219,22 +241,23 @@ function ChartListPage() {
                 >
                   Edit
                 </button>
+
                 <button
                   type="button"
                   className="px-4 py-2 text-sm font-medium  border rounded-e-lg focus:z-10 focus:ring-2 bg-purple-600 border-purple-800 text-white hover:text-white hover:bg-purple-400 focus:ring-blue-500 focus:text-white transition duration-300 transform hover:scale-110"
+
+                  onClick={async () => {
+                    try {
+                      await axios.delete(`http://localhost:3000/collection/delete/${chartID[index]}`)
+                      navigate("/chartList");
+                    } catch (e) {
+                      setError(e)
+                    }
+
+                  }}
                 >
                   Delete
                 </button>
-                {/* <button
-                  id="noteBtn"
-                  type="button"
-                  className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg focus:z-10 focus:ring-2 dark:bg-purple-600 dark:border-purple-800 dark:text-white hover:text-white hover:bg-purple-400 focus:ring-blue-500 focus:text-white"
-                  onClick={() => {
-                    navigator("#");
-                  }}
-                >
-                  Note
-                </button> */}
               </div>
             </div>
           </div>

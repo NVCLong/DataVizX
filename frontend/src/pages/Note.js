@@ -8,18 +8,20 @@ const Note = () => {
   const [error, setError]= useState([])
   const API='http://localhost:3000'
 
-  const handleIpnut = (e) => {
+  const handleInput = (e) => {
     setNote({...note, [e.target.name]: e.target.value})
   }
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
-  //   try{
-  //     await axios.post(`${API}/note/create`)
-  //
-  //   }catch (e){
-  //     setError(e)
-  //   }
-  // }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    localStorage.getItem('chartId')
+
+    try{
+      await axios.post(`${API}/note/create/`)
+
+    }catch (e){
+      setError(e)
+    }
+  }
 
   return (
     <div className="flex">
@@ -42,7 +44,7 @@ const Note = () => {
           minRows="8"
           className="flex p-2.5 w-96 shadow-lg rounded-lg text-base bg-slate-900 border-gray-700 text-gray-400 ring-gray-600"
           placeholder="Write your note here..."
-          onChange={handleIpnut}
+          onChange={handleInput}
         />
       </div>
 

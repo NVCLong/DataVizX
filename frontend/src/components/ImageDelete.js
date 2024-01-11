@@ -5,25 +5,26 @@ function ImageDelete() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [res, setRes] = useState({});
-
+  const [userData, setUserData] = useState(null);
   const handleDelete = async () => {
-    try {
       setLoading(true);
-      const userId = localStorage.getItem("userId");
-      if (!userId) {
-        throw new Error("Do not have userId");
-      }
-      const data = new FormData();
-      data.append("image", file);
-      const res = await axios.delete(
-        `http://localhost:3000/user/profile/delete/${userId}`,
-        data
-      );
-      setRes(res.data);
-      alert("Image has been deleted");
-      window.location.reload();
+      try {
+        setLoading(true);
+        const userId = localStorage.getItem("userId");
+        if (!userId) {
+          throw new Error("Do not have userId");
+        }
+        const data = new FormData();
+        data.append("image", file);
+        const res = await axios.post(
+          `http://localhost:3000/user/profile/delete/${userId}`,
+          data
+        );
+        setRes(res.data);
+        alert("Image has been deleted");
+        window.location.reload();
     } catch (error) {
-      alert(error.message);
+      // alert(error.message);
     } finally {
       setLoading(false);
     }

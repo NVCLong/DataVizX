@@ -20,44 +20,12 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../Comp_homepage/Button";
 import "../Comp_homepage/Button.css";
 
-// const findingValue = [
-//   {
-//     category : "a",
-//     value: 21
-//   },
-//   {
-//     category : "b",
-//     value: 31
-//   },
-//   {
-//     category : "d",
-//     value: 11
-//   },
-//   {
-//     category : "f",
-//     value: 25
-//   },
-// ]
-
-// const ascending = {
-//   categories: "d,a,f,b",
-//   values: "11,21,25,31",
-// };
-
 const descending = {
   categories: "b,f,a,d",
   values: "31,25,21,11",
 };
 
-// const highMed = {
-//   categories: "a,f,b",
-//   values: "21,25,31",
-// };
 
-// const lowMed = {
-//   categories: "d,a,f",
-//   values: "11,21,25",
-// };
 
 function Chart() {
   const colorTemplate = [
@@ -76,8 +44,7 @@ function Chart() {
     "#E6B3B3",
     "#6680B3",
     "#66991A",
-  ]
-  // const groupData = new getGroupData();
+  ];
 
   const [showChart, setShowChart] = useState(true);
 
@@ -113,10 +80,10 @@ function Chart() {
     categories: "",
     values: "",
   });
-  const [descending, setDescending] =useState({
+  const [descending, setDescending] = useState({
     categories: "",
     values: "",
-  })
+  });
 
   const [userData, setUserData] = useState({});
 
@@ -125,7 +92,6 @@ function Chart() {
   const [errorChart, seterrorChart] = useState("");
   const [errorCategory, seterrorCategory] = useState("");
 
-  // const portData = new DataManager();
   const data = {
     name: inputName,
     categories: inputCategory,
@@ -134,7 +100,6 @@ function Chart() {
 
   const navigate = useNavigate();
 
-  // document.getElementsByClassName("btn--medium").style.display="none";
 
   useEffect(() => {
     fetchRawData();
@@ -146,7 +111,7 @@ function Chart() {
 
   const fetchRawData = async () => {
     const res = await getDataRaw();
-    console.log("result:   "+res)
+    console.log("result:   " + res);
 
     const ObjArr = [];
     res.values.map((item) => {
@@ -164,13 +129,7 @@ function Chart() {
     });
 
     const chartName = res.name;
-    // console.log("cate List", cateList)
-    // console.log("val list",valueList)
-    // console.log("name",chartName)
 
-    // setChartLables(cateList);
-    // setChartValues(valueList)
-    // setChartName(chartName)
 
     setFindingValue(ObjArr);
 
@@ -217,7 +176,7 @@ function Chart() {
         values: highValues.join(","),
       });
 
-      console.log(highMed)
+      console.log(highMed);
 
       const lowCategories = Object.keys(collectionLow);
       const lowValues = lowCategories.map(
@@ -228,10 +187,7 @@ function Chart() {
         values: lowValues.join(","),
       });
 
-      // console.log("collection high:",collectionHigh);
-      // console.log("collection low",collectionLow);
-      // console.log("high med",highMed)
-      // console.log("low med",lowMed)
+
     } catch (error) {
       console.log("error group", error);
     }
@@ -252,35 +208,41 @@ function Chart() {
       stand: ObjArr[3],
     });
 
-    // console.log("Obj sta", ObjArr)
-    // console.log("statis Data", statisData)
+
   };
 
   const fetchSortData = async () => {
     try {
       const res = await getSortData();
-      console.log(res)
+      console.log(res);
 
       const ascCollect = res.sortedCollection;
-      const descCollect = res.sortedCollectionDesc
+      const descCollect = res.sortedCollectionDesc;
 
       const ascCategories = ascCollect.map((item) => item.category).join(",");
       const ascValues = ascCollect.map((item) => item.value).join(",");
 
-      const descCategories = descCollect.map((item)=>{return item.category}).join(",");
-      const descValues = descCollect.map((item)=>{return item.value}).join(",")
+      const descCategories = descCollect
+        .map((item) => {
+          return item.category;
+        })
+        .join(",");
+      const descValues = descCollect
+        .map((item) => {
+          return item.value;
+        })
+        .join(",");
 
       setAscending({
         categories: ascCategories,
-        values: ascValues, 
-      })
+        values: ascValues,
+      });
       setDescending({
         categories: descCategories,
-        values: descValues
-      })
+        values: descValues,
+      });
 
-      // console.log("asc coll", ascCollect);
-      // console.log("ascending collection",ascending)
+
     } catch (error) {
       console.log("error sort", error);
       throw error;
@@ -420,7 +382,7 @@ function Chart() {
       Category: inputCategory,
     });
 
-    console.log("raw data",rawData);
+    console.log("raw data", rawData);
     if (
       intArr.length > 2 &&
       labelsChart.length > 2 &&
@@ -468,20 +430,19 @@ function Chart() {
         <NarBav />
       </div>
       <div className="btn-chartList">
-          <Button
-            className="btns"
-            buttonSize="btn--medium"
-            buttonStyle="btn--outline"
-            onClick={()=>{
-              console.log(localStorage.getItem('chartId'))
-              localStorage.removeItem('chartId');
-            }}
-            linkUrl={"/chartList"}
-
-          >
-            Go back to Chart List
-          </Button>
-        </div>
+        <Button
+          className="btns"
+          buttonSize="btn--medium"
+          buttonStyle="btn--outline"
+          onClick={() => {
+            console.log(localStorage.getItem("chartId"));
+            localStorage.removeItem("chartId");
+          }}
+          linkUrl={"/chartList"}
+        >
+          Go back to Chart List
+        </Button>
+      </div>
       <div className="put_data">
         <div className="name-input-container">
           <h2 className="input-name">Input name of Chart:</h2>
