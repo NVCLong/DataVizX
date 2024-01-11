@@ -8,7 +8,7 @@ import RegisterPage from './pages/Register';
 import LoginPage from './pages/Login';
 import ForgetPage from './pages/Forget';
 import Home from './pages/Home';
-import ChartList from "./pages/chartList";
+import ChartListPage from "./pages/ChartListPage";
 import Feedback from "./pages/Feedback";
 import Note from "./pages/Note";
 import User from "./pages/User";
@@ -26,7 +26,7 @@ function App() {
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/register" element={<RegisterPage/>} />
         <Route path="/forget" element={<ForgetPage/>} />
-        <Route path="/chartList" element={<ChartList/>} />
+        <Route path="/ChartListPage" element={<ChartListPage/>} />
         <Route path="/feedback" element={<Feedback/>} />
         <Route path="/note" element={<Note/>} />
         <Route path="/user" element={<User/>} />

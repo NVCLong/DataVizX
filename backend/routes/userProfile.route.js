@@ -6,5 +6,5 @@ const jwt_helpers = require('../helpers/jwt_helper')
 
 router.get("/:id", userProfileController.getUserData);
 router.post("/profile/upload/:id", upload.single("image"), userProfileController.imageUpload);
-router.delete("/profile/delete/:id", jwt_helpers.verifyAccessToken, userProfileController.imageDelete);
+router.post("/profile/delete/:id", userProfileController.imageDelete);
 module.exports = router;

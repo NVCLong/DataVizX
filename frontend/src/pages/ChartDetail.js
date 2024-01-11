@@ -20,44 +20,10 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../Comp_homepage/Button";
 import "../Comp_homepage/Button.css";
 
-// const findingValue = [
-//   {
-//     category : "a",
-//     value: 21
-//   },
-//   {
-//     category : "b",
-//     value: 31
-//   },
-//   {
-//     category : "d",
-//     value: 11
-//   },
-//   {
-//     category : "f",
-//     value: 25
-//   },
-// ]
-
-// const ascending = {
-//   categories: "d,a,f,b",
-//   values: "11,21,25,31",
-// };
-
 const descending = {
   categories: "b,f,a,d",
   values: "31,25,21,11",
 };
-
-// const highMed = {
-//   categories: "a,f,b",
-//   values: "21,25,31",
-// };
-
-// const lowMed = {
-//   categories: "d,a,f",
-//   values: "11,21,25",
-// };
 
 function Chart() {
   const colorTemplate = [
@@ -76,8 +42,7 @@ function Chart() {
     "#E6B3B3",
     "#6680B3",
     "#66991A",
-  ]
-  // const groupData = new getGroupData();
+  ];
 
   const [showChart, setShowChart] = useState(true);
 
@@ -113,10 +78,10 @@ function Chart() {
     categories: "",
     values: "",
   });
-  const [descending, setDescending] =useState({
+  const [descending, setDescending] = useState({
     categories: "",
     values: "",
-  })
+  });
 
   const [userData, setUserData] = useState({});
 
@@ -125,7 +90,6 @@ function Chart() {
   const [errorChart, seterrorChart] = useState("");
   const [errorCategory, seterrorCategory] = useState("");
 
-  // const portData = new DataManager();
   const data = {
     name: inputName,
     categories: inputCategory,
@@ -133,8 +97,6 @@ function Chart() {
   };
 
   const navigate = useNavigate();
-
-  // document.getElementsByClassName("btn--medium").style.display="none";
 
   useEffect(() => {
     fetchRawData();
@@ -146,7 +108,7 @@ function Chart() {
 
   const fetchRawData = async () => {
     const res = await getDataRaw();
-    console.log("result:   "+res)
+    console.log("result:   " + res);
 
     const ObjArr = [];
     res.values.map((item) => {
@@ -164,13 +126,6 @@ function Chart() {
     });
 
     const chartName = res.name;
-    // console.log("cate List", cateList)
-    // console.log("val list",valueList)
-    // console.log("name",chartName)
-
-    // setChartLables(cateList);
-    // setChartValues(valueList)
-    // setChartName(chartName)
 
     setFindingValue(ObjArr);
 
@@ -217,7 +172,7 @@ function Chart() {
         values: highValues.join(","),
       });
 
-      console.log(highMed)
+      console.log(highMed);
 
       const lowCategories = Object.keys(collectionLow);
       const lowValues = lowCategories.map(
@@ -227,11 +182,6 @@ function Chart() {
         categories: lowCategories.join(","),
         values: lowValues.join(","),
       });
-
-      // console.log("collection high:",collectionHigh);
-      // console.log("collection low",collectionLow);
-      // console.log("high med",highMed)
-      // console.log("low med",lowMed)
     } catch (error) {
       console.log("error group", error);
     }
@@ -251,36 +201,38 @@ function Chart() {
       median: ObjArr[2],
       stand: ObjArr[3],
     });
-
-    // console.log("Obj sta", ObjArr)
-    // console.log("statis Data", statisData)
   };
 
   const fetchSortData = async () => {
     try {
       const res = await getSortData();
-      console.log(res)
+      console.log(res);
 
       const ascCollect = res.sortedCollection;
-      const descCollect = res.sortedCollectionDesc
+      const descCollect = res.sortedCollectionDesc;
 
       const ascCategories = ascCollect.map((item) => item.category).join(",");
       const ascValues = ascCollect.map((item) => item.value).join(",");
 
-      const descCategories = descCollect.map((item)=>{return item.category}).join(",");
-      const descValues = descCollect.map((item)=>{return item.value}).join(",")
+      const descCategories = descCollect
+        .map((item) => {
+          return item.category;
+        })
+        .join(",");
+      const descValues = descCollect
+        .map((item) => {
+          return item.value;
+        })
+        .join(",");
 
       setAscending({
         categories: ascCategories,
-        values: ascValues, 
-      })
+        values: ascValues,
+      });
       setDescending({
         categories: descCategories,
-        values: descValues
-      })
-
-      // console.log("asc coll", ascCollect);
-      // console.log("ascending collection",ascending)
+        values: descValues,
+      });
     } catch (error) {
       console.log("error sort", error);
       throw error;
@@ -310,9 +262,9 @@ function Chart() {
 
   const checkIntArray = (arr) => {
     const check = arr.find((element) => {
-      return element == 0;
+      return element === 0;
     });
-    if (check == 0 || arr.includes(NaN)) return true;
+    if (check === 0 || arr.includes(NaN)) return true;
     else {
       seterrorText("");
       return false;
@@ -331,7 +283,7 @@ function Chart() {
 
     for (let i = 0; i < str.length - 1; i++) {
       for (let j = i + 1; j < str.length; j++) {
-        if (str[i] == str[j]) {
+        if (str[i] === str[j]) {
           return true;
         }
       }
@@ -386,18 +338,6 @@ function Chart() {
     // Update input value in state
   };
 
-  //   document.getElementsByClassName("buttonToChart").style.display = "b";
-
-  // const handleSortChange = (event) => {
-  //   setselectedSortedOption(event.target.value);
-  //   setDataInput({
-  //     Graph: selectedOption,
-  //     Data: intArr,
-  //     Category: labelsChart,
-  //     Sort: event.target.value,
-  //   });
-  //   // Gọi hàm xử lý sắp xếp từ component cha
-  // };
 
   let onClick = async (e) => {
     setShowChart(true);
@@ -420,11 +360,11 @@ function Chart() {
       Category: inputCategory,
     });
 
-    console.log("raw data",rawData);
+    console.log("raw data", rawData);
     if (
       intArr.length > 2 &&
       labelsChart.length > 2 &&
-      intArr.length == labelsChart.length &&
+      intArr.length === labelsChart.length &&
       inputName.length > 0 &&
       buttonPressed
     ) {
@@ -448,7 +388,7 @@ function Chart() {
       if (labelsChart.length < 2) {
         seterrorCategory("Please input labels for graph");
       }
-      if (labelsChart.length != intArr.length) {
+      if (labelsChart.length !== intArr.length) {
         seterrorCategory("Please input number of labels = number of data");
         seterrorText("Please input number of data = number of lables");
       }
@@ -468,20 +408,19 @@ function Chart() {
         <NarBav />
       </div>
       <div className="btn-chartList">
-          <Button
-            className="btns"
-            buttonSize="btn--medium"
-            buttonStyle="btn--outline"
-            onClick={()=>{
-              console.log(localStorage.getItem('chartId'))
-              localStorage.removeItem('chartId');
-            }}
-            linkUrl={"/chartList"}
-
-          >
-            Go back to Chart List
-          </Button>
-        </div>
+        <Button
+          className="btns"
+          buttonSize="btn--medium"
+          buttonStyle="btn--outline"
+          onClick={() => {
+            console.log(localStorage.getItem("chartId"));
+            localStorage.removeItem("chartId");
+            navigate("/ChartListPage");
+          }}
+        >
+          Go back to Chart List
+        </Button>
+      </div>
       <div className="put_data">
         <div className="name-input-container">
           <h2 className="input-name">Input name of Chart:</h2>
@@ -520,7 +459,7 @@ function Chart() {
                 Table
               </option>
             </select>
-            {selectedOption && <p>You choose: {DataInput.Graph}</p>}
+            {/* {selectedOption && <p>You choose: {DataInput.Graph}</p>} */}
             {errorChart && <p style={{ color: "red" }}>{errorChart}</p>}
           </div>
 

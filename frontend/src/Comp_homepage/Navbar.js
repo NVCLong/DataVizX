@@ -9,6 +9,7 @@ function Navbar() {
   const [click, setClick] = useState(false);
   // eslint-disable-next-line
   const [button, setButton] = useState(true);
+  // eslint-disable-next-line
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
@@ -34,7 +35,7 @@ function Navbar() {
             <img src={logoMain} alt="DataVizX Logo" className="logo_img" />
             <span style={{ marginLeft: '5px' }}>DataVizX</span>
           </Link>
-          <div className='menu-icon' onClick={handleClick}>
+          {/* <div className='menu-icon' onClick={handleClick}>
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
@@ -83,7 +84,7 @@ function Navbar() {
                 Pricing
               </Link>
             </li>
-          </ul>
+          </ul> */}
         </div>
       </nav>
 

@@ -19,13 +19,8 @@ const User = () => {
       if (!userId) {
         throw new Error("Do not have userId");
       }
-      // console.log(userId);
       const response = await axios.get(`http://localhost:3000/user/${userId}`);
       setUserData(response.data);
-
-      console.log(response.data);
-      // const userImage = response.data.imageUrl;
-      // console.log(userImage);
     } catch (error) {
       setError(error);
     } finally {
@@ -37,7 +32,6 @@ const User = () => {
     fetchUserData();
   }, []);
 
-  // console.log(userData);
   if (isLoading) {
     return <div className="text-sm font-medium text-white">Loading...</div>;
   }
@@ -48,12 +42,10 @@ const User = () => {
         <div className="#">
           <Sidebar />
         </div>
-
         <div className="pt-96 pr-10 mx-auto">
           <div className="flex justify-center items-center py-2.5 px-5 me-2 mb-2 text-xl font-semibold w-auto h-auto focus:outline-none rounded-lg border  focus:z-10 focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700">
             <h1>Error: {error.message}</h1>
           </div>
-          ;
         </div>
       </div>
     );
@@ -82,11 +74,14 @@ const User = () => {
               </div>
 
               <div>
-                <div className="flex justify-center pt-32 pb-0">
-
+                <div className="flex justify-center pt-36 pb-0">
                   <button
                     onClick={toggleDropdown}
-                    className="cursor-pointer px-3.5 py-1.5 text-base border rounded focus:z-10 focus:ring-2 bg-purple-500 border-purple-900 text-white hover:text-white hover:bg-purple-600 focus:text-white transition duration-300 transform hover:scale-110 ease-in-out"
+                    className={`cursor-pointer px-3.5 py-1.5 text-base border-none rounded focus:z-10 focus:ring-2 ${
+                      showDropdown
+                        ? "px-0 py-0 text-base border rounded focus:z-10 focus:ring-2 bg-white border-purple-900 text-purple-500"
+                        : "bg-purple-500 border-purple-900 text-white hover:text-white hover:bg-purple-600 focus:text-white"
+                    } transition duration-300 transform hover:scale-110 ease-in-out`}
                   >
                     Edit{" "}
                     <svg
@@ -95,28 +90,23 @@ const User = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 10 6"
-                    >
+                      >
                       <path
                         stroke="currentColor"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="2"
                         d="m1 1 4 4 4-4"
-                      />
+                        />
                     </svg>
-                    {showDropdown && (
-                  <div className="flex justify-center items-center z-10 w-48 transition duration-300 ease-in-out">
-                    <ul className="">
-                      <li className="">
-                        <ImageUpload />
-                      </li>
-                      <li className="">
-                        <ImageDelete />
-                      </li>
-                    </ul>
-                  </div>
-                )}
-
+                        {/* {showDropdown && ( */}
+                          <div className=" justify-center items-center z-10 w-48 ">
+                                <div className="space-y-0">
+                                  <ImageUpload/>
+                                  <ImageDelete/>
+                                </div>
+                          </div>
+                        {/* )} */}
                   </button>
                 </div>
               </div>

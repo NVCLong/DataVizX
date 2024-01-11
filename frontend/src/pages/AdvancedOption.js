@@ -108,7 +108,7 @@ const AdvancedOption = ({
     while (left <= right) {
       let mid = Math.floor((left + right) / 2);
 
-      if (arr[mid] == target) {
+      if (arr[mid] === target) {
         return mid;
       } else if (arr[mid] < target) {
         left = mid + 1;
@@ -136,7 +136,7 @@ const AdvancedOption = ({
   const handleSortChange = (event) => {
     setSelectedSortedOption(event.target.value);
 
-    if (event.target.value == "ascending") {
+    if (event.target.value === "ascending") {
       completeColor(asc_labels, colorTemplateSortAsc);
       setUserDataSort({
         labels: asc_labels,
@@ -150,7 +150,7 @@ const AdvancedOption = ({
           },
         ],
       });
-    } else if (event.target.value == "descending") {
+    } else if (event.target.value === "descending") {
       completeColor(desc_labels, colorTemplateSortDesc);
       setUserDataSort({
         labels: desc_labels,
@@ -170,7 +170,7 @@ const AdvancedOption = ({
   const handleGroupingChange = (event) => {
     setSelectedGroupingOption(event.target.value);
 
-    if (event.target.value == "high") {
+    if (event.target.value === "high") {
       console.log("high Med", highMed);
       completeColor(highMed_labels, colorTemplateGroupHigh);
       setUserDataGroup({
@@ -185,7 +185,7 @@ const AdvancedOption = ({
           },
         ],
       });
-    } else if (event.target.value == "low") {
+    } else if (event.target.value === "low") {
       completeColor(lowMed_labels, colorTemplateGroupLow);
       console.log("true high");
       setUserDataGroup({
@@ -212,10 +212,6 @@ const AdvancedOption = ({
   };
 
   useEffect(() => {
-    // console.log("Asc color", colorTemplateSortAsc)
-    // console.log("raw data categpries advance",rawDataCategories)
-    // console.log("asc", ascending);
-    // console.log("desc",descending)
   }, [
     selectedSortedOption,
     selectedGroupingOption,
@@ -233,7 +229,7 @@ const AdvancedOption = ({
   const onClick_Finding = () => {
     const value = parseInt(inputFindValue, 10);
     listFindingLabels = [];
-    if (value == NaN || inputFindValue.includes(" ")) {
+    if (value === isNaN || inputFindValue.includes(" ")) {
       setShowFindingResult("Just input number");
       return;
     }
@@ -241,7 +237,7 @@ const AdvancedOption = ({
     findingValue.forEach((element) => {
       //   console.log("value of element:", element.value);
       //   console.log("value", value);
-      if (element.value == value) {
+      if (element.value === value) {
         setShowFindingResult(`value ${value} is belonged to label(s):`);
         listFindingLabels.push(element.category);
       }
@@ -268,7 +264,7 @@ const AdvancedOption = ({
               )}
               {statisData.median == null && <p>Median: empty</p>}
               {statisData.median != null && <p>Median: {statisData.median}</p>}
-              {/* {statisData.stand == null && 
+              {/* {statisData.stand == null &&
                 <p>Standard Deviation: empty </p>} */}
               {statisData.stand != null && (
                 <p>Standard Deviation: {statisData.stand.sd} </p>

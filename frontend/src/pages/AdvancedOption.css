@@ -11,6 +11,8 @@
     margin: 20px;
 }
 
+
+
 .static_button:hover{
     background-color: #712fffa1;
     border-radius: 90px;
@@ -69,7 +71,6 @@ div.static-container{
     display: grid;
     position: relative;
     grid-template-columns: repeat(2, auto);
-    grid-template-rows: repeat(1, auto);
     grid-gap: 100px;
     list-style: georgian;
     text-align: center;
@@ -128,6 +129,6 @@ table {
     text-align: center;
   }
   
-  select.selectSort{
+  .selectSort{
     margin: 10px;
   }
