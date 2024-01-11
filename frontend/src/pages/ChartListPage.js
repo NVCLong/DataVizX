@@ -187,15 +187,16 @@ function ChartListPage() {
       <div className="fixed top-0 left-0 z-50 h-screen w-160">
         <Sidebar />
       </div>
-      <div className="">
+      <div className="fixed right-44 top-11 ">
       <button
               type="button"
               onClick={() => navigate("/createChart")}
-              class="flex justify-center items-center py-2.5 px-5 me-2 mb-2 text-3xl font-bold w-72 h-16 focus:outline-none rounded-lg border  focus:z-10 focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700 transition duration-300 transform hover:scale-110"
+              className="py-0 px-0 me-0 mb-0 text-xl font-bold w-44 h-11 focus:outline-none rounded-lg border  focus:z-10 focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700 transition duration-300 transform hover:scale-110"
             >
               + Add new chart
-            </button>
+        </button>
         </div>
+
       <div className="col-start-2 pr-10 space-y-20 pt-28">
         {chartConfig.map((config, index) => (
           <div
@@ -233,6 +234,7 @@ function ChartListPage() {
                 >
                   Delete
                 </button>
+
               </div>
             </div>
           </div>
