@@ -28,15 +28,14 @@ class SiteController {
                         if (!user) {
                             console.log("error")
                         }
-                        //    console.log(user)
+
                         const lists = results;
-                        //    console.log(lists)
                         const listCollection = lists.DataList
+                        console.log(listCollection)
                         let userCollection = []
                         for (let collection of listCollection) {
                             //    console.log(typeof  collection)
                             let element = await Collection.findById(collection._id);
-                            console.log( element)
                             userCollection.push(element)
                         }
                         res.json({

@@ -223,6 +223,19 @@ function ChartListPage() {
                 <button
                   type="button"
                   className="px-4 py-2 text-sm font-medium  border rounded-e-lg focus:z-10 focus:ring-2 bg-purple-600 border-purple-800 text-white hover:text-white hover:bg-purple-400 focus:ring-blue-500 focus:text-white transition duration-300 transform hover:scale-110"
+                  onClick={async ()=>{
+                    try {
+                      let userId = localStorage.getItem('userId')
+                      if (!userId) {
+                        alert("Do not have userId")
+                      }
+                      const response = await axios.delete(`http://localhost:3000/collection/delete/${userId}/${chartID[index]}`)
+                      console.log(response.data)
+                      window.location.reload(true);
+                    }catch(e){
+                      setError(e)
+                    }
+                  }}
                 >
                   Delete
                 </button>
