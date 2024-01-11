@@ -197,12 +197,23 @@ const collectionController = {
             console.log(e);
         }
     },
-    // [DELETE] collection/delete/:id
+    // [DELETE] collection/delete/:userId/:id
     async deleteCollection(req,res){
         try {
-            await Collection.findByIdAndDelete(req.params.id)
-                .then((res)=>{
-                    console.log(res);
+            console.log(req.params.userId)
+            console.log(req.params.id)
+            await Collection.findOneAndDelete({_id:req.params.id})
+                .then(async (result)=>{
+                    await chartList.findOne({userId: req.params.userId})
+                        .then(async (chartList)=>{
+                            console.log(chartList.DataList)
+                            let newDataList= chartList.DataList.filter((item)=>{
+                                return !item._id.toString().includes(req.params.id)
+                            })
+                            chartList.DataList= newDataList;
+                            chartList.save()
+                            res.status(200).json({status:"success"})
+                        })
                 })
                 .catch((err)=>{
                     console.log(err)
