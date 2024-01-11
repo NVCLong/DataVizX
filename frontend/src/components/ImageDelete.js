@@ -2,10 +2,12 @@ import { useState } from "react";
 import axios from "axios";
 
 function ImageDelete() {
+  // eslint-disable-next-line
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line
   const [res, setRes] = useState({});
-  const [userData, setUserData] = useState(null);
+
   const handleDelete = async () => {
       setLoading(true);
       try {
@@ -30,9 +32,9 @@ function ImageDelete() {
     }
   };
   return (
-    <div className="text-center grid gap-8 p-6 m-auto mt-16">
+    <div className="grid gap-8 p-6 m-auto mt-16 text-center">
       <>
-          <button onClick={handleDelete} className="cursor-pointer px-6 py-2 text-sm font-medium border rounded focus:z-10 focus:ring-2 bg-purple-600 border-purple-900 text-white hover:text-white hover:bg-purple-600 focus:ring-blue-500 focus:text-white transition duration-300 transform hover:scale-110">
+          <button onClick={handleDelete} className="px-6 py-2 text-sm font-medium text-white transition duration-300 transform bg-purple-600 border border-purple-900 rounded cursor-pointer focus:z-10 focus:ring-2 hover:text-white hover:bg-purple-600 focus:ring-blue-500 focus:text-white hover:scale-110">
             {loading ? "Deleting..." : "Delete image"}
           </button>
         </>

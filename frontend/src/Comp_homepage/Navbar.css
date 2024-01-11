@@ -31,6 +31,7 @@
   margin-left: 40px;
   align-items: center;
   font-size: 50px;
+  font-weight: 900;
   display: grid;
   grid-template-columns: repeat(2,auto);
 }
