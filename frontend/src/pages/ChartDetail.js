@@ -459,7 +459,7 @@ function Chart() {
                 Table
               </option>
             </select>
-            {selectedOption && <p>You choose: {DataInput.Graph}</p>}
+            {/* {selectedOption && <p>You choose: {DataInput.Graph}</p>} */}
             {errorChart && <p style={{ color: "red" }}>{errorChart}</p>}
           </div>
 

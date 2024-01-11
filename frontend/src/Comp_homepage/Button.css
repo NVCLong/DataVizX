@@ -67,3 +67,20 @@
 
 }
 
+.btn--outline {
+  background-color: #712fffa1;
+  border-radius: 90px;
+  color: #fff;
+  padding: 8px 20px;
+  border: 1px solid var(--primary);
+  transition: all 0.5s ease-out;
+  right: 0;
+  top: 0;
+  margin-right: 3rem;
+  margin-top: 30px;
+  position:absolute;
+  display: flex;
+  justify-content:center ;
+  align-items: center;
+  height: 60px;
+}
