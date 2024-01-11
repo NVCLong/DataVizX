@@ -414,9 +414,10 @@ function Chart() {
           buttonStyle="btn--outline"
           onClick={() => {
             console.log(localStorage.getItem("chartId"));
-            localStorage.removeItem("chartId");
+            // localStorage.removeItem("chartId");
             navigate("/ChartListPage");
           }}
+          linkUrl={"/ChartListPage"}
         >
           Go back to Chart List
         </Button>
