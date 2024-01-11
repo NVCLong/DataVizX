@@ -210,7 +210,8 @@ function ChartListPage() {
                 <button
                   type="button"
                   className="px-4 py-2 text-sm font-medium text-white transition duration-300 transform bg-purple-600 border border-purple-800 rounded-s-lg focus:z-10 focus:ring-2 hover:text-white hover:bg-purple-400 focus:ring-blue-500 focus:text-white hover:scale-110"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
                     localStorage.setItem("chartId", chartID[index]);
                     navigate("/chartDetail");
                   }}
@@ -224,8 +225,12 @@ function ChartListPage() {
 
                   onClick={async () => {
                     try {
-                      await axios.delete(`http://localhost:3000/collection/delete/${chartID[index]}`)
-                      navigate("/chartList");
+                      const userId= localStorage.getItem('userId');
+                      if(!userId) {
+                        alert("User not found")
+                      }
+                      await axios.delete(`http://localhost:3000/collection/delete/${userId}/${chartID[index]}`)
+                      window.location.reload(true)
                     } catch (e) {
                       setError(e)
                     }

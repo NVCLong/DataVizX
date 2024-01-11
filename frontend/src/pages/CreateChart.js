@@ -164,6 +164,10 @@ function Chart() {
             buttonSize="btn--medium"
             buttonStyle="btn--outline"
             linkUrl={"/ChartListPage"}
+            onClick={(e)=>{
+              e.preventDefault();
+              navigate("/ChartListPage")
+            }}
           >
             Go back to Chart List
           </Button>

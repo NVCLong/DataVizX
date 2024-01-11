@@ -111,6 +111,8 @@ const collectionController = {
     // [Patch]   /collection/edit/:id
     async editCollection(req, res) {
         try {
+            console.log(req.body)
+            console.log(req.body.categories)
             let collectionValues = [];
             let values = req.body.values.split(",").map(function (value) {
                 return parseInt(value, 10);
@@ -119,6 +121,7 @@ const collectionController = {
             for (let i = 0; i < values.length; i++) {
                 collectionValues.push({ category: categories[i], value: values[i] });
             }
+            console.log(collectionValues)
             await Collection.findOneAndUpdate(
                 { _id: req.params.id },
                 { values: collectionValues, name: req.body.name },

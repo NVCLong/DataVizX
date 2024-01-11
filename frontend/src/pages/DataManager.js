@@ -118,12 +118,10 @@ export const getSortData = async () => {
 
 
 export const patchNewData = async (userData) => {
+  console.log(userData)
   const retrievedValue = localStorage.getItem("chartId");
-
-
+  console.log(retrievedValue)
   try {
-
-
     const response = await axios.patch(
       `${API_URL}/collection/edit/${retrievedValue}`,
       {

@@ -369,8 +369,9 @@ function Chart() {
       buttonPressed
     ) {
       try {
-        // const patchData = await patchNewData(DataInput);
-        // navigate("/chartDetail");
+        console.log(DataInput)
+        const patchData = await patchNewData(DataInput);
+        navigate("/chartDetail");
       } catch (error) {
         alert("Cannot patch");
         console.log("error", error.message);
@@ -412,12 +413,11 @@ function Chart() {
           className="btns"
           buttonSize="btn--medium"
           buttonStyle="btn--outline"
-          onClick={() => {
-            console.log(localStorage.getItem("chartId"));
-            // localStorage.removeItem("chartId");
+          onClick={(e) => {
+            e.preventDefault();
+            localStorage.removeItem("chartId");
             navigate("/ChartListPage");
           }}
-          linkUrl={"/ChartListPage"}
         >
           Go back to Chart List
         </Button>
