@@ -39,7 +39,7 @@ export const getDataRaw = async () => {
   const retrievedValue = localStorage.getItem("chartId");
   try {
     const response = await axios.get(`${API_URL}/collection/${retrievedValue}`);
-    console.log(response)
+    // console.log(response)
     console.log("response value raw: ", response.data.values);
     // response.data.values.map((item) => {
     //   values.push(item);
@@ -128,8 +128,8 @@ export const patchNewData = async (userData) => {
       `${API_URL}/collection/edit/${retrievedValue}`,
       {
         "name": userData.Name,
-        "categories": userData.Category,
-        "values": userData.Data,
+        "categories": userData.Categories,
+        "values": userData.Values,
       },
     );
     console.log("Response Patch Data", response.data)

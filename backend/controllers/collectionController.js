@@ -216,12 +216,10 @@ const collectionController = {
         try{
             await Collection.findById(req.params.id)
                 .then((collection)=>{
-                    console.log(collection.values);
-                    const array= collection.values.sort((a,b)=>{return a.value-b.value});
-                    const arrayDesc= collection.values.sort((a,b)=>{return b.value-a.value});
-                    console.log( arrayDesc)
-                    console.log(array)
-                    res.status(200).send({collectionName: collection.name, sortedCollection: array, sortedCollectionDesc: arrayDesc})
+                    const  newArray= collection.values
+                    let arrayDesc= newArray.sort((a,b)=>{return b.value - a.value});
+                    let arrayAsc= newArray.slice().sort((a,b)=>{return a.value - b.value});
+                    res.status(200).send({collectionName: collection.name, sortedCollection: arrayAsc, sortedCollectionDesc: arrayDesc})
                 }).catch(function(e){
                     console.log(e)
                 })

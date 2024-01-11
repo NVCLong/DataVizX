@@ -45,6 +45,7 @@ function ChartListPage() {
   const fetchChartData = async () => {
     setIsLoading(true);
     try {
+      localStorage.removeItem("chartId");
       const userId = localStorage.getItem("userId");
       if (!userId) {
         throw new Error("Do not have userId");
