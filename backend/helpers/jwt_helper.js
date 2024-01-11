@@ -24,7 +24,7 @@ module.exports = {
         });
     },
     verifyAccessToken: (req, res, next) => {
-        const token = req.cookies.accessToken;
+        const token = req.body.access_token;
         console.log(token)
         if (token) {
             JWT.verify(token, "secret", (err) => {

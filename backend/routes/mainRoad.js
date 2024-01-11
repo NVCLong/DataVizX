@@ -6,6 +6,7 @@ const collectionSorting = require("./collectionSorting.route");
 const note= require("./note.route");
 const userProfile = require("./userProfile.route");
 const support= require("./support.route")
+const verify= require("./verify.route");
 
 module.exports = function route(app) {
     app.use("/auth", authentication);
@@ -15,6 +16,7 @@ module.exports = function route(app) {
     app.use("/note",note);
     app.use("/user", userProfile);
     app.use("/support", support);
+    app.use("/verify",verify)
     app.use("/", site);
 
 };
