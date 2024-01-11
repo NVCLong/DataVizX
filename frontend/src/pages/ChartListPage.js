@@ -3,8 +3,7 @@ import axios from "axios";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import Sidebar from "../components/Sidebar";
-import {useNavigate} from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 Chart.defaults.font.size = 16;
 Chart.defaults.font.family = "'SF Pro Display', sans-serif";
@@ -41,7 +40,6 @@ function ChartListPage() {
 
       const allChartName = response.data.collection.map((item) => item.name);
       setChartName(allChartName);
-
     } catch (error) {
       setError(error);
     } finally {
@@ -163,7 +161,7 @@ function ChartListPage() {
 
   if (error) {
     return (
-      <div>
+      <div className="">
         <div className="flex">
           <div className="#">
             <Sidebar />
@@ -183,25 +181,67 @@ function ChartListPage() {
   }
 
   return (
-    <div className="grid grid-cols-[160px,1fr]">
+    <div className="grid grid-cols-[160px,1fr] overflow-hidden overflow-y-scroll">
       <div className="fixed top-0 left-0 z-50 h-screen w-160">
         <Sidebar />
       </div>
-      <div className="fixed right-44 top-11 ">
-      <button
-              type="button"
-              onClick={() => navigate("/createChart")}
-              className="py-0 px-0 me-0 mb-0 text-xl font-bold w-44 h-11 focus:outline-none rounded-lg border  focus:z-10 focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700 transition duration-300 transform hover:scale-110"
+      <div className="flex justify-center pt-6 pl-96">
+        <form>
+          <label
+            for="default-search"
+            class="mb-2 font-semibold text-gray-900 sr-only dark:text-white"
+          >
+            Search
+          </label>
+          <div class="relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <svg
+                class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                />
+              </svg>
+            </div>
+            <input
+              type="search"
+              id="default-search"
+              class=" w-96 p-3.5 ps-5 text-lg border text-gray-400 transition duration-300 transform bg-gray-800 border-gray-600 rounded-lg focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-11"
+              placeholder="Search..."
+              required
+            />
+            <button
+              type="submit"
+              class="text-white absolute end-2.5 bottom-2.5 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
             >
-              + Add new chart
+              Search
+            </button>
+          </div>
+        </form>
+      </div>
+      <div className="fixed right-11 top-11 ">
+        <button
+          type="button"
+          onClick={() => navigate("/createChart")}
+          className="px-0 py-0 mb-0 text-xl font-bold text-gray-400 transition duration-300 transform bg-gray-800 border border-gray-600 rounded-lg me-0 w-44 h-11 focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-110"
+        >
+          + Add new chart
         </button>
-        </div>
+      </div>
 
       <div className="col-start-2 pr-10 space-y-20 pt-28">
         {chartConfig.map((config, index) => (
           <div
             key={index}
-            className="w-11/12 rounded-md shadow-md inline-table backdrop-blur-3xl h-96"
+            className="w-full rounded-md shadow-md inline-table backdrop-blur-3xl h-96"
           >
             <Line data={config.data} options={config.options} />
 
@@ -222,24 +262,23 @@ function ChartListPage() {
                 <button
                   type="button"
                   className="px-4 py-2 text-sm font-medium text-white transition duration-300 transform bg-purple-600 border border-purple-800 rounded-e-lg focus:z-10 focus:ring-2 hover:text-white hover:bg-purple-400 focus:ring-blue-500 focus:text-white hover:scale-110"
-
                   onClick={async () => {
                     try {
-                      const userId= localStorage.getItem('userId');
-                      if(!userId) {
-                        alert("User not found")
+                      const userId = localStorage.getItem("userId");
+                      if (!userId) {
+                        alert("User not found");
                       }
-                      await axios.delete(`http://localhost:3000/collection/delete/${userId}/${chartID[index]}`)
-                      window.location.reload(true)
+                      await axios.delete(
+                        `http://localhost:3000/collection/delete/${userId}/${chartID[index]}`
+                      );
+                      window.location.reload(true);
                     } catch (e) {
-                      setError(e)
+                      setError(e);
                     }
-
                   }}
                 >
                   Delete
                 </button>
-
               </div>
             </div>
           </div>
