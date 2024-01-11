@@ -90,11 +90,11 @@ function Chart() {
   const [errorChart, seterrorChart] = useState("");
   const [errorCategory, seterrorCategory] = useState("");
 
-  const data = {
-    name: inputName,
-    categories: inputCategory,
-    values: inputValue,
-  };
+  // const data = {
+  //   name: inputName,
+  //   categories: inputCategory,
+  //   values: inputValue,
+  // };
 
   const navigate = useNavigate();
 
@@ -297,8 +297,8 @@ function Chart() {
 
     setDataInput({
       Name: event.target.value,
-      Data: inputValue,
-      Category: inputCategory,
+      Values: inputValue,
+      Categories: inputCategory,
     });
   };
 
@@ -308,8 +308,8 @@ function Chart() {
 
     setDataInput({
       Name: inputName,
-      Data: inputValue,
-      Category: inputCategory,
+      Values: inputValue,
+      Categories: inputCategory,
     });
   };
 
@@ -318,11 +318,12 @@ function Chart() {
     seterrorCategory("");
     // setLabelsChart(event.target.value.split(","));
 
-    // setDataInput({
-    //   Data: intArr,
-    //   Data: inputValue,
-    //   Category: event.target.value,
-    // });
+
+    setDataInput({
+      Name: inputName,
+      Values: inputValue,
+      Categories: event.target.value,
+    });
   };
 
   const handleInputDataChange = (event) => {
@@ -332,8 +333,8 @@ function Chart() {
 
     setDataInput({
       Name: inputName,
-      Data: event.target.value,
-      Category: inputCategory,
+      Values: event.target.value,
+      Categories: inputCategory,
     });
     // Update input value in state
   };
@@ -356,8 +357,8 @@ function Chart() {
 
     setDataInput({
       Name: inputName,
-      Data: inputValue,
-      Category: inputCategory,
+      Values: inputValue,
+      Categories: inputCategory,
     });
 
     console.log("raw data", rawData);
@@ -377,7 +378,7 @@ function Chart() {
         console.log("error", error.message);
         throw error;
       }
-      // location.reload();
+      location.reload();
     } else {
       setShowChart(false);
       if (intArr.length <= 2) {

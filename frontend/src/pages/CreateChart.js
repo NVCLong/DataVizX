@@ -207,7 +207,7 @@ function Chart() {
         </div>
 
         <div className="category-input-container">
-          <h2 className="input-category">Input Category:</h2>
+          <h2 className="input-category">Input labels:</h2>
           <form>
             <input
               type="text"
@@ -226,7 +226,7 @@ function Chart() {
       </div>
       <div id="instruction">
         <p>
-          To begin, please populate the Data text area with positive integer
+          To begin, please fill the Data text area with positive integer
           numbers separated by commas. Do not include any special characters.
           Only numerical values are allowed in this section; refrain from
           inputting alphabets. Simultaneously, in the Labels text area, input
