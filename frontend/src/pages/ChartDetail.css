@@ -58,8 +58,8 @@ margin: 50px auto;
 justify-items: center;
 justify-content: center;
 padding: 100px;
-border: 5px solid #ccc;
-border-radius: 50px;
+border: 3px solid #9b59d1;
+  border-radius:18px;
 background-color: rgba(10,20,30,0.6);
 align-items: center;
 /* max-width: max-content;
@@ -92,7 +92,7 @@ h2 {
   padding: 8px;
   font-size: 16px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 8px;
   width: 200px;
 }
 
@@ -117,7 +117,7 @@ h2 {
   border-radius: 8px;
   width: 275px;
 }
-/* 
+/*
 .sort-container {
   margin-bottom: 20px;
   top: 150px;
@@ -132,8 +132,8 @@ h3 {
 select {
   padding: 8px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 3px solid #9b59d1;
+  border-radius:18px;
   width: 200px;
   /* Tùy chỉnh các thuộc tính khác theo ý muốn */
 }
@@ -144,7 +144,7 @@ select {
   font-size: 16px;
   border: none;
   background-color: #00ccffa1;
-  border-radius: 10px;
+  border-radius: 8px;
   color: #fff;
   color: white;
   cursor: pointer;
@@ -157,7 +157,7 @@ select {
 
 .custom-button:hover {
   background-color: #712fffa1;
-  border-radius: 90px;
+  border-radius: 8px;
   transition: 250ms;
   transition: all 0.5s ease-in-out;
   /* Change background color on hover */
@@ -168,8 +168,8 @@ select {
   padding: 20px 90px;
   font-size: 16px;
   border: none;
-  background-color: #00ccff;
-  border-radius: 10px;
+  border: 3px solid #9b59d1;
+  border-radius:18px;
   color: #fff;
   color: white;
   cursor: pointer;
@@ -198,9 +198,8 @@ select {
   height: 50vh;
   margin: 50px auto;
   padding: 5px;
-  border: 5px solid #ccc;
-  border-radius:
-  50px;
+  border: 3px solid #9b59d1;
+  border-radius:18px;
   background-color: rgba(10, 20, 30, 0.6);
   text-align: center
 }

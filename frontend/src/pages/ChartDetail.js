@@ -407,15 +407,12 @@ function Chart() {
       <div className="nav-header">
         <NarBav />
       </div>
-      <div className="btn-chartList">
+      <div className="">
         <Button
-          className="btns"
-          buttonSize="btn--medium"
-          buttonStyle="btn--outline"
           onClick={() => {
             console.log(localStorage.getItem("chartId"));
             localStorage.removeItem("chartId");
-            navigate("/ChartListPage");
+            navigate("./ChartListPage");
           }}
         >
           Go back to Chart List

@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "axios": "^1.6.2",
+    "concurrently": "^8.2.2",
     "create-react-app": "^5.0.1",
     "express": "^4.18.2",
     "morgan": "^1.10.0",
