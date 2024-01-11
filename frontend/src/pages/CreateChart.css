@@ -12,33 +12,33 @@
   }
   .user-input > .name-input-container {
     margin-bottom: 20px;
-    
+
 
   }
-  
+
   .input-name{
     font-weight: bold;
     margin-bottom: 8px;
   }
-  
+
   .input-field-name{
     padding: 8px;
     font-size: 16px;
-    border: 10px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     width: 275px;
   }
-  
+
   .input-category{
     font-weight: bold;
     margin-bottom: 8px;
   }
-  
-  
+
+
   .category-input-container {
     margin-bottom: 20px;
   }
-  
+
   .input-field-category {
     padding: 8px;
     font-size: 16px;
@@ -46,15 +46,15 @@
     border-radius: 4px;
     width: 550px;
   }
-  
+
   p {
     color: aliceblue;
   }
-  
+
   h2 {
     color: aliceblue;
   }
-  
+
   .select-label {
     font-weight: bold;
     margin-bottom: 8px;
@@ -63,12 +63,12 @@
   .text-input-container {
     margin-bottom: 20px;
   }
-  
+
   .input-label {
     font-weight: bold;
     margin-bottom: 8px;
   }
-  
+
   .input-field {
     padding: 8px;
     font-size: 16px;
@@ -81,7 +81,7 @@
     margin-bottom: 8px;
     color: aliceblue;
   }
-  
+
   select {
     padding: 8px;
     font-size: 16px;
@@ -90,8 +90,8 @@
     width: 200px;
     /* Tùy chỉnh các thuộc tính khác theo ý muốn */
   }
-  
-  
+
+
   .custom-button {
     padding: 20px 90px;
     font-size: 16px;
@@ -105,9 +105,9 @@
     /* Transition effect for hover */
     top: 170px;
     left: 1770px;
-  
+
   }
-  
+
   .custom-button:hover {
     background-color: #712fffa1;
     border-radius: 90px;
@@ -115,8 +115,8 @@
     transition: all 0.5s ease-in-out;
     /* Change background color on hover */
   }
-  
-  
+
+
   .save_data_button {
     padding: 20px 90px;
     font-size: 16px;
@@ -132,31 +132,31 @@
     right: 30px;
     position: absolute;
   }
-  
+
   table {
     width: 90vw;
     height: 50vh;
     color: aliceblue;
     font-size: 20px;
   }
-  
+
   tr {
     height: 20%;
   }
-  
+
   th {
     border-bottom: 1px solid wheat;
     /* border-right: 1px solid wheat; */
     width: 1%;
   }
-  
+
   td {
     text-align: center;
     align-items: center;
     /* border-right: 1px solid wheat; */
-  
+
   }
-  
+
   #instruction {
     display: flex;
     justify-content: center;
@@ -166,16 +166,16 @@
     margin: 50px auto;
     padding: 5px;
     border: 5px solid #ccc;
-    border-radius: 
+    border-radius:
     50px;
     background-color: rgba(10, 20, 30, 0.6);
     text-align: center
   }
-  
+
   #instruction p {
     font-size: 30px; /* Adjust font size as needed */
     line-height: 1.5; /* Adjust line height as needed */
     display: inline-block;
     margin: auto 50px;
-    text-align: center; 
+    text-align: center;
   }

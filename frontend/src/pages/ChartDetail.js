@@ -25,8 +25,6 @@ const descending = {
   values: "31,25,21,11",
 };
 
-
-
 function Chart() {
   const colorTemplate = [
     "#FF6633",
@@ -100,7 +98,6 @@ function Chart() {
 
   const navigate = useNavigate();
 
-
   useEffect(() => {
     fetchRawData();
     fetchStatisticData();
@@ -129,7 +126,6 @@ function Chart() {
     });
 
     const chartName = res.name;
-
 
     setFindingValue(ObjArr);
 
@@ -186,8 +182,6 @@ function Chart() {
         categories: lowCategories.join(","),
         values: lowValues.join(","),
       });
-
-
     } catch (error) {
       console.log("error group", error);
     }
@@ -207,8 +201,6 @@ function Chart() {
       median: ObjArr[2],
       stand: ObjArr[3],
     });
-
-
   };
 
   const fetchSortData = async () => {
@@ -241,8 +233,6 @@ function Chart() {
         categories: descCategories,
         values: descValues,
       });
-
-
     } catch (error) {
       console.log("error sort", error);
       throw error;
@@ -272,9 +262,9 @@ function Chart() {
 
   const checkIntArray = (arr) => {
     const check = arr.find((element) => {
-      return element == 0;
+      return element === 0;
     });
-    if (check == 0 || arr.includes(NaN)) return true;
+    if (check === 0 || arr.includes(NaN)) return true;
     else {
       seterrorText("");
       return false;
@@ -293,7 +283,7 @@ function Chart() {
 
     for (let i = 0; i < str.length - 1; i++) {
       for (let j = i + 1; j < str.length; j++) {
-        if (str[i] == str[j]) {
+        if (str[i] === str[j]) {
           return true;
         }
       }
@@ -348,18 +338,6 @@ function Chart() {
     // Update input value in state
   };
 
-  //   document.getElementsByClassName("buttonToChart").style.display = "b";
-
-  // const handleSortChange = (event) => {
-  //   setselectedSortedOption(event.target.value);
-  //   setDataInput({
-  //     Graph: selectedOption,
-  //     Data: intArr,
-  //     Category: labelsChart,
-  //     Sort: event.target.value,
-  //   });
-  //   // Gọi hàm xử lý sắp xếp từ component cha
-  // };
 
   let onClick = async (e) => {
     setShowChart(true);
@@ -386,7 +364,7 @@ function Chart() {
     if (
       intArr.length > 2 &&
       labelsChart.length > 2 &&
-      intArr.length == labelsChart.length &&
+      intArr.length === labelsChart.length &&
       inputName.length > 0 &&
       buttonPressed
     ) {
@@ -410,7 +388,7 @@ function Chart() {
       if (labelsChart.length < 2) {
         seterrorCategory("Please input labels for graph");
       }
-      if (labelsChart.length != intArr.length) {
+      if (labelsChart.length !== intArr.length) {
         seterrorCategory("Please input number of labels = number of data");
         seterrorText("Please input number of data = number of lables");
       }
@@ -437,8 +415,8 @@ function Chart() {
           onClick={() => {
             console.log(localStorage.getItem("chartId"));
             localStorage.removeItem("chartId");
+            navigate("/ChartListPage");
           }}
-          linkUrl={"/chartList"}
         >
           Go back to Chart List
         </Button>

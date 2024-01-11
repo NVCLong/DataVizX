@@ -3,9 +3,8 @@ import axios from "axios";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import Sidebar from "../components/Sidebar";
-import { Button } from "../Comp_homepage/Button";
-import "../Comp_homepage/Button.css";
 import {useNavigate} from "react-router-dom";
+
 
 Chart.defaults.font.size = 16;
 Chart.defaults.font.family = "'SF Pro Display', sans-serif";
@@ -20,28 +19,6 @@ function ChartListPage() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleDelete = async (chartId) => {
-    try {
-      const userId = localStorage.getItem("userId");
-      if (!userId) {
-        throw new Error("Do not have userId");
-      }
-
-      if (!chartId) {
-        throw new Error("Do not have chartId");
-      }
-      const response = await axios.delete(
-        `http://localhost:3000/chartList/${userId}/${chartId}`
-      );
-      console.log("response", response);
-      // alert("Chart has been deleted");
-      // window.location.reload();
-      // navigate("/chartList");
-    } catch (error) {
-      alert(error.message);
-    }
-  }
-
   const fetchChartData = async () => {
     setIsLoading(true);
     try {
@@ -53,26 +30,18 @@ function ChartListPage() {
       const response = await axios.get(
         `http://localhost:3000/chartList/${userId}`
       );
-      console.log("response", response);
 
-      // console.log(response.data.collection.map((item) => item._id));
       const allChartID = response.data.chartlist.DataList.map(
         (item) => item._id
       );
       setChartID(allChartID);
 
-      // console.log(response.data.collection[1].name);
-
       const allChartData = response.data.collection.map((item) => item.values);
       setChartData(allChartData);
 
-      // console.log(allChartData)
-
       const allChartName = response.data.collection.map((item) => item.name);
       setChartName(allChartName);
-      // console.log(allChartName);
 
-      // console.log(allChartData);
     } catch (error) {
       setError(error);
     } finally {
@@ -181,6 +150,7 @@ function ChartListPage() {
           <div className="pr-10 mx-auto pt-96">
             <button
               type="button"
+              onClick={() => navigate("/createChart")}
               class="flex justify-center items-center py-2.5 px-5 me-2 mb-2 text-3xl font-bold w-72 h-16 focus:outline-none rounded-lg border  focus:z-10 focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700 transition duration-300 transform hover:scale-110"
             >
               + Add new chart
@@ -201,6 +171,7 @@ function ChartListPage() {
           <div className="pr-10 mx-auto pt-96">
             <button
               type="button"
+              onClick={() => navigate("/createChart")}
               class="flex justify-center items-center py-2.5 px-5 me-2 mb-2 text-3xl font-bold w-72 h-16 focus:outline-none rounded-lg border  focus:z-10 focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700 transition duration-300 transform hover:scale-110"
             >
               + Add new chart
@@ -208,19 +179,6 @@ function ChartListPage() {
           </div>
         </div>
       </div>
-
-///////////////////////////////////////////////////////////
-      // <div className="flex">
-      //   <div className="#">
-      //     <Sidebar />
-      //   </div>
-
-      //   <div className="pr-10 mx-auto pt-96 ">
-      //     <div className="flex justify-center items-center py-2.5 px-5 me-2 mb-2 text-xl font-semibold w-auto h-auto focus:outline-none rounded-lg border  focus:z-10 focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700 transition duration-300 transform hover:scale-110">
-      //       <h1>Error: {error.message}</h1>
-      //       </div>
-      //   </div>
-      // </div>
     );
   }
 
@@ -229,15 +187,14 @@ function ChartListPage() {
       <div className="fixed top-0 left-0 z-50 h-screen w-160">
         <Sidebar />
       </div>
-      <div className="btn-chartList">
-          <Button
-            className="btns"
-            buttonSize="btn--medium"
-            buttonStyle="btn--outline"
-            linkUrl={"/createChart"}
-          >
-            + Add new Chart
-          </Button>
+      <div className="">
+      <button
+              type="button"
+              onClick={() => navigate("/createChart")}
+              class="flex justify-center items-center py-2.5 px-5 me-2 mb-2 text-3xl font-bold w-72 h-16 focus:outline-none rounded-lg border  focus:z-10 focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700 transition duration-300 transform hover:scale-110"
+            >
+              + Add new chart
+            </button>
         </div>
       <div className="col-start-2 pr-10 space-y-20 pt-28">
         {chartConfig.map((config, index) => (
@@ -284,5 +241,4 @@ function ChartListPage() {
     </div>
   );
 }
-
 export default ChartListPage;

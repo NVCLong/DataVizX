@@ -4,7 +4,7 @@ import "./CreateChart.css";
 import NarBav from "../Comp_homepage/Navbar";
 import { useState } from "react";
 import { sendData } from "./DataManager";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../Comp_homepage/Button";
 import "../Comp_homepage/Button.css";
 
@@ -41,9 +41,9 @@ function Chart() {
 
   const checkIntArray = (arr) => {
     const check = arr.find((element) => {
-      return element == 0;
+      return element === 0;
     });
-    if (check == 0 || arr.includes(NaN)) return true;
+    if (check === 0 || arr.includes(NaN)) return true;
     else {
       seterrorText("");
       return false;
@@ -62,7 +62,7 @@ function Chart() {
 
     for (let i = 0; i < str.length - 1; i++) {
       for (let j = i + 1; j < str.length; j++) {
-        if (str[i] == str[j]) {
+        if (str[i] === str[j]) {
           return true;
         }
       }
@@ -125,7 +125,7 @@ function Chart() {
     if (
       intArr.length > 2 &&
       labelsChart.length > 2 &&
-      intArr.length == labelsChart.length &&
+      intArr.length === labelsChart.length &&
       inputName.length > 0 &&
       buttonPressed
     ) {
@@ -163,7 +163,7 @@ function Chart() {
             className="btns"
             buttonSize="btn--medium"
             buttonStyle="btn--outline"
-            linkUrl={"/chartList"}
+            linkUrl={"/ChartListPage"}
           >
             Go back to Chart List
           </Button>
