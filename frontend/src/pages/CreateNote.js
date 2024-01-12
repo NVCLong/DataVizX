@@ -7,7 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 
-const Note = () => {
+const CreateNote = () => {
   const [note, setNote]= useState([])
 
   const [error, setError]= useState([])
@@ -33,10 +33,10 @@ const Note = () => {
     }
   };
   const showNote =()=>{
-    if(eNote){
-      return eNote
+    if(note){
+      return note
     }
-    else {return ''}
+    else {return ''}}
 
 
 
@@ -141,4 +141,4 @@ const Note = () => {
   );
 };
 
-export default Note;
+export default CreateNote;

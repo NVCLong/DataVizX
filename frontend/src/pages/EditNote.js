@@ -7,7 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 
-const Note = () => {
+const EditNote = () => {
     const [note, setNote] = useState([])
     
 
@@ -155,4 +155,4 @@ const Note = () => {
         );
     };
 
-    export default Note;
+    export default EditNote;
