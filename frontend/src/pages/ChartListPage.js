@@ -5,6 +5,7 @@ import { Line } from "react-chartjs-2";
 import Sidebar from "../components/Sidebar";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
+import {jwtDecode} from 'jwt-decode';
 
 Chart.defaults.font.size = 16;
 Chart.defaults.font.family = "'SF Pro Display', sans-serif";
@@ -19,7 +20,6 @@ function ChartListPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [activeSearch, setActiveSearch] = useState([]);
-  const [sort, setSort] = useState(false);
   const navigate = useNavigate();
 
   const handleSort = async () => {
@@ -75,6 +75,27 @@ function ChartListPage() {
       if (!userId) {
         throw new Error("Do not have userId");
       }
+      const accessToken= localStorage.getItem("accessToken");
+      const decoded = jwtDecode(accessToken);
+      console.log(decoded)
+      const expirationTime = decoded.exp * 1000; // Convert to milliseconds
+      const currentTime = Date.now();
+      if (currentTime > expirationTime) {
+      localStorage.clear()
+      navigate("/login")
+    }
+      if(!accessToken){
+        console.log("access token expried")
+        localStorage.clear()
+        navigate("/login")
+      }
+      const verify= await axios.post("http://localhost:3000/verify",{access_token: accessToken})
+      if(verify.data.status==="false"){
+        localStorage.clear()
+        navigate("/login")
+      }
+
+
       const response = await axios.get(
         `http://localhost:3000/chartList/${userId}`
       );
@@ -95,6 +116,7 @@ function ChartListPage() {
       setIsLoading(false);
     }
   };
+
 
   useEffect(() => {
     fetchChartData();

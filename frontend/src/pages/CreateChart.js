@@ -7,6 +7,8 @@ import { sendData } from "./DataManager";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../Comp_homepage/Button";
 import "../Comp_homepage/Button.css";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 function Chart() {
   const [inputValue, setInputValue] = useState("");
@@ -38,6 +40,28 @@ function Chart() {
     inputCategory,
     inputName,
   ]);
+  const handleVerify = async (e) => {
+    const accessToken= localStorage.getItem("accessToken");
+      const decoded = jwtDecode(accessToken);
+      const expirationTime = decoded.exp * 1000; // Convert to milliseconds
+      const currentTime = Date.now();
+      if (currentTime > expirationTime) {
+      localStorage.clear()
+      navigate("/login")
+    }
+      if(!accessToken){
+        localStorage.clear()
+        navigate("/login")
+      }
+      const verify= await axios.post("http://localhost:3000/verify",{access_token: accessToken})
+      if(verify.data.status==="false"){
+        localStorage.clear()
+        navigate("/login")
+      }
+  }
+  useEffect(() => {
+    handleVerify()
+  },[])
 
   const checkIntArray = (arr) => {
     const check = arr.find((element) => {

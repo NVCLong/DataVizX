@@ -4,6 +4,9 @@ import DataVizX from "../images/DataVizX.png";
 import axios from "axios";
 import ImageUpload from "../components/ImageUpload";
 import ImageDelete from "../components/ImageDelete";
+import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+
 
 const User = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,6 +14,7 @@ const User = () => {
   const [userData, setUserData] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const toggleDropdown = () => setShowDropdown(!showDropdown);
+  const navigate = useNavigate();
 
   const fetchUserData = async () => {
     setIsLoading(true);
@@ -28,8 +32,28 @@ const User = () => {
     }
   };
 
+  const handleVerify = async (e) => {
+    const accessToken= localStorage.getItem("accessToken");
+      const decoded = jwtDecode(accessToken);
+      const expirationTime = decoded.exp * 1000; // Convert to milliseconds
+      const currentTime = Date.now();
+      if (currentTime > expirationTime) {
+      localStorage.clear()
+      navigate("/login")
+    }
+      if(!accessToken){
+        localStorage.clear()
+        navigate("/login")
+      }
+      const verify= await axios.post("http://localhost:3000/verify",{access_token: accessToken})
+      if(verify.data.status==="false"){
+        localStorage.clear()
+        navigate("/login")
+      }
+  }
   useEffect(() => {
-    fetchUserData();
+    handleVerify()
+    fetchUserData()
   }, []);
 
   if (isLoading) {

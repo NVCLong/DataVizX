@@ -10,7 +10,7 @@ module.exports = {
             const payload = {};
             const secret = process.env.ACCESS_TOKEN_SECRET;
             const options = {
-                expiresIn: "1h",
+                expiresIn: 30,
                 issuer: "DataVizX Team",
                 audience: userID,
             };
@@ -28,9 +28,10 @@ module.exports = {
         console.log(token)
         if (token) {
             JWT.verify(token, "secret", (err) => {
-                next();
+                res.json({status:"true"})
             });
         } else {
+            res.json({status:"false"})
         }
     },
 

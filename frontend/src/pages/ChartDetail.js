@@ -19,11 +19,9 @@ import AdvancedOption from "./AdvancedOption";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../Comp_homepage/Button";
 import "../Comp_homepage/Button.css";
+import {jwtDecode} from "jwt-decode";
+import axios from "axios";
 
-const descending = {
-  categories: "b,f,a,d",
-  values: "31,25,21,11",
-};
 
 function Chart() {
   const colorTemplate = [
@@ -202,6 +200,28 @@ function Chart() {
       stand: ObjArr[3],
     });
   };
+  const handleVerify = async (e) => {
+    const accessToken= localStorage.getItem("accessToken");
+      const decoded = jwtDecode(accessToken);
+      const expirationTime = decoded.exp * 1000; // Convert to milliseconds
+      const currentTime = Date.now();
+      if (currentTime > expirationTime) {
+      localStorage.clear()
+      navigate("/login")
+    }
+      if(!accessToken){
+        localStorage.clear()
+        navigate("/login")
+      }
+      const verify= await axios.post("http://localhost:3000/verify",{access_token: accessToken})
+      if(verify.data.status==="false"){
+        localStorage.clear()
+        navigate("/login")
+      }
+  }
+  useEffect(() => {
+    handleVerify()
+  },[])
 
   const fetchSortData = async () => {
     try {

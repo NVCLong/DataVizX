@@ -5,7 +5,7 @@ import FormExtra from "./FormExtra";
 import Input from "./Input";
 import { login } from '../api/api';
 import { useNavigate  } from 'react-router-dom';
-// import Loading from './components/Loading'
+import Loading from '../components/Loading'
 
 const fields=loginFields;
 let fieldsState = {};
@@ -16,13 +16,12 @@ export default function Login(){
     const [loginState,setLoginState]=useState(fieldsState);
     const [error, setError] = useState(null);  // state to handle errors
     const navigate = useNavigate();
-    // const [isLoading, setIsLoading] = useState(false);  // state to handle loading status
+    const [isLoading, setIsLoading] = useState(false);  // state to handle loading status
 
     const handleChange=(e)=>{
         setLoginState({...loginState,[e.target.name]:e.target.value})
     }
     const handleSubmit = async (e) => {
-        // setIsLoading(true);
         e.preventDefault();
         try {
             // eslint-disable-next-line
@@ -36,13 +35,15 @@ export default function Login(){
             // handle failed login here
             alert('Login failed. Please try again.');
         }
-        // setIsLoading(false);
     }
 
 
 
+
+
     return(
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+
+         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
         <div className="-space-y-px">
             {
                 fields.map(field=>
@@ -68,5 +69,6 @@ export default function Login(){
         <FormAction handleSubmit={handleSubmit} text="LOGIN"/>
 
       </form>
+
     )
 }
