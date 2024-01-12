@@ -5,7 +5,6 @@ const {
 } = require("../services/cloudinary");
 
 const userProfileController = {
-
     // [POST] /profile/upload/:id
     async imageUpload(req, res) {
         try {
@@ -52,9 +51,10 @@ const userProfileController = {
 
     // [GET] /profile/:id
     async getUserData(req, res) {
-        
         try {
-            const user = await User.findOne({ _id: req.params.id }).select("userName email imageUrl");
+            const user = await User.findOne({ _id: req.params.id }).select(
+                "userName email imageUrl"
+            );
             res.json(user);
         } catch (error) {
             res.status(400).send(error.message);

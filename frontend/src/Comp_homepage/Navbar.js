@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import './Navbar.css';
-import logoMain from '../images/DataVizX.png';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "./Navbar.css";
+import logoMain from "../images/DataVizX.png";
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -21,24 +21,21 @@ function Navbar() {
     };
 
     showButton();
-    window.addEventListener('resize', showButton);
-
+    window.addEventListener("resize", showButton);
   }, []);
 
   return (
     <>
-      <nav className='navbar'>
-        <div className='navbar-container'>
-          <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
+      <nav className="navbar">
+        <div className="navbar-container">
+          <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
             <img src={logoMain} alt="DataVizX Logo" className="logo_img" />
-            <span style={{ marginLeft: '5px' }}>DataVizX</span>
+            <span style={{ marginLeft: "5px" }}>DataVizX</span>
           </Link>
         </div>
       </nav>
-
     </>
   );
 }
 
 export default Navbar;
-

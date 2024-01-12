@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { forgetFields } from "../constants/formFields";
 import FormAction from "./FormAction";
 import Input from "./Input";
 
 const fields = forgetFields;
 let fieldsState = {};
-fields.forEach(field => fieldsState[field.id] = '');
+fields.forEach((field) => (fieldsState[field.id] = ""));
 
 export default function Forget() {
     const [forgetState, setForgetState] = useState(fieldsState);
@@ -17,7 +17,6 @@ export default function Forget() {
     const handleSubmit = (e) => {
         e.preventDefault();
     };
-
 
     return (
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>

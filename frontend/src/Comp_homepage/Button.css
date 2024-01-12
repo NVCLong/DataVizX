@@ -18,7 +18,7 @@
   transition: all 0.5s ease-out;
   right: 30px;
   top: 30px;
-  justify-content:center ;
+  justify-content: center;
   align-items: center;
   height: 60px;
 }
@@ -29,22 +29,20 @@
   transition: all 0.5s ease-out;
   right: 30px;
   top: 30px;
-  justify-content:center ;
+  justify-content: center;
   align-items: center;
   height: 80px;
   font-weight: 500;
 }
 
-
 .btn--medium {
   padding: 10px 20px;
   font-size: 20px;
-
 }
 
 .btn--large {
-    padding: 12px 26px;
-    font-size: 30px;
+  padding: 12px 26px;
+  font-size: 30px;
 }
 
 .btn--large:hover,
@@ -57,14 +55,13 @@
   transition: 450ms;
 }
 
-.btn--primary:hover{
+.btn--primary:hover {
   transition: all 0.6s ease-out;
   border-radius: 10px;
   border-color: #fff;
   padding: 20px 40px;
   border-radius: 99px;
   transition: 450ms;
-
 }
 
 .btn--outline {
@@ -78,9 +75,9 @@
   top: 0;
   margin-right: 3rem;
   margin-top: 30px;
-  position:absolute;
+  position: absolute;
   display: flex;
-  justify-content:center ;
+  justify-content: center;
   align-items: center;
   height: 60px;
 }

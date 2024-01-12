@@ -35,17 +35,17 @@ const collectionController = {
                     collectionValues.push(newValues);
                 }
             }
-            console.log(collectionValues)
+            console.log(collectionValues);
             const newCollection = await new Collection({
                 name: req.body.name,
                 values: collectionValues,
             });
             newCollection.save();
             const userId = req.body.userId;
-            const userChartList=await chartList.findOne({userId: userId});
+            const userChartList = await chartList.findOne({ userId: userId });
             if (userChartList) {
                 await chartList
-                    .findOne({userId: userId})
+                    .findOne({ userId: userId })
                     .then(function (lists) {
                         lists.DataList.push(newCollection._id);
                         lists.save();
@@ -54,15 +54,23 @@ const collectionController = {
                     .catch(function (err) {
                         console.log(err);
                     });
-                res.json({success: true, message: "add new successfully", chartId: newCollection._id});
-            }else {
-                const newChartList=  new chartList({
-                    userId:userId,
-                    DataList: []
-                })
-                newChartList.DataList.push(newCollection._id)
+                res.json({
+                    success: true,
+                    message: "add new successfully",
+                    chartId: newCollection._id,
+                });
+            } else {
+                const newChartList = new chartList({
+                    userId: userId,
+                    DataList: [],
+                });
+                newChartList.DataList.push(newCollection._id);
                 newChartList.save();
-                res.json({success: true, message: "add and create new successfully", chartId: newCollection._id});
+                res.json({
+                    success: true,
+                    message: "add and create new successfully",
+                    chartId: newCollection._id,
+                });
             }
         } catch (e) {
             console.log(e);
@@ -77,7 +85,7 @@ const collectionController = {
             await Collection.findOne({ _id: req.params.id })
                 .then(function (collection) {
                     let median = algorithm.findMedian(collection.values);
-                    console.log(median)
+                    console.log(median);
                     let colletcionBelowValues = algorithm.groupBelowData(
                         collection.values,
                         median
@@ -111,8 +119,8 @@ const collectionController = {
     // [Patch]   /collection/edit/:id
     async editCollection(req, res) {
         try {
-            console.log(req.body)
-            console.log(req.body.categories)
+            console.log(req.body);
+            console.log(req.body.categories);
             let collectionValues = [];
             let values = req.body.values.split(",").map(function (value) {
                 return parseInt(value, 10);
@@ -121,10 +129,10 @@ const collectionController = {
             for (let i = 0; i < values.length; i++) {
                 collectionValues.push({ category: categories[i], value: values[i] });
             }
-            console.log(collectionValues)
+            console.log(collectionValues);
             await Collection.findOneAndUpdate(
                 { _id: req.params.id },
-                { values: collectionValues, name: req.body.name },
+                { values: collectionValues, name: req.body.name }
             )
                 .then(function (collection) {
                     console.log(collection);
@@ -158,7 +166,10 @@ const collectionController = {
                             }
                         }
                     }
-                    let position = algorithm.findPosition(collection.values, result.node.data);
+                    let position = algorithm.findPosition(
+                        collection.values,
+                        result.node.data
+                    );
                     position.index = array.length - position.index;
                     res.json({ finalResult, position });
                 })
@@ -174,73 +185,87 @@ const collectionController = {
         try {
             await Collection.findById(req.params.id)
                 .then(function (collection) {
-                    console.log(collection)
-                    const max= algorithm.findMax(collection.values)
-                    const min= algorithm.findMin(collection.values)
-                    const median= algorithm.findMedian(collection.values);
-                    console.log(median)
-                    const standardDeviation= algorithm.standardDeviation(collection.values)
+                    console.log(collection);
+                    const max = algorithm.findMax(collection.values);
+                    const min = algorithm.findMin(collection.values);
+                    const median = algorithm.findMedian(collection.values);
+                    console.log(median);
+                    const standardDeviation = algorithm.standardDeviation(
+                        collection.values
+                    );
                     let maxElement;
                     let minElement;
                     for (const element of collection.values) {
-                        if(element.value===max){
-                            maxElement = element
-                        }else if( element.value===min){
-                            minElement = element
+                        if (element.value === max) {
+                            maxElement = element;
+                        } else if (element.value === min) {
+                            minElement = element;
                         }
                     }
-                    res.status(200).json({maxElement, minElement, median, standardDeviation})
-
+                    res
+                        .status(200)
+                        .json({ maxElement, minElement, median, standardDeviation });
                 })
                 .catch(function (err) {
                     console.log(err);
-                    res.status(404).json({ error: err})
-                })
-        }catch (e) {
+                    res.status(404).json({ error: err });
+                });
+        } catch (e) {
             console.log(e);
         }
     },
     // [DELETE] collection/delete/:userId/:id
-    async deleteCollection(req,res){
+    async deleteCollection(req, res) {
         try {
-            console.log(req.params.userId)
-            console.log(req.params.id)
-            await Collection.findOneAndDelete({_id:req.params.id})
-                .then(async (result)=>{
-                    await chartList.findOne({userId: req.params.userId})
-                        .then(async (chartList)=>{
-                            console.log(chartList.DataList)
-                            let newDataList= chartList.DataList.filter((item)=>{
-                                return !item._id.toString().includes(req.params.id)
-                            })
-                            chartList.DataList= newDataList;
-                            chartList.save()
-                            res.status(200).json({status:"success"})
-                        })
+            console.log(req.params.userId);
+            console.log(req.params.id);
+            await Collection.findOneAndDelete({ _id: req.params.id })
+                .then(async (result) => {
+                    await chartList
+                        .findOne({ userId: req.params.userId })
+                        .then(async (chartList) => {
+                            console.log(chartList.DataList);
+                            let newDataList = chartList.DataList.filter((item) => {
+                                return !item._id.toString().includes(req.params.id);
+                            });
+                            chartList.DataList = newDataList;
+                            chartList.save();
+                            res.status(200).json({ status: "success" });
+                        });
                 })
-                .catch((err)=>{
-                    console.log(err)
-                })
-        }catch (e) {
+                .catch((err) => {
+                    console.log(err);
+                });
+        } catch (e) {
             console.log(e);
         }
     },
     //[GET] collection/sort/:id
-    async sortCollection(req,res){
-        try{
+    async sortCollection(req, res) {
+        try {
             await Collection.findById(req.params.id)
-                .then((collection)=>{
-                    const  newArray= collection.values
-                    let arrayDesc= newArray.sort((a,b)=>{return b.value - a.value});
-                    let arrayAsc= newArray.slice().sort((a,b)=>{return a.value - b.value});
-                    res.status(200).send({collectionName: collection.name, sortedCollection: arrayAsc, sortedCollectionDesc: arrayDesc})
-                }).catch(function(e){
-                    console.log(e)
+                .then((collection) => {
+                    const newArray = collection.values;
+                    let arrayDesc = newArray.sort((a, b) => {
+                        return b.value - a.value;
+                    });
+                    let arrayAsc = newArray.slice().sort((a, b) => {
+                        return a.value - b.value;
+                    });
+                    res
+                        .status(200)
+                        .send({
+                            collectionName: collection.name,
+                            sortedCollection: arrayAsc,
+                            sortedCollectionDesc: arrayDesc,
+                        });
                 })
-
-        }catch (e) {
+                .catch(function (e) {
+                    console.log(e);
+                });
+        } catch (e) {
             console.log(e);
         }
-    }
+    },
 };
 module.exports = collectionController;

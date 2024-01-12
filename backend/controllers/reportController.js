@@ -33,9 +33,11 @@ const reportController = {
             console.log(req.body);
             const user = await User.findOne({ userName: req.body.post.username });
             if (!user) {
-               res.status(200).json({ status: true, message: "do not have this user"})
+                res
+                    .status(200)
+                    .json({ status: true, message: "do not have this user" });
             }
-            console.log("this is "+user);
+            console.log("this is " + user);
             const newReport = new Report({
                 userId: user._id,
                 content: req.body.post.content,
@@ -44,7 +46,7 @@ const reportController = {
             newReport.save();
             res.status(200).redirect("/report");
         } catch (e) {
-            console.log("this is error  "+e);
+            console.log("this is error  " + e);
         }
     },
 };

@@ -1,21 +1,21 @@
-const Note = require("../models/note.model")
+const Note = require("../models/note.model");
 
 const noteController = {
     //[Post]  /note/create/:id
     async createNote(req, res) {
         try {
-            const note = await Note.findOne({ chartId: req.params.id })
+            const note = await Note.findOne({ chartId: req.params.id });
             if (note) {
-                res.json({ msg: "already create" })
+                res.json({ msg: "already created" });
             } else {
                 const newNote = {
                     note: req.body.note,
                     chartId: req.params.id,
-                    able: true
-                }
-                const note = new Note(newNote)
-                await note.save()
-                res.status(200).json(note)
+                    able: true,
+                };
+                const note = new Note(newNote);
+                await note.save();
+                res.status(200).json(note);
             }
         } catch (e) {
             console.log(e);
@@ -30,11 +30,10 @@ const noteController = {
                     res.status(200).json(note);
                 })
                 .catch(function (err) {
-                    console.log(err)
-                })
-
+                    console.log(err);
+                });
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
     },
 
@@ -44,35 +43,33 @@ const noteController = {
             const updatedNote = {
                 note: req.body.note,
                 able: true,
-                chartId: req.params.id
-            }
+                chartId: req.params.id,
+            };
             await Note.findOneAndUpdate({ chartId: req.params.id }, updatedNote)
                 .then(async function (note) {
                     await note.save();
-                    res.status(200).json(note)
+                    res.status(200).json(note);
                 })
                 .catch(function (err) {
-                    console.log(err)
-                })
-
+                    console.log(err);
+                });
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
     },
     //[DELETE] /note/delete/:id
-    async deleteNote(req,res){
+    async deleteNote(req, res) {
         try {
-            await Note.findOneAndDelete({chartId: req.params.id})
-                .then(function(){
-                    console.log("success")
-                }).catch(function(err){
-                    console.log(err)
+            await Note.findOneAndDelete({ chartId: req.params.id })
+                .then(function () {
+                    console.log("success");
                 })
-
-        }catch (e){
-            console.log(e)
+                .catch(function (err) {
+                    console.log(err);
+                });
+        } catch (e) {
+            console.log(e);
         }
-    }
-
-}
-module.exports = noteController
+    },
+};
+module.exports = noteController;

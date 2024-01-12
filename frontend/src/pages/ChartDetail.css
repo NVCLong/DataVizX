@@ -7,8 +7,7 @@
   gap: 20px;
 }
 
-
-.nav-header{
+.nav-header {
   margin-bottom: 60px;
 }
 .put_data > .name-input-container {
@@ -19,12 +18,12 @@
   position: static;
 }
 
-.input-name{
+.input-name {
   font-weight: bold;
   margin-bottom: 8px;
 }
 
-.input-field-name{
+.input-field-name {
   padding: 8px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -32,11 +31,10 @@
   width: 275px;
 }
 
-.input-category{
+.input-category {
   font-weight: bold;
   margin-bottom: 8px;
 }
-
 
 .category-input-container {
   margin-bottom: 20px;
@@ -52,20 +50,19 @@
 
 .graph {
   display: flex;
-width: 1150px;
-height: 990px;
-margin: 50px auto;
-justify-items: center;
-justify-content: center;
-padding: 100px;
-border: 3px solid #9b59d1;
-  border-radius:18px;
-background-color: rgba(10,20,30,0.6);
-align-items: center;
-/* max-width: max-content;
+  width: 1150px;
+  height: 990px;
+  margin: 50px auto;
+  justify-items: center;
+  justify-content: center;
+  padding: 100px;
+  border: 3px solid #9b59d1;
+  border-radius: 18px;
+  background-color: rgba(10, 20, 30, 0.6);
+  align-items: center;
+  /* max-width: max-content;
 max-height: max-content; */
 }
-
 
 /* DropdownSelect.css */
 .select-container {
@@ -73,7 +70,6 @@ max-height: max-content; */
   top: 150px;
   left: 40px;
 }
-
 
 p {
   color: aliceblue;
@@ -133,11 +129,10 @@ select {
   padding: 8px;
   font-size: 16px;
   border: 3px solid #9b59d1;
-  border-radius:18px;
+  border-radius: 18px;
   width: 200px;
   /* Tùy chỉnh các thuộc tính khác theo ý muốn */
 }
-
 
 .custom-button {
   padding: 20px 90px;
@@ -152,7 +147,6 @@ select {
   /* Transition effect for hover */
   top: 170px;
   left: 1770px;
-
 }
 
 .custom-button:hover {
@@ -163,13 +157,12 @@ select {
   /* Change background color on hover */
 }
 
-
 .save_data_button {
   padding: 20px 90px;
   font-size: 16px;
   border: none;
   border: 3px solid #9b59d1;
-  border-radius:18px;
+  border-radius: 18px;
   color: #fff;
   color: white;
   cursor: pointer;
@@ -188,8 +181,6 @@ select {
   text-align: center;
 }
 
-
-
 #instruction {
   display: flex;
   justify-content: center;
@@ -199,9 +190,9 @@ select {
   margin: 50px auto;
   padding: 5px;
   border: 3px solid #9b59d1;
-  border-radius:18px;
+  border-radius: 18px;
   background-color: rgba(10, 20, 30, 0.6);
-  text-align: center
+  text-align: center;
 }
 
 #instruction p {

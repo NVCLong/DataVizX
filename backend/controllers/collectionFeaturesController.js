@@ -2,7 +2,7 @@ const Collection = require("../models/collection.model");
 const CollectionSorting = require("../algorithm/CollectionSorting");
 const User = require("../models/user.model");
 const chartList = require("../models/chartlist.model");
-const  hashTable = require("../algorithm/hashTable");
+const hashTable = require("../algorithm/hashTable");
 
 const collectionSortingController = {
     // [GET] /collection/sort/asc/:id
@@ -12,12 +12,10 @@ const collectionSortingController = {
                 .findOne({ userId: req.params.id })
                 .then(async function (results) {
                     if (!results) {
-                        res
-                            .status(200)
-                            .json({
-                                msg: "No collections found, please create a new one!",
-                                success: false,
-                            });
+                        res.status(200).json({
+                            msg: "No collections found, please create a new one!",
+                            success: false,
+                        });
                     } else {
                         const user = await User.findOne({ _id: req.params.id });
                         if (!user) {
@@ -33,10 +31,10 @@ const collectionSortingController = {
                         }
 
                         // Sort by a -> z order
-                        const sortedUserCollectionAsc =
-                            CollectionSorting.sortByAlphabetAsc(
-                                userCollection, "name"
-                            );
+                        const sortedUserCollectionAsc = CollectionSorting.sortByAlphabetAsc(
+                            userCollection,
+                            "name"
+                        );
 
                         res.json({
                             success: true,
@@ -59,12 +57,10 @@ const collectionSortingController = {
                 .findOne({ userId: req.params.id })
                 .then(async function (results) {
                     if (!results) {
-                        res
-                            .status(200)
-                            .json({
-                                msg: "No collections found, please create a new one!",
-                                success: false,
-                            });
+                        res.status(200).json({
+                            msg: "No collections found, please create a new one!",
+                            success: false,
+                        });
                     } else {
                         const user = await User.findOne({ _id: req.params.id });
                         if (!user) {
@@ -81,10 +77,7 @@ const collectionSortingController = {
 
                         // Sort by z -> a order
                         const sortedUserCollectionDesc =
-                            CollectionSorting.sortByAlphabetDesc(
-                                userCollection,
-                                "name"
-                            );
+                            CollectionSorting.sortByAlphabetDesc(userCollection, "name");
 
                         res.json({
                             success: true,
@@ -104,40 +97,43 @@ const collectionSortingController = {
         try {
             console.log(req.body);
             await chartList
-            .findOne({ userId: req.params.id })
-            .then(async function (results) {
-                if (!results) {
-                    res.status(200).json({
-                        msg: "No collections found, please create a new one!",
-                        success: false,
-                    });
-                } else {
-                    const user = await User.findOne({ _id: req.params.id });
-                    if (!user) {
-                        console.log("error");
+                .findOne({ userId: req.params.id })
+                .then(async function (results) {
+                    if (!results) {
+                        res.status(200).json({
+                            msg: "No collections found, please create a new one!",
+                            success: false,
+                        });
+                    } else {
+                        const user = await User.findOne({ _id: req.params.id });
+                        if (!user) {
+                            console.log("error");
+                        }
+
+                        const lists = results;
+                        const listCollection = lists.DataList;
+                        let userCollection = [];
+
+                        for (let collection of listCollection) {
+                            let element = await Collection.findById(collection._id);
+                            userCollection.push(element);
+                        }
+
+                        const searchResult = hashTable.searchByHashTable(
+                            userCollection,
+                            req.body.searchString
+                        );
+
+                        res.json({
+                            success: true,
+                            searchResult: searchResult,
+                        });
                     }
-
-                    const lists = results;
-                    const listCollection = lists.DataList;
-                    let userCollection = [];
-
-                    for(let collection of listCollection){
-                        let element = await Collection.findById(collection._id);
-                        userCollection.push(element);
-                    }
-
-                    const searchResult = hashTable.searchByHashTable(userCollection, req.body.searchString);
-
-                    res.json({
-                        success: true,
-                        searchResult: searchResult
-                    })
-                }
-            })
+                });
         } catch (error) {
-            console.log("error: " + error);;
+            console.log("error: " + error);
         }
-    }
+    },
 };
 
 module.exports = collectionSortingController;

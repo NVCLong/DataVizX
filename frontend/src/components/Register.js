@@ -16,12 +16,7 @@ export default function Register() {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    // console.log(registerState.userName);
-    // console.log(registerState['email']);
-    // console.log(registerState.password);
-    // console.log(e.target.name + e.target.value);
-    setRegisterState({...registerState, [e.target.name]: e.target.value});
-    // console.log(registerState);
+    setRegisterState({ ...registerState, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -40,18 +35,13 @@ export default function Register() {
     } catch (error) {
       console.error(error);
 
-      if (error.response.status === 409) { alert('User already logged in!'); }
+      if (error.response.status === 409) {
+        alert("User already logged in!");
+      }
       // handle failed registration
       alert("Registration failed. Please try again.");
-      // console.log(registerState.userName);
-      // console.log(registerState['email']);
-      // console.log(registerState.password);
     }
   };
-  //  console.log(registerState.userName);
-  //  console.log(registerState['email']);
-  //  console.log(registerState.password);
-  //  console.log(registerState);
 
   return (
     <form className="mt-8 space-y-6" onSubmit={handleSubmit}>

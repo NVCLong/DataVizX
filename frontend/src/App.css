@@ -1,12 +1,9 @@
-
-
-body{
-  background: url('./images/BG2.png') no-repeat center fixed;
+body {
+  background: url("./images/BG2.png") no-repeat center fixed;
   background-size: cover;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  
 }
 
 .products,
@@ -14,8 +11,7 @@ body{
 .resources,
 .enterprise,
 .pricings,
-
-.sign-up{
+.sign-up {
   display: flex;
   height: 90vh;
   align-items: center;

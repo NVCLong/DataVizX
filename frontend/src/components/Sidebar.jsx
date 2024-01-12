@@ -4,7 +4,6 @@ import dashboard_icon from "../images/dashboard_icon.png";
 import feedback_icon from "../images/feedback_icon.png";
 import logout_icon from "../images/logout_icon.png";
 import user_icon from "../images/user_icon.png";
-// import note_icon from "../images/note_icon.png";
 import chatgpt_icon from "../images/chatgpt_icon.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -27,7 +26,7 @@ const Sidebar = () => {
       href: "./feedback",
       onClick: () => setCurrentPageTitle("Feedback"),
     },
-    // { title: "Note", src: note_icon, href: "./note", onClick: () => setCurrentPageTitle("Note")},
+
     {
       title: "User",
       src: user_icon,
