@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const Note = () => {
   const [note, setNote]= useState([])
-  const [eNote, setENote]= useState([])
+
   const [error, setError]= useState([])
   const API='http://localhost:3000'
   const navigate = useNavigate();
@@ -16,24 +16,20 @@ const Note = () => {
 
   const handleInput = (e) => {
     setNote({...note, [e.target.name]: e.target.value})
+    console.log(note)
   }
+
   const handleGetNote= async () => {
     const chartId= localStorage.getItem('chartId')
     try {
       const response= await axios.get(`${API}/note/getNote/${chartId}`)
-      console.log(response.data)
-      setENote(response.data.note);
+      console.log(response.data.note)
+
     }catch (e) {
       setError(e);
     }
   };
-  const showNote =()=>{
-    if(eNote){
-      return eNote
-    }
-    else {return ''}
 
-  }
 
 
   const handleVerify = async (e) => {
@@ -115,8 +111,8 @@ const Note = () => {
           className="flex p-2.5 w-96 shadow-lg rounded-lg text-base bg-slate-900 border-gray-700 text-gray-400 ring-gray-600"
           placeholder="Write your note here..."
           name="note"
-          value={eNote}
           onChange={handleInput}
+
         />
       </div>
 
@@ -126,7 +122,7 @@ const Note = () => {
           className="px-4 py-2 text-base font-medium tracking-wider text-white border-purple-800 rounded-lg focus:z-10 focus:ring-2 dark:bg-purple-600 hover:text-white hover:bg-purple-400 focus:ring-purple-500 focus:text-white"
           onClick={handleSubmit}
         >
-          Submit note
+          Update Note
         </button>
       </div>
     </div>
