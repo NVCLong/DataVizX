@@ -7,6 +7,26 @@
   gap: 20px;
 }
 
+.btn-note button.btn.btn--outline.btn--medium{
+  right: 280px;
+  /* width: 180px; */
+  position: absolute;
+}
+
+.btns{
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+}
+
+.btn-note button.btn.btn--outline.btn--medium:hover{
+  background-color: #fff;
+  color: #9b59d1;
+}
+.btn-chartList button.btn.btn--outline.btn--medium:hover{
+  background-color: #fff;
+  color: #9b59d1;
+}
+
 .nav-header {
   margin-bottom: 60px;
 }

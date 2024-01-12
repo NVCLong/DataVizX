@@ -431,6 +431,17 @@ function Chart() {
       <div className="nav-header">
         <NarBav />
       </div>
+      <div className="btns">
+      <div className="btn-note">
+      <Button
+          className="btns"
+          buttonSize="btn--medium"
+          buttonStyle="btn--outline"
+          linkUrl={"/note"}
+        >
+          Write note
+        </Button>
+      </div>
       <div className="btn-chartList">
         <Button
           className="btns"
@@ -445,6 +456,9 @@ function Chart() {
           Go back to Chart List
         </Button>
       </div>
+      </div>
+     
+      
       <div className="put_data">
         <div className="name-input-container">
           <h2 className="input-name">Input name of Chart:</h2>
