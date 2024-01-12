@@ -174,7 +174,9 @@ const algorithm = {
         for (let i = 0; i < array.length; i++) {
             x = Math.pow((array[i].value - mean), 2);
         }
-        return {sd:Math.sqrt(x / array.length - 1), msg: "This is standard deviation"};
+        console.log(x)
+        console.log(Math.sqrt(x / (array.length - 1)))
+        return {sd:Math.sqrt(x / (array.length - 1)), msg: "This is standard deviation"};
     },
 
 
