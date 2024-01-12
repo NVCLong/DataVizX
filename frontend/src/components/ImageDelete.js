@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 function ImageDelete() {
+  const API = "https://datavizx.onrender.com";
   // eslint-disable-next-line
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -19,7 +20,7 @@ function ImageDelete() {
       const data = new FormData();
       data.append("image", file);
       const res = await axios.post(
-        `http://localhost:3000/user/profile/delete/${userId}`,
+        `${API}/user/profile/delete/${userId}`,
         data
       );
       setRes(res.data);

@@ -11,7 +11,7 @@ const Feedback = () => {
     content: "",
   });
   const [error, setError] = useState(null);
-  const API = "http://localhost:3000";
+  const API = "https://datavizx.onrender.com";
   const navigate = useNavigate();
 
   const handleInput = function (event) {
@@ -41,7 +41,7 @@ const Feedback = () => {
     const currentTime = Date.now();
     if (currentTime > expirationTime) {
       if(currentTime < refreshExpireTime){
-         await axios.post("http://localhost:3000/verify/refresh",{refreshToken:refreshToken, userId: userId})
+         await axios.post(`${API}/verify/refresh`,{refreshToken:refreshToken, userId: userId})
              .then(response =>{
               //  console.log(response.data)
                localStorage.setItem('accessToken', response.data.newAccessToken)
@@ -59,7 +59,7 @@ const Feedback = () => {
       navigate("/login")
     }else {
       accessToken = localStorage.getItem("accessToken")
-      const verify = await axios.post("http://localhost:3000/verify", {access_token: accessToken})
+      const verify = await axios.post(`${API}/verify`, {access_token: accessToken})
       if (verify.data.status === "false") {
         localStorage.clear()
         navigate("/login")

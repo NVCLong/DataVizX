@@ -9,6 +9,7 @@ import { jwtDecode } from "jwt-decode";
 
 
 const ChatDVX = () => {
+  const API = 'https://datavizx.onrender.com';
   const [messages, setMessages] = useState([]);
   const navigate = useNavigate();
 
@@ -30,7 +31,7 @@ const ChatDVX = () => {
     const currentTime = Date.now();
     if (currentTime > expirationTime) {
       if(currentTime < refreshExpireTime){
-         await axios.post("http://localhost:3000/verify/refresh",{refreshToken:refreshToken, userId: userId})
+         await axios.post(`${API}/verify/refresh`,{refreshToken:refreshToken, userId: userId})
              .then(response =>{
               //  console.log(response.data)
                localStorage.setItem('accessToken', response.data.newAccessToken)
@@ -48,7 +49,7 @@ const ChatDVX = () => {
       navigate("/login")
     }else {
       accessToken = localStorage.getItem("accessToken")
-      const verify = await axios.post("http://localhost:3000/verify", {access_token: accessToken})
+      const verify = await axios.post(`${API}/verify`, {access_token: accessToken})
       if (verify.data.status === "false") {
         localStorage.clear()
         navigate("/login")

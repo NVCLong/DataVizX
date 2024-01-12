@@ -165,8 +165,8 @@ td {
 }
 
 #instruction p {
-  font-size: 25px; /* Adjust font size as needed */
-  line-height: 1.5; /* Adjust line height as needed */
+  font-size: 15px; /* Adjust font size as needed */
+  line-height: 1; /* Adjust line height as needed */
   display: inline-block;
   margin: auto 50px;
   text-align: center;

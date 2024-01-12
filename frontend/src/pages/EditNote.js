@@ -9,10 +9,10 @@ import { useNavigate } from "react-router-dom";
 
 const EditNote = () => {
     const [note, setNote] = useState([])
-    
+
 
     const [error, setError] = useState([])
-    const API = 'http://localhost:3000'
+    const API = 'https://datavizx.onrender.com'
     const navigate = useNavigate();
 
 
@@ -37,19 +37,6 @@ const EditNote = () => {
         };
     }
 
-        //   const handleGetNote= async () => {
-        //     const chartId= localStorage.getItem('chartId')
-        //     try {
-        //       const response= await axios.get(`${API}/note/getNote/${chartId}`)
-        //       console.log(response.data.note)
-
-        //     }catch (e) {
-        //       setError(e);
-        //     }
-        //   };
-
-
-
         const handleVerify = async (e) => {
             const userId = localStorage.getItem("userId");
             let accessToken = localStorage.getItem("accessToken");
@@ -61,12 +48,11 @@ const EditNote = () => {
             const currentTime = Date.now();
             if (currentTime > expirationTime) {
                 if (currentTime < refreshExpireTime) {
-                    await axios.post("http://localhost:3000/verify/refresh", { refreshToken: refreshToken, userId: userId })
+                    await axios.post(`${API}/verify/refresh`, { refreshToken: refreshToken, userId: userId })
                         .then(response => {
-                            //  console.log(response.data)
                             localStorage.setItem('accessToken', response.data.newAccessToken)
                         }).catch(error => {
-                            //  console.log(error)
+
                         })
                 } else {
                     localStorage.clear()
@@ -74,12 +60,12 @@ const EditNote = () => {
                 }
             }
             if (!accessToken) {
-                // console.log("access token expried")
+
                 localStorage.clear()
                 navigate("/login")
             } else {
                 accessToken = localStorage.getItem("accessToken")
-                const verify = await axios.post("http://localhost:3000/verify", { access_token: accessToken })
+                const verify = await axios.post(`${API}/verify`, { access_token: accessToken })
                 if (verify.data.status === "false") {
                     localStorage.clear()
                     navigate("/login")

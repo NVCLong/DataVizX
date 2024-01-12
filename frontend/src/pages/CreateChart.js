@@ -11,12 +11,14 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
 function Chart() {
+  const API = "https://datavizx.onrender.com";
   const [inputValue, setInputValue] = useState("");
   const [inputCategory, setInputCategory] = useState("");
   const [inputName, setInputName] = useState("");
 
   const [intArr, setIntArr] = useState(inputValue.split(",").map(Number));
   const [labelsChart, setLabelsChart] = useState([]);
+
 
   let [buttonPressed, setButtonPressed] = useState(false);
 
@@ -54,7 +56,7 @@ function Chart() {
     const currentTime = Date.now();
     if (currentTime > expirationTime) {
       if (currentTime < refreshExpireTime) {
-        await axios.post("http://localhost:3000/verify/refresh", { refreshToken: refreshToken, userId: userId })
+        await axios.post(`${API}/verify/refresh`, { refreshToken: refreshToken, userId: userId })
           .then(response => {
             //  console.log(response.data)
             localStorage.setItem('accessToken', response.data.newAccessToken)
@@ -72,7 +74,7 @@ function Chart() {
       navigate("/login")
     } else {
       accessToken = localStorage.getItem("accessToken")
-      const verify = await axios.post("http://localhost:3000/verify", { access_token: accessToken })
+      const verify = await axios.post(`${API}/verify`, { access_token: accessToken })
       if (verify.data.status === "false") {
         localStorage.clear()
         navigate("/login")
@@ -272,16 +274,16 @@ function Chart() {
       </div>
       <div id="instruction">
         <p>
-        Data/value:<br></br>
+        Data/value:
               Enter positive integers only, separated by commas.<br></br>
               No letters or special characters allowed.<br></br>
               <br></br>
-        Label of each data/value:<br></br>
+        Label of each data/value:
               Enter corresponding labels for each data point, separated by commas.<br></br>
               Replace spaces with underscores (_).<br></br>
               Avoid accented characters.<br></br>
               <br></br>
-        Important!!!<br></br>
+        Important:
               Number of data points must match number of labels.<br></br>
               Match each data point with its corresponding label.<br></br>
         </p>

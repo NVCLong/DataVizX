@@ -24,7 +24,7 @@ import axios from "axios";
 
 
 function Chart() {
-  const API = 'http://localhost:3000'
+  const API = 'https://datavizx.onrender.com'
 
   const colorTemplate = [
     "#FF6633",
@@ -208,7 +208,7 @@ function Chart() {
     const currentTime = Date.now();
     if (currentTime > expirationTime) {
       if(currentTime < refreshExpireTime){
-         await axios.post("http://localhost:3000/verify/refresh",{refreshToken:refreshToken, userId: userId})
+         await axios.post(`${API}/verify/refresh`,{refreshToken:refreshToken, userId: userId})
              .then(response =>{
                localStorage.setItem('accessToken', response.data.newAccessToken)
              }).catch(error =>{
@@ -223,7 +223,7 @@ function Chart() {
       navigate("/login")
     }else {
       accessToken = localStorage.getItem("accessToken")
-      const verify = await axios.post("http://localhost:3000/verify", {access_token: accessToken})
+      const verify = await axios.post("http://localhost:5000/verify", {access_token: accessToken})
       if (verify.data.status === "false") {
         localStorage.clear()
         navigate("/login")
@@ -467,8 +467,8 @@ function Chart() {
         </Button>
       </div>
       </div>
-     
-      
+
+
       <div className="put_data">
         <div className="name-input-container">
           <h2 className="input-name">Input name of Chart:</h2>

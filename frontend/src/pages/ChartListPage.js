@@ -13,6 +13,7 @@ Chart.defaults.layout.padding = 20;
 Chart.defaults.color = "#fff";
 
 function ChartListPage() {
+  const API = "https://datavizx.onrender.com";
   const [searchData, setSearchData] = useState([]);
   const [chartData, setChartData] = useState([]);
   const [chartName, setChartName] = useState([]);
@@ -30,7 +31,7 @@ function ChartListPage() {
         throw new Error("Do not have userId");
       }
       const response = await axios.get(
-        `http://localhost:3000/chartList/asc/${userId}`
+        `${API}/chartList/asc/${userId}`
       );
       // console.log(response.data);
 
@@ -53,7 +54,7 @@ function ChartListPage() {
         throw new Error("Do not have userId");
       }
       const response = await axios.get(
-        `http://localhost:3000/chartList/desc/${userId}`
+        `${API}/chartList/desc/${userId}`
       );
       // console.log(response.data);
 
@@ -79,7 +80,7 @@ function ChartListPage() {
     try {
       const userId = localStorage.getItem("userId");
       const response = await axios.post(
-        `http://localhost:3000/chartList/search/${userId}`,
+        `${API}/chartList/search/${userId}`,
         searchData
       );
       // console.log(response.data.searchResult);
@@ -108,7 +109,7 @@ function ChartListPage() {
       const currentTime = Date.now();
       if (currentTime > expirationTime) {
         if (currentTime < refreshExpireTime) {
-          await axios.post("http://localhost:3000/verify/refresh", { refreshToken: refreshToken, userId: userId })
+          await axios.post(`${API}/verify/refresh`, { refreshToken: refreshToken, userId: userId })
             .then(response => {
               //  console.log(response.data)
               localStorage.setItem('accessToken', response.data.newAccessToken)
@@ -126,7 +127,7 @@ function ChartListPage() {
         navigate("/login")
       } else {
         accessToken = localStorage.getItem("accessToken")
-        const verify = await axios.post("http://localhost:3000/verify", { access_token: accessToken })
+        const verify = await axios.post(`${API}/verify`, { access_token: accessToken })
         if (verify.data.status === "false") {
           localStorage.clear()
           navigate("/login")
@@ -135,7 +136,7 @@ function ChartListPage() {
       //verify
 
       const response = await axios.get(
-        `http://localhost:3000/chartList/${userId}`
+        `${API}/chartList/${userId}`
       );
 
       const allChartID = response.data.chartlist.DataList.map(
@@ -433,7 +434,7 @@ function ChartListPage() {
                         alert("User not found");
                       }
                       await axios.delete(
-                        `http://localhost:3000/collection/delete/${userId}/${chartID[index]}`
+                        `${API}/collection/delete/${userId}/${chartID[index]}`
                       );
                       window.location.reload(true);
                     } catch (e) {

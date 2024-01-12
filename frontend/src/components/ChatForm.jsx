@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 const ChatForm = ({ responseGenerate }) => {
-  const API='http://localhost:3000'
+  const API='https://datavizx.onrender.com'
   const [inputText, setInputText] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -16,10 +16,7 @@ const ChatForm = ({ responseGenerate }) => {
   const handleSubmit = async (e) => {
     setIsLoading(true);
     try {
-      // console.log(inputText)
       const response = await axios.post(`${API}/support/post`, {inputText});
-      // console.log(response)
-
       responseGenerate(inputText, setInputText, response.data );
     } catch (error) {
       setError(error);

@@ -17,7 +17,7 @@ function ImageUpload() {
       const data = new FormData();
       data.append("image", file);
       const res = await axios.post(
-        `http://localhost:3000/user/profile/upload/${userId}`,
+        `http://localhost:5000/user/profile/upload/${userId}`,
         data
       );
       setRes(res.data);

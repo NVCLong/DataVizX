@@ -11,7 +11,7 @@ const CreateNote = () => {
   const [note, setNote]= useState([])
 
   const [error, setError]= useState([])
-  const API='http://localhost:3000'
+  const API='https://datavizx.onrender.com'
   const navigate = useNavigate();
 
 
@@ -20,7 +20,7 @@ const CreateNote = () => {
     console.log(note)
   }
 
- 
+
 
   const handleGetNote= async () => {
     const chartId= localStorage.getItem('chartId')
@@ -51,7 +51,7 @@ const CreateNote = () => {
     const currentTime = Date.now();
     if (currentTime > expirationTime) {
       if(currentTime < refreshExpireTime){
-         await axios.post("http://localhost:3000/verify/refresh",{refreshToken:refreshToken, userId: userId})
+         await axios.post(`${API}/verify/refresh`,{refreshToken:refreshToken, userId: userId})
              .then(response =>{
               //  console.log(response.data)
                localStorage.setItem('accessToken', response.data.newAccessToken)
@@ -64,12 +64,11 @@ const CreateNote = () => {
       }
     }
     if(!accessToken){
-      // console.log("access token expried")
       localStorage.clear()
       navigate("/login")
     }else {
       accessToken = localStorage.getItem("accessToken")
-      const verify = await axios.post("http://localhost:3000/verify", {access_token: accessToken})
+      const verify = await axios.post(`${API}/verify`, {access_token: accessToken})
       if (verify.data.status === "false") {
         localStorage.clear()
         navigate("/login")
@@ -93,7 +92,7 @@ const CreateNote = () => {
       setError(e)
     }
   }
-  
+
   useEffect(() => {
     handleGetNote()
   }, []);

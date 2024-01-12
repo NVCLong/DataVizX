@@ -9,6 +9,7 @@ import { jwtDecode } from "jwt-decode";
 import Loading from "../components/Loading";
 
 const User = () => {
+  const API = "https://datavizx.onrender.com";
   const [isLoadingPage, setIsLoadingPage] = useState(false);
   const [error, setError] = useState(null);
   const [userData, setUserData] = useState(null);
@@ -23,7 +24,7 @@ const User = () => {
       if (!userId) {
         throw new Error("Do not have userId");
       }
-      const response = await axios.get(`http://localhost:3000/user/${userId}`);
+      const response = await axios.get(`${API}/user/${userId}`);
       setUserData(response.data);
     } catch (error) {
       setError(error);
@@ -45,7 +46,7 @@ const User = () => {
     const currentTime = Date.now();
     if (currentTime > expirationTime) {
       if (currentTime < refreshExpireTime) {
-        await axios.post("http://localhost:3000/verify/refresh", { refreshToken: refreshToken, userId: userId })
+        await axios.post(`${API}/verify/refresh`, { refreshToken: refreshToken, userId: userId })
           .then(response => {
             //  console.log(response.data)
             localStorage.setItem('accessToken', response.data.newAccessToken)
@@ -63,7 +64,7 @@ const User = () => {
       navigate("/login")
     } else {
       accessToken = localStorage.getItem("accessToken")
-      const verify = await axios.post("http://localhost:3000/verify", { access_token: accessToken })
+      const verify = await axios.post(`${API}/verify`, { access_token: accessToken })
       if (verify.data.status === "false") {
         localStorage.clear()
         navigate("/login")

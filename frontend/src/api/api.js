@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "http://localhost:3000";
+const API_URL = "https://datavizx.onrender.com";
 
 // Login function
 export const login = async (identifier, password) => {
@@ -23,7 +23,7 @@ export const login = async (identifier, password) => {
 export const register = async (userName, email, password) => {
   try {
     const response = await axios.post(
-      `http://localhost:3000/auth/register`,
+      `${API_URL}/auth/register`,
       { userName, email, password }
     );
     return response.data;
@@ -43,49 +43,3 @@ export const forgetPassword = async (email) => {
     throw error;
   }
 };
-
-//ChartList function
-// export const chartList = async () => {
-//   try {
-//     // let accessToken = localStorage.getItem("accessToken")
-//     let userId = localStorage.getItem("userId");
-//     if (!userId) {
-//       throw new Error("Do not have userId");
-//     }
-//     await axios
-//       .get(`http://localhost:3000/chartList/${userId}`)
-//       .then((response) => {
-//         console.log(response);
-//         return response.data;
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   } catch (error) {
-//     console.error(error);
-//     throw error;
-//   }
-// };
-
-//Get user image function
-// export const User = async () => {
-//   try {
-//     // let accessToken = localStorage.getItem("accessToken")
-//     let userId = localStorage.getItem("userId");
-//     if (!userId) {
-//       throw new Error("Do not have userId");
-//     }
-//     await axios
-//       .get(`http://localhost:3000/user/${userId}`)
-//       .then((response) => {
-//         console.log(response);
-//         return response.data;
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   } catch (error) {
-//     console.error(error);
-//     throw error;
-//   }
-// };
