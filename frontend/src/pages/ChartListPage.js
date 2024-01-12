@@ -173,7 +173,7 @@ function ChartListPage() {
       // Create the gradient
       const gradient = ctx.createLinearGradient(0, 0, 0, 200);
       gradient.addColorStop(0, "RGBA(188,1,189,1)"); //top
-      
+
       gradient.addColorStop(0.5, "RGBA(182,1,184,0.6)"); // 2nd  middle
 
       gradient.addColorStop(1, "RGBA(250,206,251,0.5"); //bottom;
@@ -335,7 +335,7 @@ function ChartListPage() {
                 type="search"
                 id="default-search"
                 className=" w-96 p-3.5 ps-5 text-lg border text-gray-400 transition duration-300 transform bg-gray-800 border-gray-600 rounded-lg focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-11 active:bg-gray-700"
-                placeholder="Search..."
+                placeholder="Search chart..."
                 required
                 name="searchString"
                 onChange={(e) => handleSearch(e)}
@@ -349,10 +349,10 @@ function ChartListPage() {
               </button>
             </div>
             {activeSearch.length > 0 && (
-              <div className="absolute flex flex-col w-full gap-2 text-gray-400 transition duration-300 transform -translate-x-1/2 border-gray-600 top-20 rounded-xl left-1/2 hover:text-white space-y-0">
+              <div className="absolute flex flex-col w-full gap-2 space-y-0 text-gray-400 transition duration-300 transform -translate-x-1/2 border-gray-600 top-20 rounded-xl left-1/2 hover:text-white">
                 {activeSearch.map((s) => (
                   <div
-                    className="w-full gap-2 p-4 bg-slate-800 text-gray-400 transition duration-300 transform border-gray-600 top-20 rounded-xl left-1/2 hover:text-white hover:bg-gray-700 hover:scale-110"
+                    className="w-full gap-2 p-4 text-gray-400 transition duration-300 transform border-gray-600 bg-slate-800 top-20 rounded-xl left-1/2 hover:text-white hover:bg-gray-700 hover:scale-110"
                     onClick={() => {
                       localStorage.setItem("chartId", s._id);
                       navigate("/chartDetail");
@@ -413,7 +413,7 @@ function ChartListPage() {
               <div className="absolute inline-flex rounded-md shadow-sm right-5 bottom-5">
                 <button
                   type="button"
-                  className="px-4 py-2 text-sm font-medium text-white transition duration-300 transform bg-purple-600 border border-purple-800 rounded-s-lg focus:z-10 focus:ring-2 hover:text-white hover:bg-purple-400 focus:ring-blue-500 focus:text-white hover:scale-110"
+                  className="px-4 py-2 text-sm font-medium text-white transition duration-300 transform bg-purple-600 border border-purple-800 rounded-s-lg focus:z-10 focus:ring-2 hover:text-white hover:bg-purple-400 focus:ring-purple-400 focus:text-white hover:scale-110"
                   onClick={(e) => {
                     e.preventDefault();
                     localStorage.setItem("chartId", chartID[index]);
@@ -425,7 +425,7 @@ function ChartListPage() {
 
                 <button
                   type="button"
-                  className="px-4 py-2 text-sm font-medium text-white transition duration-300 transform bg-purple-600 border border-purple-800 rounded-e-lg focus:z-10 focus:ring-2 hover:text-white hover:bg-purple-400 focus:ring-blue-500 focus:text-white hover:scale-110"
+                  className="px-4 py-2 text-sm font-medium text-white transition duration-300 transform bg-purple-600 border border-purple-800 rounded-e-lg focus:z-10 focus:ring-2 hover:text-white hover:bg-purple-400 focus:ring-purple-400 focus:text-white hover:scale-110"
                   onClick={async () => {
                     try {
                       const userId = localStorage.getItem("userId");

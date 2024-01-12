@@ -4,6 +4,7 @@ import { Button } from './Button';
 import './HeroSection.css';
 // import { Link } from 'react-router-dom';
 
+
 function HeroSection() {
   return (
     <div className='hero-container'>
@@ -17,7 +18,7 @@ function HeroSection() {
           // onClick={console.log('hey')}
           linkUrl={"/login"}
         >
-           SIGN IN NOW <i className="fas fa-sign-in-alt" />
+           SIGN IN NOW ↪
         </Button>
       </div>
     </div>
