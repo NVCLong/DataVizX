@@ -5,7 +5,7 @@ import { Line } from "react-chartjs-2";
 import Sidebar from "../components/Sidebar";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 Chart.defaults.font.size = 16;
 Chart.defaults.font.family = "'SF Pro Display', sans-serif";
@@ -99,34 +99,34 @@ function ChartListPage() {
         throw new Error("Do not have userId");
       }
       // verify
-      let accessToken= localStorage.getItem("accessToken");
-      const refreshToken= localStorage.getItem("refreshToken");
+      let accessToken = localStorage.getItem("accessToken");
+      const refreshToken = localStorage.getItem("refreshToken");
       const decoded = jwtDecode(accessToken);
-      const refreshDecoded= jwtDecode(refreshToken);
-      const refreshExpireTime = refreshDecoded.exp*1000;
+      const refreshDecoded = jwtDecode(refreshToken);
+      const refreshExpireTime = refreshDecoded.exp * 1000;
       const expirationTime = decoded.exp * 1000; // Convert to milliseconds
       const currentTime = Date.now();
       if (currentTime > expirationTime) {
-        if(currentTime < refreshExpireTime){
-           await axios.post("http://localhost:3000/verify/refresh",{refreshToken:refreshToken, userId: userId})
-               .then(response =>{
-                //  console.log(response.data)
-                 localStorage.setItem('accessToken', response.data.newAccessToken)
-               }).catch(error =>{
-                //  console.log(error)
-               })
+        if (currentTime < refreshExpireTime) {
+          await axios.post("http://localhost:3000/verify/refresh", { refreshToken: refreshToken, userId: userId })
+            .then(response => {
+              //  console.log(response.data)
+              localStorage.setItem('accessToken', response.data.newAccessToken)
+            }).catch(error => {
+              //  console.log(error)
+            })
         } else {
           localStorage.clear()
           navigate("/login")
         }
       }
-      if(!accessToken){
+      if (!accessToken) {
         // console.log("access token expried")
         localStorage.clear()
         navigate("/login")
-      }else {
+      } else {
         accessToken = localStorage.getItem("accessToken")
-        const verify = await axios.post("http://localhost:3000/verify", {access_token: accessToken})
+        const verify = await axios.post("http://localhost:3000/verify", { access_token: accessToken })
         if (verify.data.status === "false") {
           localStorage.clear()
           navigate("/login")
@@ -173,9 +173,9 @@ function ChartListPage() {
       // Create the gradient
       const gradient = ctx.createLinearGradient(0, 0, 0, 200);
       gradient.addColorStop(0, "RGBA(188,1,189,1)"); //top
-      // gradient.addColorStop(0.25, "#E55986"); // 1st middle
+      
       gradient.addColorStop(0.5, "RGBA(182,1,184,0.6)"); // 2nd  middle
-      // gradient.addColorStop(0.75, "#CC5188"); // 3rd middle
+
       gradient.addColorStop(1, "RGBA(250,206,251,0.5"); //bottom;
 
       return {
@@ -252,8 +252,8 @@ function ChartListPage() {
     return (
 
       <Loading isLoadingPage={isLoading}
-                delayTime={500000}
-                >
+        delayTime={500000}
+      >
         <div>
           <div className="flex">
             <div className="#">
