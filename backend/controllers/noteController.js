@@ -3,7 +3,7 @@ const Note = require("../models/note.model");
 const noteController = {
     //[Post]  /note/create/:id
     async createNote(req, res) {
-        console.log("this is note: " +req.body.note);
+        console.log("this is note: " + req.body.note);
         // console.log(req.params.id)
         try {
             const note = await Note.findOne({ chartId: req.params.id });
@@ -50,7 +50,7 @@ const noteController = {
             };
             await Note.findOneAndUpdate({ chartId: req.params.id }, updatedNote)
                 .then(async function (note) {
-                    await note.save();
+                    note.save();
                     res.status(200).json(note);
                 })
                 .catch(function (err) {
