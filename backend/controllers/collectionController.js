@@ -193,6 +193,7 @@ const collectionController = {
                     const standardDeviation = algorithm.standardDeviation(
                         collection.values
                     );
+                    console.log(standardDeviation)
                     let maxElement;
                     let minElement;
                     for (const element of collection.values) {

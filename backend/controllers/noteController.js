@@ -3,6 +3,8 @@ const Note = require("../models/note.model");
 const noteController = {
     //[Post]  /note/create/:id
     async createNote(req, res) {
+        console.log("this is note: " +req.body.note);
+        // console.log(req.params.id)
         try {
             const note = await Note.findOne({ chartId: req.params.id });
             if (note) {
@@ -15,6 +17,7 @@ const noteController = {
                 };
                 const note = new Note(newNote);
                 await note.save();
+
                 res.status(200).json(note);
             }
         } catch (e) {
