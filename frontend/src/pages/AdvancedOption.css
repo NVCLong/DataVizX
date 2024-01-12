@@ -11,7 +11,9 @@
     margin: 20px;
 }
 
-
+.select-dropdown{
+    border-radius: 18px;
+}
 
 .static_button:hover{
     background-color: #712fffa1;
