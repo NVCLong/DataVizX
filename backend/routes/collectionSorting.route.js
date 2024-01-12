@@ -5,6 +5,6 @@ const jwt_helpers = require('../helpers/jwt_helper')
 
 router.get("/asc/:id", collectionFeaturesController.performSortAsc);
 router.get("/desc/:id", collectionFeaturesController.performSortDesc);
-router.post("/search/:id", collectionFeaturesController.performSerach);
+router.post("/search/:id", collectionFeaturesController.performSearch);
 
 module.exports = router;

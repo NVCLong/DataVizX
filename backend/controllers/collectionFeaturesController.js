@@ -100,8 +100,9 @@ const collectionSortingController = {
         }
     },
 
-    async performSerach(req, res) {
+    async performSearch(req, res) {
         try {
+            console.log(req.body);
             await chartList
             .findOne({ userId: req.params.id })
             .then(async function (results) {
@@ -115,7 +116,7 @@ const collectionSortingController = {
                     if (!user) {
                         console.log("error");
                     }
-                    
+
                     const lists = results;
                     const listCollection = lists.DataList;
                     let userCollection = [];

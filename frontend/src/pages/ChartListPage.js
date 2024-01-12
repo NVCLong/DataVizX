@@ -4,6 +4,7 @@ import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import Sidebar from "../components/Sidebar";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 Chart.defaults.font.size = 16;
 Chart.defaults.font.family = "'SF Pro Display', sans-serif";
@@ -11,12 +12,60 @@ Chart.defaults.layout.padding = 20;
 Chart.defaults.color = "#fff";
 
 function ChartListPage() {
+  const [searchData, setSearchData] = useState([]);
   const [chartData, setChartData] = useState([]);
   const [chartName, setChartName] = useState([]);
   const [chartID, setChartID] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [activeSearch, setActiveSearch] = useState([]);
+  const [sort, setSort] = useState(false);
   const navigate = useNavigate();
+
+  const handleSort = async () => {
+    try {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        throw new Error("Do not have userId");
+      }
+      const response = await axios.get(
+        `http://localhost:3000/chartList/asc/${userId}`
+      );
+      console.log(response.data);
+
+      const allChartID = response.data.collectionAsc.map((item) => item._id);
+      setChartID(allChartID);
+      const allChartData = response.data.collectionAsc.map(
+        (item) => item.values
+      );
+      setChartData(allChartData);
+      const allChartName = response.data.collectionAsc.map((item) => item.name);
+      setChartName(allChartName);
+      navigate("/createChart")
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const handleSearch = async (e) => {
+    setSearchData({ searchString: e.target.value });
+  };
+
+  const handleSearchSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const userId = localStorage.getItem("userId");
+      const response = await axios.post(
+        `http://localhost:3000/chartList/search/${userId}`,
+        searchData
+      );
+      console.log(response.data.searchResult);
+      setActiveSearch(response.data.searchResult);
+      console.log(activeSearch);
+    } catch (error) {
+      setError(error);
+    }
+  };
 
   const fetchChartData = async () => {
     setIsLoading(true);
@@ -140,22 +189,27 @@ function ChartListPage() {
 
   if (isLoading) {
     return (
-      <div>
-        <div className="flex">
-          <div className="#">
-            <Sidebar />
+
+      <Loading isLoadingPage={isLoading}
+                delayTime={500000}
+                >
+        <div>
+          <div className="flex">
+            <div className="#">
+              <Sidebar />
+            </div>
+            <div className="pr-10 mx-auto pt-96">
+              <button
+                type="button"
+                onClick={() => navigate("/createChart")}
+                class="flex justify-center items-center py-2.5 px-5 me-2 mb-2 text-3xl font-bold w-72 h-16 focus:outline-none rounded-lg border  focus:z-10 focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700 transition duration-300 transform hover:scale-110"
+              >
+                + Add new chart
+              </button>
+            </div>
           </div>
-          <div className="pr-10 mx-auto pt-96">
-            <button
-              type="button"
-              onClick={() => navigate("/createChart")}
-              class="flex justify-center items-center py-2.5 px-5 me-2 mb-2 text-3xl font-bold w-72 h-16 focus:outline-none rounded-lg border  focus:z-10 focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700 transition duration-300 transform hover:scale-110"
-            >
-              + Add new chart
-            </button>
-          </div>
-        </div>
-      </div>
+        </div>{" "}
+      </Loading>
     );
   }
 
@@ -186,9 +240,9 @@ function ChartListPage() {
         <Sidebar />
       </div>
 
-      <div className="">
+      <div className="" id="header">
         <div
-          className="fixed z-50 p-4 transition duration-300 transform -translate-x-1/2 top-4 left-1/2 hover:scale-110"
+          className="fixed z-50 p-4 transition duration-300 transform -translate-x-1/2 top-2 left-1/2 hover:scale-110"
           id="SearchBar"
         >
           <form>
@@ -223,17 +277,49 @@ function ChartListPage() {
                 class=" w-96 p-3.5 ps-5 text-lg border text-gray-400 transition duration-300 transform bg-gray-800 border-gray-600 rounded-lg focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-11"
                 placeholder="Search..."
                 required
+                name="searchString"
+                onChange={(e) => handleSearch(e)}
               />
               <button
                 type="submit"
-                class="text-white absolute end-2.5 bottom-2.5 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+                class="text-white absolute end-2.5 bottom-2.5 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 bg-purple-600 hover:bg-purple-400 focus:ring-purple-800"
+                onClick={handleSearchSubmit}
               >
                 Search
               </button>
             </div>
+            {activeSearch.length > 0 && (
+              <div className="absolute flex flex-col w-full gap-2 p-4 text-gray-400 transition duration-300 transform -translate-x-1/2 border-gray-600 top-3 bg-slate-800 rounded-xl left-1/2 hover:text-white hover:bg-gray-700 hover:scale-110">
+                {activeSearch.map((s) => (
+                  <span
+                    className=""
+                    onClick={() => {
+                      localStorage.setItem("chartId", s._id);
+                      navigate("/chartDetail");
+                    }}
+                  >
+                    {s.name}
+                  </span>
+                ))}
+              </div>
+            )}
           </form>
         </div>
-        <div className="fixed z-50 p-4 top-11 right-11" id="AddChartButton">
+
+        <div className="fixed z-50 p-4 top-3.5 left-36" id="SortingButton">
+          <button
+            type="button"
+            onClick={() => {
+              handleSort()
+
+            }}
+            className="w-20 px-0 py-0 mb-0 text-xl font-bold text-gray-400 transition duration-300 transform bg-gray-800 border border-gray-600 rounded-lg me-0 h-11 focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-110"
+          >
+            Sort
+          </button>
+        </div>
+
+        <div className="fixed z-50 p-4 top-3.5 right-11" id="AddChartButton">
           <button
             type="button"
             onClick={() => navigate("/createChart")}

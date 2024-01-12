@@ -42,7 +42,7 @@ const User = () => {
         <div className="#">
           <Sidebar />
         </div>
-        <div className="pt-96 pr-10 mx-auto">
+        <div className="pr-10 mx-auto pt-96">
           <div className="flex justify-center items-center py-2.5 px-5 me-2 mb-2 text-xl font-semibold w-auto h-auto focus:outline-none rounded-lg border  focus:z-10 focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700">
             <h1>Error: {error.message}</h1>
           </div>
@@ -64,17 +64,17 @@ const User = () => {
       <div className="pt-40 pr-10 mx-auto" id="mainClass">
         <div className="mx-auto">
           <div>
-            <div className="bg-white relative shadow rounded-lg mx-auto pb-3 w-80">
+            <div className="relative pb-3 mx-auto bg-white rounded-lg shadow w-80">
               <div className="flex justify-center pb-10">
                 <img
                   src={userData.imageUrl ? userData.imageUrl : DataVizX}
                   alt="logoMain"
-                  className="object-cover rounded-full mx-auto absolute -top-20 w-56 h-56 shadow-2xl border-4 border-white transition duration-300 transform hover:scale-110"
+                  className="absolute object-cover w-56 h-56 mx-auto transition duration-300 transform border-4 border-white rounded-full shadow-2xl -top-20 hover:scale-110"
                 />
               </div>
 
               <div>
-                <div className="flex justify-center pt-36 pb-0">
+                <div className="flex justify-center pb-0 pt-36">
                   <button
                     onClick={toggleDropdown}
                     className={`cursor-pointer px-3.5 py-1.5 text-base border-none rounded focus:z-10 focus:ring-2 ${
@@ -90,38 +90,38 @@ const User = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 10 6"
-                      >
+                    >
                       <path
                         stroke="currentColor"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="2"
                         d="m1 1 4 4 4-4"
-                        />
+                      />
                     </svg>
-                        {/* {showDropdown && ( */}
-                          <div className=" justify-center items-center z-10 w-48 ">
-                                <div className="space-y-0">
-                                  <ImageUpload/>
-                                  <ImageDelete/>
-                                </div>
-                          </div>
-                        {/* )} */}
+                    {showDropdown && (
+                      <div className="z-10 items-center justify-center w-48 ">
+                        <div className="space-y-0">
+                          <ImageUpload />
+                          <ImageDelete />
+                        </div>
+                      </div>
+                    )}{" "}
                   </button>
                 </div>
               </div>
 
-              <div className="mt-16 pt-0">
-                <h1 className="font-bold text-center text-4xl text-gray-900">
+              <div className="pt-0 mt-16">
+                <h1 className="text-4xl font-bold text-center text-gray-900">
                   {userData ? userData.userName : "DataVizX"}
                 </h1>
-                <p className="text-center text-sm text-gray-400 font-medium">
+                <p className="text-sm font-medium text-center text-gray-400">
                   DataVizX Premium User
                 </p>
-                <div className="my-5 px-6">
+                <div className="px-6 my-5">
                   <a
                     href="/chartList"
-                    className="text-gray-50 block rounded-full text-center font-semibold leading-6 px-6 py-3 bg-purple-600 hover:bg-purple hover:text-white transition duration-300 transform hover:scale-110"
+                    className="block px-6 py-3 font-semibold leading-6 text-center transition duration-300 transform bg-purple-600 rounded-full text-gray-50 hover:bg-purple hover:text-white hover:scale-110"
                   >
                     View chart of{" "}
                     <span className="font-bold">@{userData.userName}</span>

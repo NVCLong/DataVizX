@@ -8,7 +8,7 @@ const collectionSchema = new Schema(
       required: true,
     },
     values: [
-      {
+     {
         category: Schema.Types.String,
         value: Schema.Types.Number,
       },
