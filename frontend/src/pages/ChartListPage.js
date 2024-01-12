@@ -181,60 +181,67 @@ function ChartListPage() {
   }
 
   return (
-    <div className="grid grid-cols-[160px,1fr] overflow-hidden overflow-y-scroll">
+    <div className="grid grid-cols-[160px,1fr]">
       <div className="fixed top-0 left-0 z-50 h-screen w-160">
         <Sidebar />
       </div>
-      <div className="flex justify-center pt-6 pl-96">
-        <form>
-          <label
-            for="default-search"
-            class="mb-2 font-semibold text-gray-900 sr-only dark:text-white"
-          >
-            Search
-          </label>
-          <div class="relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-              <svg
-                class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                />
-              </svg>
-            </div>
-            <input
-              type="search"
-              id="default-search"
-              class=" w-96 p-3.5 ps-5 text-lg border text-gray-400 transition duration-300 transform bg-gray-800 border-gray-600 rounded-lg focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-11"
-              placeholder="Search..."
-              required
-            />
-            <button
-              type="submit"
-              class="text-white absolute end-2.5 bottom-2.5 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+
+      <div className="">
+        <div
+          className="fixed z-50 p-4 transition duration-300 transform -translate-x-1/2 top-4 left-1/2 hover:scale-110"
+          id="SearchBar"
+        >
+          <form>
+            <label
+              for="default-search"
+              class="mb-2 font-semibold text-gray-900 sr-only dark:text-white
+            "
             >
               Search
-            </button>
-          </div>
-        </form>
-      </div>
-      <div className="fixed right-11 top-11 ">
-        <button
-          type="button"
-          onClick={() => navigate("/createChart")}
-          className="px-0 py-0 mb-0 text-xl font-bold text-gray-400 transition duration-300 transform bg-gray-800 border border-gray-600 rounded-lg me-0 w-44 h-11 focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-110"
-        >
-          + Add new chart
-        </button>
+            </label>
+            <div class="relative">
+              <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg
+                  class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                  />
+                </svg>
+              </div>
+              <input
+                type="search"
+                id="default-search"
+                class=" w-96 p-3.5 ps-5 text-lg border text-gray-400 transition duration-300 transform bg-gray-800 border-gray-600 rounded-lg focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-11"
+                placeholder="Search..."
+                required
+              />
+              <button
+                type="submit"
+                class="text-white absolute end-2.5 bottom-2.5 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+              >
+                Search
+              </button>
+            </div>
+          </form>
+        </div>
+        <div className="fixed z-50 p-4 top-11 right-11" id="AddChartButton">
+          <button
+            type="button"
+            onClick={() => navigate("/createChart")}
+            className="px-0 py-0 mb-0 text-xl font-bold text-gray-400 transition duration-300 transform bg-gray-800 border border-gray-600 rounded-lg me-0 w-44 h-11 focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-110"
+          >
+            + Add new chart
+          </button>
+        </div>
       </div>
 
       <div className="col-start-2 pr-10 space-y-20 pt-28">
