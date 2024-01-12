@@ -372,7 +372,6 @@ function Chart() {
   let onClick = async (e) => {
     setShowChart(true);
 
-    setButtonPressed(true);
 
     if (checkIntArray(intArr) || checkStr(labelsChart)) {
       setButtonPressed(false)
@@ -395,7 +394,8 @@ function Chart() {
       labelsChart.length > 2 &&
       intArr.length === labelsChart.length &&
       inputName.length > 0 &&
-      buttonPressed
+      !(checkIntArray(intArr)) &&
+      !(checkStr(labelsChart))
     ) {
       try {
         // console.log(DataInput)
