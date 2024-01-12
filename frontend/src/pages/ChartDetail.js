@@ -40,7 +40,7 @@ function Chart() {
     "#E6B3B3",
     "#6680B3",
     "#66991A",
-  ];
+  ]
 
   const [showChart, setShowChart] = useState(true);
 
@@ -88,11 +88,7 @@ function Chart() {
   const [errorChart, seterrorChart] = useState("");
   const [errorCategory, seterrorCategory] = useState("");
 
-  // const data = {
-  //   name: inputName,
-  //   categories: inputCategory,
-  //   values: inputValue,
-  // };
+
 
   const navigate = useNavigate();
 
@@ -105,40 +101,40 @@ function Chart() {
   }, [selectedOption]);
 
   const fetchRawData = async () => {
-    const res = await getDataRaw();
-    console.log("result:   " + res);
+    const res = await getDataRaw()
+    // console.log("result:   " + res);
 
-    const ObjArr = [];
+    const ObjArr = []
     res.values.map((item) => {
-      ObjArr.push(item);
-    });
+      ObjArr.push(item)
+    })
 
-    const cateList = [];
+    const cateList = []
     ObjArr.map((item) => {
       cateList.push(item.category);
     });
 
-    const valueList = [];
+    const valueList = []
     ObjArr.map((item) => {
       valueList.push(item.value);
     });
 
-    const chartName = res.name;
+    const chartName = res.name
 
-    setFindingValue(ObjArr);
+    setFindingValue(ObjArr)
 
-    setIntArr(valueList);
-    setLabelsChart(cateList);
-    setInputName(chartName);
+    setIntArr(valueList)
+    setLabelsChart(cateList)
+    setInputName(chartName)
 
-    setInputValue(valueList.map((num) => num.toString()).join(","));
-    setInputCategory(cateList.map((ele) => ele).join(","));
+    setInputValue(valueList.map((num) => num.toString()).join(","))
+    setInputCategory(cateList.map((ele) => ele).join(","))
 
     setRawData({
       name: chartName,
       categories: cateList,
       values: valueList.map(Number),
-    });
+    })
 
     setUserData({
       labels: labelsChart,
@@ -151,8 +147,8 @@ function Chart() {
           borderWidth: 4,
         },
       ],
-    });
-  };
+    })
+  }
 
   const fetchGroupData = async () => {
     try {
@@ -164,13 +160,12 @@ function Chart() {
       const highCategories = Object.keys(collectionHigh);
       const highValues = highCategories.map(
         (category) => collectionHigh[category][0].value
-      );
+      )
       setHighMed({
         categories: highCategories.join(","),
         values: highValues.join(","),
-      });
+      })
 
-      console.log(highMed);
 
       const lowCategories = Object.keys(collectionLow);
       const lowValues = lowCategories.map(
@@ -181,7 +176,6 @@ function Chart() {
         values: lowValues.join(","),
       });
     } catch (error) {
-      console.log("error group", error);
     }
   };
 
@@ -200,24 +194,39 @@ function Chart() {
       stand: ObjArr[3],
     });
   };
+
   const handleVerify = async (e) => {
-    const accessToken= localStorage.getItem("accessToken");
-      const decoded = jwtDecode(accessToken);
-      const expirationTime = decoded.exp * 1000; // Convert to milliseconds
-      const currentTime = Date.now();
-      if (currentTime > expirationTime) {
+    const userId = localStorage.getItem("userId");
+    let accessToken= localStorage.getItem("accessToken");
+    const refreshToken= localStorage.getItem("refreshToken");
+    const decoded = jwtDecode(accessToken);
+    const refreshDecoded= jwtDecode(refreshToken);
+    const refreshExpireTime = refreshDecoded.exp*1000;
+    const expirationTime = decoded.exp * 1000; // Convert to milliseconds
+    const currentTime = Date.now();
+    if (currentTime > expirationTime) {
+      if(currentTime < refreshExpireTime){
+         await axios.post("http://localhost:3000/verify/refresh",{refreshToken:refreshToken, userId: userId})
+             .then(response =>{
+               localStorage.setItem('accessToken', response.data.newAccessToken)
+             }).catch(error =>{
+             })
+      } else {
+        localStorage.clear()
+        navigate("/login")
+      }
+    }
+    if(!accessToken){
       localStorage.clear()
       navigate("/login")
+    }else {
+      accessToken = localStorage.getItem("accessToken")
+      const verify = await axios.post("http://localhost:3000/verify", {access_token: accessToken})
+      if (verify.data.status === "false") {
+        localStorage.clear()
+        navigate("/login")
+      }
     }
-      if(!accessToken){
-        localStorage.clear()
-        navigate("/login")
-      }
-      const verify= await axios.post("http://localhost:3000/verify",{access_token: accessToken})
-      if(verify.data.status==="false"){
-        localStorage.clear()
-        navigate("/login")
-      }
   }
   useEffect(() => {
     handleVerify()
@@ -226,7 +235,7 @@ function Chart() {
   const fetchSortData = async () => {
     try {
       const res = await getSortData();
-      console.log(res);
+      // console.log(res);
 
       const ascCollect = res.sortedCollection;
       const descCollect = res.sortedCollectionDesc;
@@ -254,7 +263,7 @@ function Chart() {
         values: descValues,
       });
     } catch (error) {
-      console.log("error sort", error);
+      // console.log("error sort", error);
       throw error;
     }
   };
@@ -268,17 +277,17 @@ function Chart() {
   const renderChart = (key) => {
     switch (key) {
       case "Pie Chart":
-        return <PieChart chartData={userData} />;
+        return <PieChart chartData={userData} />
       case "Line Graph":
-        return <LineGraph chartData={userData} />;
+        return <LineGraph chartData={userData} />
       case "Bar Chart":
-        return <BarChart chartData={userData} />;
+        return <BarChart chartData={userData} />
       case "Table":
-        return <Table chartData={userData} />;
+        return <Table chartData={userData} />
       default:
-        return <></>;
+        return <></>
     }
-  };
+  }
 
   const checkIntArray = (arr) => {
     const check = arr.find((element) => {
@@ -286,20 +295,20 @@ function Chart() {
     });
     if (check === 0 || arr.includes(NaN)) return true;
     else {
-      seterrorText("");
-      return false;
+      seterrorText("")
+      return false
     }
-  };
+  }
 
   const checkStr = (str) => {
     if (str.includes("")) {
-      return true;
+      return true
     }
     str.some((element) => {
       if (element.includes(" ")) {
-        return true;
+        return true
       }
-    });
+    })
 
     for (let i = 0; i < str.length - 1; i++) {
       for (let j = i + 1; j < str.length; j++) {
@@ -323,8 +332,8 @@ function Chart() {
   };
 
   const handleChartChange = (event) => {
-    setSelectedOption(event.target.value);
-    seterrorChart("");
+    setSelectedOption(event.target.value)
+    seterrorChart("")
 
     setDataInput({
       Name: inputName,
@@ -355,7 +364,7 @@ function Chart() {
       Name: inputName,
       Values: event.target.value,
       Categories: inputCategory,
-    });
+    })
     // Update input value in state
   };
 
@@ -366,7 +375,7 @@ function Chart() {
     setButtonPressed(true);
 
     if (checkIntArray(intArr) || checkStr(labelsChart)) {
-      setButtonPressed(false);
+      setButtonPressed(false)
       if (checkIntArray(intArr)) {
         seterrorText("Input right format of Data");
       }
@@ -381,7 +390,6 @@ function Chart() {
       Categories: inputCategory,
     });
 
-    console.log("raw data", rawData);
     if (
       intArr.length > 2 &&
       labelsChart.length > 2 &&
@@ -390,12 +398,12 @@ function Chart() {
       buttonPressed
     ) {
       try {
-        console.log(DataInput)
+        // console.log(DataInput)
         const patchData = await patchNewData(DataInput);
         navigate("/chartDetail");
       } catch (error) {
         alert("Cannot patch");
-        console.log("error", error.message);
+        // console.log("error", error.message);
         throw error;
       }
       location.reload();
@@ -408,21 +416,15 @@ function Chart() {
         seterrorChart("Please choose a chart to present");
       }
       if (labelsChart.length < 2) {
-        seterrorCategory("Please input labels for graph");
+        seterrorCategory("Please input labels for graph")
       }
       if (labelsChart.length !== intArr.length) {
-        seterrorCategory("Please input number of labels = number of data");
-        seterrorText("Please input number of data = number of lables");
+        seterrorCategory("Please input number of labels = number of data")
+        seterrorText("Please input number of data = number of lables")
       }
-      document.getElementsByClassName("custom-button").disabled = true;
+      document.getElementsByClassName("custom-button").disabled = true
     }
-  };
-
-  // useEffect(() => {
-  //     console.log('Text; ', inputValue);
-  // }, [selectedOption]);
-
-  // let DataObj = convertData;
+  }
 
   return (
     <div>
@@ -435,9 +437,9 @@ function Chart() {
           buttonSize="btn--medium"
           buttonStyle="btn--outline"
           onClick={(e) => {
-            e.preventDefault();
-            localStorage.removeItem("chartId");
-            navigate("/ChartListPage");
+            e.preventDefault()
+            localStorage.removeItem("chartId")
+            navigate("/ChartListPage")
           }}
         >
           Go back to Chart List
@@ -461,7 +463,7 @@ function Chart() {
         </div>
         <div className="user-input">
           <div className="select-container">
-            <h2 className="select-label">Choose one graph:</h2>
+            <h2 className="select-label">Choose one graph: </h2>
             <select
               className="select-dropdown"
               value={selectedOption}
@@ -481,7 +483,6 @@ function Chart() {
                 Table
               </option>
             </select>
-            {/* {selectedOption && <p>You choose: {DataInput.Graph}</p>} */}
             {errorChart && <p style={{ color: "red" }}>{errorChart}</p>}
           </div>
 
@@ -539,7 +540,7 @@ function Chart() {
         rawDataCategories={rawData.categories}
       />
     </div>
-  );
+  )
 }
 
-export default Chart;
+export default Chart

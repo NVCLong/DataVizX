@@ -16,9 +16,9 @@ const ChatForm = ({ responseGenerate }) => {
   const handleSubmit = async (e) => {
     setIsLoading(true);
     try {
-      console.log(inputText)
+      // console.log(inputText)
       const response = await axios.post(`${API}/support/post`, {inputText});
-      console.log(response)
+      // console.log(response)
 
       responseGenerate(inputText, setInputText, response.data );
     } catch (error) {
@@ -39,7 +39,7 @@ const ChatForm = ({ responseGenerate }) => {
 
 
   return (
-    <div className="flex flex-col mt-2 items-center justify-center focus:rounded-tl-none focus:rounded-bl-none focus:rounded-tr-none">
+    <div className="flex flex-col items-center justify-center mt-2 focus:rounded-tl-none focus:rounded-bl-none focus:rounded-tr-none">
       <TextareaAutosize
         rows="10"
         minRows="1"
@@ -51,7 +51,7 @@ const ChatForm = ({ responseGenerate }) => {
       <br />
       <button
         onClick={handleSubmit}
-        className="ml-2 w-44 h-8 bg-purple-700 text-white rounded cursor-pointer mt-2 hover:bg-purple-500 shadow-lg transition duration-300 transform hover:scale-110"
+        className="h-8 mt-2 ml-2 text-white transition duration-300 transform bg-purple-700 rounded shadow-lg cursor-pointer w-44 hover:bg-purple-500 hover:scale-110"
       >
         Generate response
       </button>

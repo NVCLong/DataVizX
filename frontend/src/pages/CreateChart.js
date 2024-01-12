@@ -24,7 +24,7 @@ function Chart() {
     name: inputName,
     categories: inputCategory,
     values: inputValue,
-  });
+  })
 
   const [errorText, seterrorText] = useState("");
   const [errorCategory, seterrorCategory] = useState("");
@@ -40,24 +40,42 @@ function Chart() {
     inputCategory,
     inputName,
   ]);
+
   const handleVerify = async (e) => {
-    const accessToken= localStorage.getItem("accessToken");
-      const decoded = jwtDecode(accessToken);
-      const expirationTime = decoded.exp * 1000; // Convert to milliseconds
-      const currentTime = Date.now();
-      if (currentTime > expirationTime) {
+    const userId = localStorage.getItem("userId");
+    let accessToken = localStorage.getItem("accessToken");
+    const refreshToken= localStorage.getItem("refreshToken");
+    const decoded = jwtDecode(accessToken);
+    const refreshDecoded= jwtDecode(refreshToken);
+    const refreshExpireTime = refreshDecoded.exp*1000;
+    const expirationTime = decoded.exp * 1000; // Convert to milliseconds
+    const currentTime = Date.now();
+    if (currentTime > expirationTime) {
+      if(currentTime < refreshExpireTime){
+         await axios.post("http://localhost:3000/verify/refresh",{refreshToken:refreshToken, userId: userId})
+             .then(response =>{
+              //  console.log(response.data)
+               localStorage.setItem('accessToken', response.data.newAccessToken)
+             }).catch(error =>{
+              //  console.log(error)
+             })
+      } else {
+        localStorage.clear()
+        navigate("/login")
+      }
+    }
+    if(!accessToken){
+      // console.log("access token expried")
       localStorage.clear()
       navigate("/login")
+    }else {
+      accessToken = localStorage.getItem("accessToken")
+      const verify = await axios.post("http://localhost:3000/verify", {access_token: accessToken})
+      if (verify.data.status === "false") {
+        localStorage.clear()
+        navigate("/login")
+      }
     }
-      if(!accessToken){
-        localStorage.clear()
-        navigate("/login")
-      }
-      const verify= await axios.post("http://localhost:3000/verify",{access_token: accessToken})
-      if(verify.data.status==="false"){
-        localStorage.clear()
-        navigate("/login")
-      }
   }
   useEffect(() => {
     handleVerify()
@@ -65,35 +83,35 @@ function Chart() {
 
   const checkIntArray = (arr) => {
     const check = arr.find((element) => {
-      return element === 0;
-    });
+      return element === 0
+    })
     if (check === 0 || arr.includes(NaN)) return true;
     else {
-      seterrorText("");
-      return false;
+      seterrorText("")
+      return false
     }
   };
 
   const checkStr = (str) => {
     if (str.includes("")) {
-      return true;
+      return true
     }
     str.some((element) => {
       if (element.includes(" ")) {
-        return true;
+        return true
       }
-    });
+    })
 
     for (let i = 0; i < str.length - 1; i++) {
       for (let j = i + 1; j < str.length; j++) {
         if (str[i] === str[j]) {
-          return true;
+          return true
         }
       }
     }
     seterrorCategory("");
-    return false;
-  };
+    return false
+  }
 
   const handleInputCategory = (event) => {
     setInputCategory(event.target.value);
@@ -104,21 +122,21 @@ function Chart() {
       name: inputName,
       categories: event.target.value,
       values: inputValue,
-    });
-  };
+    })
+  }
 
   const handleInputDataChange = (event) => {
-    setInputValue(event.target.value);
-    seterrorText("");
+    setInputValue(event.target.value)
+    seterrorText("")
     setIntArr(event.target.value.split(",").map(Number));
 
     setDataInput({
       name: inputName,
       categories: inputCategory,
       values: event.target.value,
-    });
+    })
     // Update input value in state
-  };
+  }
 
   const handleInputName = (event) => {
     setInputName(event.target.value);
@@ -128,21 +146,20 @@ function Chart() {
       name: event.target.value,
       categories: inputCategory,
       values: inputValue,
-    });
-  };
+    })
+  }
 
   let onClick = async (e) => {
     e.preventDefault();
     setButtonPressed(true);
-    console.log("Data Input", DataInput);
 
     if (checkIntArray(intArr) || checkStr(labelsChart)) {
-      setButtonPressed(false);
+      setButtonPressed(false)
       if (checkIntArray(intArr)) {
-        seterrorText("Input right format of Data");
+        seterrorText("Input right format of Data")
       }
       if (checkStr(labelsChart)) {
-        seterrorCategory("Input right format of Labels");
+        seterrorCategory("Input right format of Labels")
       }
     }
 
@@ -157,22 +174,22 @@ function Chart() {
         const portData = await sendData(DataInput);
         navigate("/chartDetail");
       } catch (error) {
-        console.log("error", error.message);
+        // console.log("error", error.message);
         throw error;
       }
     } else {
       if (intArr.length <= 2) {
-        seterrorText("Input must be at least 3 characters long");
+        seterrorText("Input must be at least 3 characters long")
       }
       if (labelsChart.length < 2) {
-        seterrorCategory("Please input labels for graph");
+        seterrorCategory("Please input labels for graph")
       }
       if (labelsChart.length != intArr.length) {
-        seterrorCategory("Please input number of labels = number of data");
-        seterrorText("Please input number of data = number of lables");
+        seterrorCategory("Please input number of labels = number of data")
+        seterrorText("Please input number of data = number of lables")
       }
       if (inputName.length <= 0) {
-        seterrorName("Input a name for Chart please");
+        seterrorName("Input a name for Chart please")
       }
     }
   };
@@ -189,7 +206,7 @@ function Chart() {
             buttonStyle="btn--outline"
             linkUrl={"/ChartListPage"}
             onClick={(e)=>{
-              e.preventDefault();
+              e.preventDefault()
               navigate("/ChartListPage")
             }}
           >

@@ -7,7 +7,7 @@ function LineGraph({chartData}){
 
     return (
         <>
-            <Line data={chartData}/>;
+            <Line data={chartData}/>
         </>
     )
 }

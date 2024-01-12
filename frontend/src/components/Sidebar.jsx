@@ -111,9 +111,9 @@ const Sidebar = () => {
         </ul>
       </div>
 
-      <div className="flex-1 h-screen text-3xl font-bold text-white p-7">
+      {/* <div className="flex-1 h-screen text-3xl font-bold text-white p-7">
         <h1>{currentPageTitle}</h1>
-      </div>
+      </div> */}
     </div>
   );
 };

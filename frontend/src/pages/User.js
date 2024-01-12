@@ -33,31 +33,47 @@ const User = () => {
     }
   };
 
+
   const handleVerify = async (e) => {
-    const accessToken = localStorage.getItem("accessToken");
+    const userId = localStorage.getItem("userId");
+    let accessToken= localStorage.getItem("accessToken");
+    const refreshToken= localStorage.getItem("refreshToken");
     const decoded = jwtDecode(accessToken);
+    const refreshDecoded= jwtDecode(refreshToken);
+    const refreshExpireTime = refreshDecoded.exp*1000;
     const expirationTime = decoded.exp * 1000; // Convert to milliseconds
     const currentTime = Date.now();
     if (currentTime > expirationTime) {
-      localStorage.clear();
-      navigate("/login");
+      if(currentTime < refreshExpireTime){
+         await axios.post("http://localhost:3000/verify/refresh",{refreshToken:refreshToken, userId: userId})
+             .then(response =>{
+              //  console.log(response.data)
+               localStorage.setItem('accessToken', response.data.newAccessToken)
+             }).catch(error =>{
+              //  console.log(error)
+             })
+      } else {
+        localStorage.clear()
+        navigate("/login")
+      }
     }
-    if (!accessToken) {
-      localStorage.clear();
-      navigate("/login");
+    if(!accessToken){
+      // console.log("access token expried")
+      localStorage.clear()
+      navigate("/login")
+    }else {
+      accessToken = localStorage.getItem("accessToken")
+      const verify = await axios.post("http://localhost:3000/verify", {access_token: accessToken})
+      if (verify.data.status === "false") {
+        localStorage.clear()
+        navigate("/login")
+      }
     }
-    const verify = await axios.post("http://localhost:3000/verify", {
-      access_token: accessToken,
-    });
-    if (verify.data.status === "false") {
-      localStorage.clear();
-      navigate("/login");
-    }
-  };
+  }
   useEffect(() => {
-    handleVerify();
+    handleVerify()
     fetchUserData();
-  }, []);
+  },[])
 
 if (isLoadingPage) {
     return (

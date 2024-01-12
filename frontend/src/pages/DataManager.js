@@ -6,7 +6,7 @@ export const axiosJWT = axios.create();
 export const sendData = async (userData) => {
   // userData.preventDefault(); // preventDefault is used on events, not on data objects
   try {
-     console.log(localStorage.getItem("userId"))
+    //  console.log(localStorage.getItem("userId"))
     const response = await axios.post(
       `${API_URL}/collection/add`,
       {
@@ -40,7 +40,7 @@ export const getDataRaw = async () => {
   try {
     const response = await axios.get(`${API_URL}/collection/${retrievedValue}`);
     // console.log(response)
-    console.log("response value raw: ", response.data.values);
+    // console.log("response value raw: ", response.data.values);
     // response.data.values.map((item) => {
     //   values.push(item);
     // });
@@ -63,7 +63,7 @@ export const getStatisticData = async () => {
       values.push(response.data[key])
 
     })
-    console.log("response value statistic: ", response.data);
+    // console.log("response value statistic: ", response.data);
     // response.data.map((item) => {
     //   values.push(item);
     // });
@@ -84,7 +84,7 @@ export const getGroupData = async () => {
     //   values.push(response.data[key])
 
     // })
-    console.log("response value group: ", response.data);
+    // console.log("response value group: ", response.data);
     // response.data.map((item) => {
     //   values.push(item);
     // });
@@ -105,7 +105,7 @@ export const getSortData = async () => {
     //   values.push(response.data[key])
 
     // })
-    console.log("response value sort: ", response.data);
+    // console.log("response value sort: ", response.data);
     // response.data.map((item) => {
     //   values.push(item);
     // });
@@ -118,9 +118,9 @@ export const getSortData = async () => {
 
 
 export const patchNewData = async (userData) => {
-  console.log(userData)
+  // console.log(userData)
   const retrievedValue = localStorage.getItem("chartId");
-  console.log(retrievedValue)
+  // console.log(retrievedValue)
   try {
     const response = await axios.patch(
       `${API_URL}/collection/edit/${retrievedValue}`,
@@ -130,7 +130,7 @@ export const patchNewData = async (userData) => {
         "values": userData.Values,
       },
     );
-    console.log("Response Patch Data", response.data)
+    // console.log("Response Patch Data", response.data)
     // console.log("Response from server:", response.data);
     // localStorage.removeItem("UsinngchartId")
     // Add any further handling of the response here, if needed

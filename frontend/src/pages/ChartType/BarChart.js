@@ -4,11 +4,11 @@ import {Bar} from "react-chartjs-2";
 
 
 function BarChart({chartData}, {option}){
-    
+
     return (
         <>
-        
-            <Bar data={chartData} options={option}/>;
+
+            <Bar data={chartData} options={option}/>
         </>
     )
 }

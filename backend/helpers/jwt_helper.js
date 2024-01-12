@@ -54,7 +54,7 @@ const jwt={
             const payload = {};
             const secret = process.env.REFRESH_TOKEN_SECRET;
             const options = {
-                expiresIn: 20,
+                expiresIn: "1h",
                 issuer: "DataVizX Team",
                 audience: userID,
             };

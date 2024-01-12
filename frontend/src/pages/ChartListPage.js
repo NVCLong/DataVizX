@@ -18,11 +18,12 @@ function ChartListPage() {
   const [chartName, setChartName] = useState([]);
   const [chartID, setChartID] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [sort, setSort] = useState(false);
   const [error, setError] = useState(null);
   const [activeSearch, setActiveSearch] = useState([]);
   const navigate = useNavigate();
 
-  const handleSort = async () => {
+  const handleSortUp = async () => {
     try {
       const userId = localStorage.getItem("userId");
       if (!userId) {
@@ -31,7 +32,7 @@ function ChartListPage() {
       const response = await axios.get(
         `http://localhost:3000/chartList/asc/${userId}`
       );
-      console.log(response.data);
+      // console.log(response.data);
 
       const allChartID = response.data.collectionAsc.map((item) => item._id);
       setChartID(allChartID);
@@ -41,7 +42,29 @@ function ChartListPage() {
       setChartData(allChartData);
       const allChartName = response.data.collectionAsc.map((item) => item.name);
       setChartName(allChartName);
-      navigate("/createChart")
+    } catch (error) {
+      setError(error);
+    }
+  };
+  const handleSortDown = async () => {
+    try {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        throw new Error("Do not have userId");
+      }
+      const response = await axios.get(
+        `http://localhost:3000/chartList/desc/${userId}`
+      );
+      // console.log(response.data);
+
+      const allChartID = response.data.collectionDesc.map((item) => item._id);
+      setChartID(allChartID);
+      const allChartData = response.data.collectionDesc.map(
+        (item) => item.values
+      );
+      setChartData(allChartData);
+      const allChartName = response.data.collectionDesc.map((item) => item.name);
+      setChartName(allChartName);
     } catch (error) {
       setError(error);
     }
@@ -59,9 +82,9 @@ function ChartListPage() {
         `http://localhost:3000/chartList/search/${userId}`,
         searchData
       );
-      console.log(response.data.searchResult);
+      // console.log(response.data.searchResult);
       setActiveSearch(response.data.searchResult);
-      console.log(activeSearch);
+      // console.log(activeSearch);
     } catch (error) {
       setError(error);
     }
@@ -87,10 +110,10 @@ function ChartListPage() {
         if(currentTime < refreshExpireTime){
            await axios.post("http://localhost:3000/verify/refresh",{refreshToken:refreshToken, userId: userId})
                .then(response =>{
-                 console.log(response.data)
+                //  console.log(response.data)
                  localStorage.setItem('accessToken', response.data.newAccessToken)
                }).catch(error =>{
-                 console.log(error)
+                //  console.log(error)
                })
         } else {
           localStorage.clear()
@@ -98,7 +121,7 @@ function ChartListPage() {
         }
       }
       if(!accessToken){
-        console.log("access token expried")
+        // console.log("access token expried")
         localStorage.clear()
         navigate("/login")
       }else {
@@ -135,6 +158,7 @@ function ChartListPage() {
 
   useEffect(() => {
     fetchChartData();
+    // eslint-disable-next-line
   }, []);
 
   const chartConfig = useMemo(() => {
@@ -279,21 +303,20 @@ function ChartListPage() {
 
       <div className="" id="header">
         <div
-          className="fixed z-50 p-4 transition duration-300 transform -translate-x-1/2 top-2 left-1/2 hover:scale-110"
+          className="fixed z-50 p-4 transition duration-300 transform -translate-x-1/2 top-2 left-1/2"
           id="SearchBar"
         >
           <form>
             <label
-              for="default-search"
-              class="mb-2 font-semibold text-gray-900 sr-only dark:text-white
-            "
+              htmlFor="default-search"
+              className="mb-2 font-semibold text-gray-900 sr-only dark:text-white "
             >
               Search
             </label>
-            <div class="relative">
-              <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <div className="relative">
+              <div className="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
                 <svg
-                  class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -301,9 +324,9 @@ function ChartListPage() {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                   />
                 </svg>
@@ -311,7 +334,7 @@ function ChartListPage() {
               <input
                 type="search"
                 id="default-search"
-                class=" w-96 p-3.5 ps-5 text-lg border text-gray-400 transition duration-300 transform bg-gray-800 border-gray-600 rounded-lg focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-11"
+                className=" w-96 p-3.5 ps-5 text-lg border text-gray-400 transition duration-300 transform bg-gray-800 border-gray-600 rounded-lg focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-11 active:bg-gray-700"
                 placeholder="Search..."
                 required
                 name="searchString"
@@ -319,41 +342,52 @@ function ChartListPage() {
               />
               <button
                 type="submit"
-                class="text-white absolute end-2.5 bottom-2.5 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 bg-purple-600 hover:bg-purple-400 focus:ring-purple-800"
+                className="text-white absolute end-2.5 bottom-2.5 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 bg-purple-600 hover:bg-purple-400 focus:ring-purple-800"
                 onClick={handleSearchSubmit}
               >
                 Search
               </button>
             </div>
             {activeSearch.length > 0 && (
-              <div className="absolute flex flex-col w-full gap-2 p-4 text-gray-400 transition duration-300 transform -translate-x-1/2 border-gray-600 top-3 bg-slate-800 rounded-xl left-1/2 hover:text-white hover:bg-gray-700 hover:scale-110">
+              <div className="absolute flex flex-col w-full gap-2 text-gray-400 transition duration-300 transform -translate-x-1/2 border-gray-600 top-20 rounded-xl left-1/2 hover:text-white space-y-0">
                 {activeSearch.map((s) => (
-                  <span
-                    className=""
+                  <div
+                    className="w-full gap-2 p-4 bg-slate-800 text-gray-400 transition duration-300 transform border-gray-600 top-20 rounded-xl left-1/2 hover:text-white hover:bg-gray-700 hover:scale-110"
                     onClick={() => {
                       localStorage.setItem("chartId", s._id);
                       navigate("/chartDetail");
                     }}
                   >
                     {s.name}
-                  </span>
+                  </div>
                 ))}
               </div>
             )}
           </form>
         </div>
 
-        <div className="fixed z-50 p-4 top-3.5 left-36" id="SortingButton">
+        <div className="fixed z-10 p-4 top-3.5 left-36 space-x-5 " id="SortingButton">
           <button
             type="button"
             onClick={() => {
-              handleSort()
+              handleSortUp()
 
             }}
             className="w-20 px-0 py-0 mb-0 text-xl font-bold text-gray-400 transition duration-300 transform bg-gray-800 border border-gray-600 rounded-lg me-0 h-11 focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-110"
           >
-            Sort
+            Sort ↑
           </button>
+          <button
+            type="button"
+            onClick={() => {
+              handleSortDown()
+
+            }}
+            className="w-20 px-0 py-0 mb-0 text-xl font-bold text-gray-400 transition duration-300 transform bg-gray-800 border border-gray-600 rounded-lg me-0 h-11 focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-110"
+          >
+            Sort ↓
+          </button>
+
         </div>
 
         <div className="fixed z-50 p-4 top-3.5 right-11" id="AddChartButton">
@@ -376,7 +410,7 @@ function ChartListPage() {
             <Line data={config.data} options={config.options} />
 
             <div className="">
-              <div class="absolute right-5 bottom-5 inline-flex rounded-md shadow-sm">
+              <div className="absolute inline-flex rounded-md shadow-sm right-5 bottom-5">
                 <button
                   type="button"
                   className="px-4 py-2 text-sm font-medium text-white transition duration-300 transform bg-purple-600 border border-purple-800 rounded-s-lg focus:z-10 focus:ring-2 hover:text-white hover:bg-purple-400 focus:ring-blue-500 focus:text-white hover:scale-110"

@@ -10,7 +10,7 @@ function Table({ chartData }) {
           <th>Lables</th>
           {labels.map((val)=>{
             return(
-                <th>{val}</th>  
+                <th>{val}</th>
             )
           })}
         </tr>
@@ -18,7 +18,7 @@ function Table({ chartData }) {
         <td>Values</td>
         {datas.map((val)=>{
             return(
-                <td>{val}</td>  
+                <td>{val}</td>
             )
           })}
         </tr>
