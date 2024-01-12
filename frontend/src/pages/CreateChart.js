@@ -18,7 +18,7 @@ function Chart() {
   const [intArr, setIntArr] = useState(inputValue.split(",").map(Number));
   const [labelsChart, setLabelsChart] = useState([]);
 
-  const [buttonPressed, setButtonPressed] = useState(true);
+  let [buttonPressed, setButtonPressed] = useState(false);
 
   const [DataInput, setDataInput] = useState({
     name: inputName,
@@ -32,45 +32,47 @@ function Chart() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {}, [
+  useEffect(() => { }, [
     inputValue,
     labelsChart,
-    buttonPressed,
     intArr,
     inputCategory,
     inputName,
+    errorText,
+    errorCategory,
+    errorName,
   ]);
 
   const handleVerify = async (e) => {
     const userId = localStorage.getItem("userId");
     let accessToken = localStorage.getItem("accessToken");
-    const refreshToken= localStorage.getItem("refreshToken");
+    const refreshToken = localStorage.getItem("refreshToken");
     const decoded = jwtDecode(accessToken);
-    const refreshDecoded= jwtDecode(refreshToken);
-    const refreshExpireTime = refreshDecoded.exp*1000;
+    const refreshDecoded = jwtDecode(refreshToken);
+    const refreshExpireTime = refreshDecoded.exp * 1000;
     const expirationTime = decoded.exp * 1000; // Convert to milliseconds
     const currentTime = Date.now();
     if (currentTime > expirationTime) {
-      if(currentTime < refreshExpireTime){
-         await axios.post("http://localhost:3000/verify/refresh",{refreshToken:refreshToken, userId: userId})
-             .then(response =>{
-              //  console.log(response.data)
-               localStorage.setItem('accessToken', response.data.newAccessToken)
-             }).catch(error =>{
-              //  console.log(error)
-             })
+      if (currentTime < refreshExpireTime) {
+        await axios.post("http://localhost:3000/verify/refresh", { refreshToken: refreshToken, userId: userId })
+          .then(response => {
+            //  console.log(response.data)
+            localStorage.setItem('accessToken', response.data.newAccessToken)
+          }).catch(error => {
+            //  console.log(error)
+          })
       } else {
         localStorage.clear()
         navigate("/login")
       }
     }
-    if(!accessToken){
+    if (!accessToken) {
       // console.log("access token expried")
       localStorage.clear()
       navigate("/login")
-    }else {
+    } else {
       accessToken = localStorage.getItem("accessToken")
-      const verify = await axios.post("http://localhost:3000/verify", {access_token: accessToken})
+      const verify = await axios.post("http://localhost:3000/verify", { access_token: accessToken })
       if (verify.data.status === "false") {
         localStorage.clear()
         navigate("/login")
@@ -79,13 +81,16 @@ function Chart() {
   }
   useEffect(() => {
     handleVerify()
-  },[])
+  }, [])
 
   const checkIntArray = (arr) => {
-    const check = arr.find((element) => {
+    let check = 1;
+    check = arr.find((element) => {
       return element === 0
     })
-    if (check === 0 || arr.includes(NaN)) return true;
+    if (check === 0 || arr.includes(NaN)) {
+      return true;
+    }
     else {
       seterrorText("")
       return false
@@ -94,6 +99,7 @@ function Chart() {
 
   const checkStr = (str) => {
     if (str.includes("")) {
+      setButtonPressed(false)
       return true
     }
     str.some((element) => {
@@ -117,7 +123,6 @@ function Chart() {
     setInputCategory(event.target.value);
     seterrorCategory("");
     setLabelsChart(event.target.value.split(","));
-
     setDataInput({
       name: inputName,
       categories: event.target.value,
@@ -151,10 +156,7 @@ function Chart() {
 
   let onClick = async (e) => {
     e.preventDefault();
-    setButtonPressed(true);
-
     if (checkIntArray(intArr) || checkStr(labelsChart)) {
-      setButtonPressed(false)
       if (checkIntArray(intArr)) {
         seterrorText("Input right format of Data")
       }
@@ -163,18 +165,21 @@ function Chart() {
       }
     }
 
+
     if (
       intArr.length > 2 &&
       labelsChart.length > 2 &&
-      intArr.length === labelsChart.length &&
+      intArr.length == labelsChart.length &&
       inputName.length > 0 &&
-      buttonPressed
+      !(checkIntArray(intArr)) &&
+      !(checkStr(labelsChart))
     ) {
+      console.log("true")
       try {
         const portData = await sendData(DataInput);
         navigate("/chartDetail");
       } catch (error) {
-        // console.log("error", error.message);
+        console.log("error", error.message);
         throw error;
       }
     } else {
@@ -200,19 +205,19 @@ function Chart() {
         <NarBav />
       </div>
       <div className="btn-chartList">
-          <Button
-            className="btns"
-            buttonSize="btn--medium"
-            buttonStyle="btn--outline"
-            linkUrl={"/ChartListPage"}
-            onClick={(e)=>{
-              e.preventDefault()
-              navigate("/ChartListPage")
-            }}
-          >
-            Go back to Chart List
-          </Button>
-        </div>
+        <Button
+          className="btns"
+          buttonSize="btn--medium"
+          buttonStyle="btn--outline"
+          linkUrl={"/ChartListPage"}
+          onClick={(e) => {
+            e.preventDefault()
+            navigate("/ChartListPage")
+          }}
+        >
+          Go back to Chart List
+        </Button>
+      </div>
       <div className="user-input">
         <div className="name-input-container">
           <h2 className="input-name">Input name of Chart:</h2>
