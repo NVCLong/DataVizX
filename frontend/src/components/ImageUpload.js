@@ -29,12 +29,12 @@ function ImageUpload() {
       setLoading(false);
 
     }
-  };
+  }
   return (
-      <div className="text-center grid gap-8 p-6 m-auto mt-16">
-      <label htmlFor="file" className="cursor-pointer px-6 py-2 text-sm font-medium border rounded focus:z-10 focus:ring-2 bg-purple-600 border-purple-900 text-white hover:text-white hover:bg-purple-600 focus:ring-blue-500 focus:text-white transition duration-300 transform hover:scale-110">
+      <div className="grid gap-8 pt-6 pl-6 pr-6 text-center">
+      <label htmlFor="file" className="px-2 py-2 text-sm font-normal text-white transition duration-300 transform bg-purple-600 border border-purple-900 rounded-full cursor-pointer focus:z-10 focus:ring-2 hover:text-white hover:bg-purple-600 focus:ring-blue-500 focus:text-white hover:scale-110">
         {" "}
-        Select image
+        Select new image
       </label>
       {file && <center> {file.name}</center>}
       <input
@@ -44,10 +44,10 @@ function ImageUpload() {
         multiple={false}
         className="hidden"
       />
-      <code className="p-4 bg-black rounded-xl hidden">
+      <code className="hidden p-4 bg-black rounded-xl">
         {Object.keys(res).length > 0
           ? Object.keys(res).map((key) => (
-              <p className="block text-xl bg-black m-auto " key={key}>
+              <p className="block m-auto text-xl bg-black " key={key}>
                 <span>{key}:</span>
                 <span>
                   {typeof res[key] === "object" ? "object" : res[key]}
@@ -58,7 +58,7 @@ function ImageUpload() {
       </code>
       {file && (
         <>
-          <button onClick={handleUpload} className="btn-text-xl text-white cursor-pointer bg-green-500 p-10 rounded-md w-auto h-fit">
+          <button onClick={handleUpload} className="w-auto p-10 text-white bg-green-500 rounded-md cursor-pointer btn-text-xl h-fit">
             {loading ? "Uploading..." : "Upload to DataVizX"}
           </button>
         </>
