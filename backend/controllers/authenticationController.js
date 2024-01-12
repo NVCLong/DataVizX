@@ -106,26 +106,26 @@ class AuthenticationController {
     }
 
     // Refresh token function
-    static async refreshToken(req, res, next) {
-        try {
-            const { refreshToken } = req.body;
-
-            // If refreshToken is not found: throw an error
-            if (!refreshToken) throw createError.BadRequest();
-
-            // If refreshToken is found: verify the token
-            const userID = await verifyRefreshToken(refreshToken);
-            const accessToken = await signAccessToken(userID);
-
-            // Generate new refreshToken
-            const refreshToken_sign = await signRefreshToken(userID);
-
-            // Send the new accessToken and refreshToken to the user
-            res.send({ accessToken: accessToken, refreshToken: refreshToken_sign });
-        } catch (error) {
-            next(error);
-        }
-    }
+    // static async refreshToken(req, res, next) {
+    //     try {
+    //         const { refreshToken } = req.body;
+    //
+    //         // If refreshToken is not found: throw an error
+    //         if (!refreshToken) throw createError.BadRequest();
+    //
+    //         // If refreshToken is found: verify the token
+    //         const userID = await verifyRefreshToken(refreshToken);
+    //         const accessToken = await signAccessToken(userID);
+    //
+    //         // Generate new refreshToken
+    //         const refreshToken_sign = await signRefreshToken(userID);
+    //
+    //         // Send the new accessToken and refreshToken to the user
+    //         res.send({ accessToken: accessToken, refreshToken: refreshToken_sign });
+    //     } catch (error) {
+    //         next(error);
+    //     }
+    // }
 
     static async deleteLogout(req, res, next) {
         try {
