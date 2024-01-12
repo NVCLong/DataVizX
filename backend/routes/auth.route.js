@@ -11,11 +11,7 @@ router.post("/login", AuthenticationController.login);
 // Logout route
 router.post("/logout", AuthenticationController.logout);
 
-// Refresh token route
-router.post("/refresh-token", AuthenticationController.refreshToken);
-
 // Delete logout route
-router.post("/logout", AuthenticationController.logout);
 
 // Test route
 // router.get("/getAllUser", AuthenticationController.getAllUser);
