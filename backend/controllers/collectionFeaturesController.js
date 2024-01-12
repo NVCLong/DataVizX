@@ -5,7 +5,7 @@ const chartList = require("../models/chartlist.model");
 const hashTable = require("../algorithm/hashTable");
 
 const collectionSortingController = {
-    // [GET] /collection/sort/asc/:id
+    // [GET] /chartList/asc/:id
     async performSortAsc(req, res) {
         try {
             await chartList
@@ -50,7 +50,7 @@ const collectionSortingController = {
         }
     },
 
-    // [GET] /collection/sort/desc/:id
+    // [GET] /chartList/desc/:id
     async performSortDesc(req, res) {
         try {
             await chartList
