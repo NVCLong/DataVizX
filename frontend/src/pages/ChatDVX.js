@@ -67,8 +67,8 @@ const ChatDVX = () => {
       </div>
       <div className="h-screen p-12">
         <ChatHeader />
-        <ChatForm responseGenerate={responseGenerate} />
         <AnswerSec messages={messages} />
+        <ChatForm responseGenerate={responseGenerate} />
       </div>
     </div>
   );

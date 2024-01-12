@@ -36,7 +36,7 @@ function ImageUpload() {
         className="px-2 py-2 text-sm font-normal text-white transition duration-300 transform bg-purple-600 border border-purple-900 rounded-full cursor-pointer focus:z-10 focus:ring-2 hover:text-white hover:bg-purple-600 focus:ring-blue-500 focus:text-white hover:scale-110"
       >
         {" "}
-        Select new image
+        Select new avatar
       </label>
       {file && <center> {file.name}</center>}
       <input
@@ -46,10 +46,10 @@ function ImageUpload() {
         multiple={false}
         className="hidden"
       />
-      <code className="hidden p-4 bg-black rounded-xl">
+      <code className="hidden p-4 rounded-xl">
         {Object.keys(res).length > 0
           ? Object.keys(res).map((key) => (
-            <p className="block m-auto text-xl bg-black " key={key}>
+            <p className="block m-auto text-xl bg-purple " key={key}>
               <span>{key}:</span>
               <span>
                 {typeof res[key] === "object" ? "object" : res[key]}
@@ -62,9 +62,9 @@ function ImageUpload() {
         <>
           <button
             onClick={handleUpload}
-            className="w-auto p-10 text-white bg-green-500 rounded-md cursor-pointer btn-text-xl h-fit"
+            className="w-48 p-2 mx-auto text-white transition duration-300 transform bg-purple-500 rounded-md cursor-pointer btn-text-xl hover:scale-110"
           >
-            {loading ? "Uploading..." : "Upload to DataVizX"}
+            {loading ? "Uploading..." : "Click to upload avatar"}
           </button>
         </>
       )}

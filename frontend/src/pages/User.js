@@ -116,7 +116,7 @@ const User = () => {
                 <img
                   src={userData.imageUrl ? userData.imageUrl : blank_profile}
                   alt="logoMain"
-                  className="absolute object-scale-down w-56 h-56 mx-auto transition duration-300 transform border-4 border-white rounded-full shadow-2xl -top-20 hover:scale-110"
+                  className="absolute object-none w-56 h-56 mx-auto transition duration-300 transform border-4 border-white rounded-full shadow-2xl -top-20 hover:scale-110"
                 />
               </div>
 

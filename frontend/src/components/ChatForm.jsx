@@ -39,24 +39,28 @@ const ChatForm = ({ responseGenerate }) => {
 
 
   return (
-    <div className="flex flex-col items-center justify-center mt-2 focus:rounded-tl-none focus:rounded-bl-none focus:rounded-tr-none">
+    <div className="fixed inset-x-0 flex w-6/12 mx-auto space-x-5 bottom-8 drop-shadow-xl" id="inputChat">
       <TextareaAutosize
-        rows="10"
-        minRows="1"
-        className="flex-grow rounded-full p-2.5 w-96 bg-slate-900 border-gray-700 text-gray-400 ring-gray-600 shadow-lg transition duration-300 transform hover:scale-110"
+        rows="1"
+        minRows="0"
+        cacheMeasurements
+        className="flex-grow w-64 p-3 text-gray-400 transition duration-300 transform border-gray-700 rounded-lg shadow-lg bg-slate-900 ring-gray-600 hover:ring-purple-300 "
         placeholder="Ask me anything..."
         name='question'
+        onHeightChange={(height, instance) => handleSubmit()}
         onChange={handleInput}
-      ></TextareaAutosize>
-      <br />
+
+      >
+      </TextareaAutosize>
       <button
         onClick={handleSubmit}
-        className="h-8 mt-2 ml-2 text-white transition duration-300 transform bg-purple-700 rounded shadow-lg cursor-pointer w-44 hover:bg-purple-500 hover:scale-110"
+        className="text-white transition duration-300 transform bg-purple-700 rounded-full shadow-lg cursor-pointer h-11 w-44 hover:bg-purple-500 hover:scale-110"
       >
         Generate response
       </button>
+      {/* <br /> */}
     </div>
-  );
-};
+  )
+}
 
 export default ChatForm;

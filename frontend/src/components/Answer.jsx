@@ -3,12 +3,9 @@ import React from "react";
 const AnswerSec = ({ messages }) => {
   // console.log(messages);
   return (
-    <div className="flex flex-col items-center m-8">
-      <div className="flex items-center m-5">
-        <div className="#">
-          <h1 className="flex flex-col items-center text-2xl font-bold text-white">
-            Answer
-          </h1>
+    <div className="flex flex-col items-center m-2 ">
+      <div className="flex items-center m-2 ">
+        <div className="">
           {messages.map((message, index) => (
             <p
               key={index}
