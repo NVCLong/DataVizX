@@ -26,7 +26,8 @@ const Note = () => {
     }catch (e) {
       setError(e);
     }
-  };
+  }
+
   const showNote =()=>{
     if(eNote){
       return eNote

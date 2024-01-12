@@ -303,7 +303,7 @@ function ChartListPage() {
 
       <div className="" id="header">
         <div
-          className="fixed z-50 p-4 transition duration-300 transform -translate-x-1/2 top-2 left-1/2 drop-shadow-xl"
+          className="fixed z-50 p-4 transition duration-300 transform -translate-x-1/2 top-2 left-1/2 drop-shadow-xl "
           id="SearchBar"
         >
           <form>
@@ -314,7 +314,7 @@ function ChartListPage() {
               Search
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
+              <div className="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3 ">
                 <svg
                   className="w-4 h-4 text-gray-500 dark:text-gray-400"
                   aria-hidden="true"
@@ -334,7 +334,7 @@ function ChartListPage() {
               <input
                 type="search"
                 id="default-search"
-                className=" w-96 p-3.5 ps-5 text-lg border text-gray-400 transition duration-300 transform bg-gray-800 border-gray-600 rounded-lg focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-11 active:bg-gray-700 drop-shadow-xl"
+                className=" w-96 p-3.5 ps-5 text-lg border text-gray-400 transition duration-300 transform bg-slate-800 border-gray-600 rounded-lg focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-900 hover:scale-11 active:bg-gray-700 drop-shadow-xl  hover:ring-purple-500 hover:ring-2"
                 placeholder="Search chart..."
                 required
                 name="searchString"
@@ -342,7 +342,7 @@ function ChartListPage() {
               />
               <button
                 type="submit"
-                className="text-white absolute end-2.5 bottom-2.5 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 bg-purple-600 hover:bg-purple-400 focus:ring-purple-800 drop-shadow-xl"
+                className="text-white absolute end-2.5 bottom-2.5 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 bg-purple-500 hover:bg-purple-600 focus:ring-purple-800 drop-shadow-xl hover:scale-105 transition duration-300"
                 onClick={handleSearchSubmit}
               >
                 Search
@@ -352,7 +352,7 @@ function ChartListPage() {
               <div className="absolute flex flex-col w-full gap-2 space-y-0 text-gray-400 transition duration-300 transform -translate-x-1/2 border-gray-600 top-20 rounded-xl left-1/2 hover:text-white drop-shadow-xl">
                 {activeSearch.map((s) => (
                   <div
-                    className="w-full gap-2 p-4 text-gray-400 transition duration-300 transform border-gray-600 cursor-pointer drop-shadow-xl bg-slate-800 top-20 rounded-xl left-1/2 hover:text-white hover:bg-gray-700 hover:scale-110"
+                    className="w-full gap-2 p-4 text-gray-400 transition duration-300 transform border-gray-600 cursor-pointer drop-shadow-xl bg-slate-800 top-20 rounded-xl left-1/2 hover:text-white hover:bg-gray-700 hover:scale-110 "
                     onClick={() => {
                       localStorage.setItem("chartId", s._id);
                       navigate("/chartDetail");
@@ -373,7 +373,7 @@ function ChartListPage() {
               handleSortUp()
 
             }}
-            className="w-20 px-0 py-0 mb-0 text-xl font-bold text-gray-400 transition duration-300 transform bg-gray-800 border border-gray-600 rounded-lg me-0 h-11 focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-110"
+            className="w-20 px-0 py-0 mb-0 text-xl font-bold text-gray-400 transition duration-300 transform bg-gray-800 border border-gray-600 rounded-lg me-0 h-11 focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-110 hover:ring-purple-500 hover:ring-2"
           >
             Sort ↑
           </button>
@@ -383,7 +383,7 @@ function ChartListPage() {
               handleSortDown()
 
             }}
-            className="w-20 px-0 py-0 mb-0 text-xl font-bold text-gray-400 transition duration-300 transform bg-gray-800 border border-gray-600 rounded-lg me-0 h-11 focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-110"
+            className="w-20 px-0 py-0 mb-0 text-xl font-bold text-gray-400 transition duration-300 transform bg-gray-800 border border-gray-600 rounded-lg me-0 h-11 focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-110 hover:ring-purple-500 hover:ring-2"
           >
             Sort ↓
           </button>
@@ -394,7 +394,7 @@ function ChartListPage() {
           <button
             type="button"
             onClick={() => navigate("/createChart")}
-            className="px-0 py-0 mb-0 text-xl font-bold text-gray-400 transition duration-300 transform bg-gray-800 border border-gray-600 rounded-lg me-0 w-44 h-11 focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-110"
+            className="px-0 py-0 mb-0 text-xl font-bold text-gray-400 transition duration-300 transform bg-gray-800 border border-gray-600 rounded-lg me-0 w-44 h-11 focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-700 hover:text-white hover:bg-gray-700 hover:scale-110 hover:ring-purple-500 hover:ring-2"
           >
             + Add new chart
           </button>
@@ -410,10 +410,10 @@ function ChartListPage() {
             <Line data={config.data} options={config.options} />
 
             <div className="">
-              <div className="absolute inline-flex rounded-md shadow-sm right-5 bottom-5">
+              <div className="absolute inline-flex space-x-5 rounded-md shadow-sm right-5 bottom-5">
                 <button
                   type="button"
-                  className="px-4 py-2 text-sm font-medium text-white transition duration-300 transform bg-purple-600 border border-purple-800 rounded-s-lg focus:z-10 focus:ring-2 hover:text-white hover:bg-purple-400 focus:ring-purple-400 focus:text-white hover:scale-110 drop-shadow-xl"
+                  className="px-4 py-2 text-sm font-medium text-white transition duration-300 transform bg-purple-600 rounded-s-lg focus:z-10 focus:ring-2 hover:text-white hover:bg-purple-400 focus:ring-purple-400 focus:text-white hover:scale-110 drop-shadow-xl hover:ring-purple-500 hover:ring-2"
                   onClick={(e) => {
                     e.preventDefault();
                     localStorage.setItem("chartId", chartID[index]);
@@ -425,7 +425,7 @@ function ChartListPage() {
 
                 <button
                   type="button"
-                  className="px-4 py-2 text-sm font-medium text-white transition duration-300 transform bg-purple-600 border border-purple-800 rounded-e-lg focus:z-10 focus:ring-2 hover:text-white hover:bg-purple-400 focus:ring-purple-400 focus:text-white hover:scale-110 drop-shadow-xl"
+                  className="px-4 py-2 text-sm font-medium text-white transition duration-300 transform bg-purple-600 rounded-e-lg focus:z-10 focus:ring-2 hover:text-white hover:bg-purple-400 focus:text-white hover:scale-110 drop-shadow-xl hover:ring-purple-500 hover:ring-2"
                   onClick={async () => {
                     try {
                       const userId = localStorage.getItem("userId");

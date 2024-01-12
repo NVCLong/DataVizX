@@ -11,33 +11,32 @@ import { useNavigate } from "react-router-dom";
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const [currentPageTitle, setCurrentPageTitle] = useState("");
 
   const menus = [
     {
       title: "Dashboard",
       src: dashboard_icon,
       href: "./ChartListPage",
-      onClick: () => setCurrentPageTitle("Chart list"),
+
     },
     {
       title: "Feedback",
       src: feedback_icon,
       href: "./feedback",
-      onClick: () => setCurrentPageTitle("Feedback"),
+
     },
 
     {
       title: "User",
       src: user_icon,
       href: "./user",
-      onClick: () => setCurrentPageTitle("User"),
+
     },
     {
       title: "ChatDVX",
       src: chatgpt_icon,
       href: "./chatDVX",
-      onClick: () => setCurrentPageTitle("ChatDVX"),
+
     },
     {
       title: "Logout",
@@ -88,7 +87,7 @@ const Sidebar = () => {
           {menus.map((menu, index) => (
             <li
               key={index}
-              className={`text-xl flex items-center cursor-pointer p-2 hover:bg-white-100 outline-blue-500 ease-linear hover:outline-none focus:bg-slate-50  focus:outline-none active:bg-slate-50 text-gray-300 hover:text-white hover:bg-white/10 focus:bg-white/10 active:bg-white/10 rounded-lg px-2 py-2 transition duration-200 transform hover:scale-110
+              className={`text-xl flex items-center cursor-pointer p-2 hover:bg-white-100 outline-blue-500 ease-linear hover:outline-none focus:bg-slate-50 focus:outline-none active:bg-slate-50 text-gray-300 hover:text-white hover:bg-white/10 focus:bg-white/10 active:bg-white/10 rounded-lg px-2 py-2 transition duration-200 transform hover:scale-110
               ${menu.gap ? "mt-96" : "mt-8"}`}
             >
               <a
@@ -96,7 +95,7 @@ const Sidebar = () => {
                 href={menu.href}
                 className="flex items-center"
               >
-                <img src={menu.src} alt="menu" width={24} height={24} />
+                <img src={menu.src} alt="menu" width={30} height={30} />
                 <span
                   className={`${
                     !open && "hidden"
@@ -109,10 +108,6 @@ const Sidebar = () => {
           ))}
         </ul>
       </div>
-
-      {/* <div className="flex-1 h-screen text-3xl font-bold text-white p-7">
-        <h1>{currentPageTitle}</h1>
-      </div> */}
     </div>
   );
 };

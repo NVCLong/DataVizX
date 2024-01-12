@@ -9,7 +9,6 @@
 
 .btn-note button.btn.btn--outline.btn--medium{
   right: 280px;
-  /* width: 180px; */
   position: absolute;
 }
 
@@ -46,25 +45,27 @@
 .input-field-name {
   padding: 8px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 2px solid #a03bff;
+  border-radius: 10px;
   width: 275px;
 }
 
 .input-category {
   font-weight: bold;
   margin-bottom: 8px;
+
 }
 
 .category-input-container {
   margin-bottom: 20px;
+
 }
 
 .input-field-category {
   padding: 8px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 2px solid #a03bff;
+  border-radius: 10px;
   width: 275px;
 }
 
@@ -107,8 +108,8 @@ h2 {
 .select-dropdown {
   padding: 8px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 2px solid #a03bff;
+  border-radius: 10px;
   width: 200px;
 }
 
@@ -129,8 +130,8 @@ h2 {
 .input-field {
   padding: 8px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 2px solid #a03bff;
+  border-radius: 10px;
   width: 275px;
 }
 /*
@@ -148,15 +149,15 @@ h3 {
 select {
   padding: 8px;
   font-size: 16px;
-  border: 3px solid #9b59d1;
-  border-radius: 18px;
+  border: 2px solid #a03bff;
+  border-radius: 10px;
   width: 200px;
   /* Tùy chỉnh các thuộc tính khác theo ý muốn */
 }
 
 .custom-button {
   padding: 20px 90px;
-  font-size: 16px;
+  font-size: 20px;
   border: none;
   background-color: #00ccffa1;
   border-radius: 8px;
@@ -181,7 +182,7 @@ select {
   padding: 20px 90px;
   font-size: 16px;
   border: none;
-  border: 3px solid #9b59d1;
+  border: 2px solid #a03bff;
   border-radius: 18px;
   color: #fff;
   color: white;
@@ -209,7 +210,7 @@ select {
   height: 50vh;
   margin: 50px auto;
   padding: 5px;
-  border: 3px solid #9b59d1;
+  border: 2px solid #a03bff;
   border-radius: 18px;
   background-color: rgba(10, 20, 30, 0.6);
   text-align: center;

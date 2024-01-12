@@ -1,3 +1,7 @@
+*{
+    border-radius: 10px;
+
+}
 .static_button {
     padding: 20px 90px;
     font-size: 16px;
@@ -55,8 +59,8 @@ h2 {
     margin: 20px;
     padding: 8px;
     font-size: 16px;
-    border: 10px solid #ccc;
-    border-radius: 4px;
+    border: 2px solid #a03bff;
+    border-radius: 10px;
     width: 275px;
 }
 

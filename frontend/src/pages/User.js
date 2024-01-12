@@ -89,7 +89,7 @@ const User = () => {
           <Sidebar />
         </div>
         <div className="pr-10 mx-auto pt-96">
-          <div className="flex justify-center items-center py-2.5 px-5 me-2 mb-2 text-3xl font-bold w-72 h-16 focus:outline-none rounded-lg border  focus:z-10 focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700 transition duration-300 transform hover:scale-110">
+          <div className="flex justify-center items-center py-2.5 px-5 me-2 mb-2 text-3xl font-bold w-72 h-16 focus:outline-none rounded-lg border focus:z-10 focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700 transition duration-300 transform hover:scale-110">
             <h1 className="">Error: {error.message}</h1>
           </div>
         </div>
@@ -116,7 +116,7 @@ const User = () => {
                 <img
                   src={userData.imageUrl ? userData.imageUrl : blank_profile}
                   alt="logoMain"
-                  className="absolute object-none w-56 h-56 mx-auto transition duration-300 transform border-4 border-white rounded-full shadow-2xl -top-20 hover:scale-110"
+                  className="absolute object-contain w-56 h-56 mx-auto transition duration-300 transform bg-white border-4 border-white rounded-full shadow-2xl -top-20 hover:scale-110"
                 />
               </div>
 

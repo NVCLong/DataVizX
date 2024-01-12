@@ -194,7 +194,7 @@ function Chart() {
         seterrorText("Please input number of data = number of lables")
       }
       if (inputName.length <= 0) {
-        seterrorName("Input a name for Chart please")
+        seterrorName("Input a name for chart, please")
       }
     }
   };
@@ -215,19 +215,19 @@ function Chart() {
             navigate("/ChartListPage")
           }}
         >
-          Go back to Chart List
+          Go back to chart list
         </Button>
       </div>
       <div className="user-input">
         <div className="name-input-container">
-          <h2 className="input-name">Input name of Chart:</h2>
+          <h2 className="input-name">Input name/title of chart:</h2>
           <form>
             <input
               type="text"
               className="input-field-name"
               value={inputName}
               onChange={handleInputName}
-              placeholder="Input name here..."
+              placeholder="Input name/title of chart..."
               required
               minLength="5"
             />
@@ -236,14 +236,14 @@ function Chart() {
         </div>
 
         <div className="text-input-container">
-          <h2 className="input-label">Input Data:</h2>
+          <h2 className="input-label">Input data/value:</h2>
           <form>
             <input
               type="text"
               className="input-field"
               value={inputValue}
               onChange={handleInputDataChange}
-              placeholder="Input here..."
+              placeholder="Input data/value..."
               required
               minLength="3"
             />
@@ -253,14 +253,14 @@ function Chart() {
         </div>
 
         <div className="category-input-container">
-          <h2 className="input-category">Input labels:</h2>
+          <h2 className="input-category">Input label of each data/value:</h2>
           <form>
             <input
               type="text"
               className="input-field-category"
               value={inputCategory}
               onChange={handleInputCategory}
-              placeholder="Input labels here..."
+              placeholder="Input label of each data/value..."
               required
               minLength="5"
             />
@@ -272,17 +272,18 @@ function Chart() {
       </div>
       <div id="instruction">
         <p>
-          To begin, please fill the Data text area with positive integer
-          numbers separated by commas. Do not include any special characters.
-          Only numerical values are allowed in this section; refrain from
-          inputting alphabets. Simultaneously, in the Labels text area, input
-          corresponding labels for each data point, separated by commas. Replace
-          spaces in labels with underscores (_) and avoid using accented
-          characters. Ensure the number of elements in the Data matches the
-          number of elements in Labels for successful pairing. Remember, each
-          data point should have a corresponding label. Following these
-          guidelines ensures proper formatting and successful processing of your
-          inputs.
+        Data/value:<br></br>
+              Enter positive integers only, separated by commas.<br></br>
+              No letters or special characters allowed.<br></br>
+              <br></br>
+        Label of each data/value:<br></br>
+              Enter corresponding labels for each data point, separated by commas.<br></br>
+              Replace spaces with underscores (_).<br></br>
+              Avoid accented characters.<br></br>
+              <br></br>
+        Important!!!<br></br>
+              Number of data points must match number of labels.<br></br>
+              Match each data point with its corresponding label.<br></br>
         </p>
       </div>
     </div>
