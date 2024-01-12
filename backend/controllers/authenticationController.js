@@ -15,6 +15,7 @@ router.use(cookieParser());
 
 class AuthenticationController {
     static async register(req, res, next) {
+        console.log(req.body)
         try {
             // If email or password field is blank it will return an error
             const result = {
@@ -22,6 +23,7 @@ class AuthenticationController {
                 email: req.body.email,
                 password: req.body.password,
             }
+            console.log(result)
 
             // Email must be unique
             const doesExitEmail = await User.findOne({ email: result.email });
@@ -37,11 +39,12 @@ class AuthenticationController {
 
             // Save user to the database
             const user = new User(result);
-            const savedUser = await user.save();
-
-            res.send({ message: "User registered successfully!" });
+            console.log(user);
+             user.save();
+            res.json({ message: "User registered successfully!" });
         } catch (error) {
             // Return an error statement if error is found
+
             if (error.isJoi === true) error.status = 422;
             next(error);
         }

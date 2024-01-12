@@ -17,29 +17,32 @@ export default function Register() {
 
   const handleChange = (e) => {
     setRegisterState({ ...registerState, [e.target.name]: e.target.value });
+
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const data = await register(
-        registerState.userName,
-        registerState["email"],
-        registerState.password
-      );
-      console.log(data);
-      // handle successful registration
-      alert("Registration successfully!");
-      // redirect the user to the login page
-      navigate("/login");
-    } catch (error) {
-      console.error(error);
+    if(registerState.password.length <8) {
+      alert("Please enter password more than 8 characters")
+    }
+    else if(registerState.password.length>=8) {
+      try {
+        await register(
+            registerState.username,
+            registerState["email"],
+            registerState.password
+        );
+        alert("Registration successfully!");
+        navigate("/login");
+      } catch (error) {
+        console.error(error);
 
-      if (error.response.status === 409) {
-        alert("User already logged in!");
+        if (error.response.status === 409) {
+          alert("User already logged in!");
+        }
+        // handle failed registration
+        alert("Registration failed. Please try again.");
       }
-      // handle failed registration
-      alert("Registration failed. Please try again.");
     }
   };
 

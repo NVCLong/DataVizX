@@ -24,8 +24,7 @@ export const register = async (userName, email, password) => {
   try {
     const response = await axios.post(
       `http://localhost:3000/auth/register`,
-      { userName, email, password },
-      { headers: { "Content-Type": "application/json" } }
+      { userName, email, password }
     );
     return response.data;
   } catch (error) {
