@@ -24,6 +24,8 @@ import axios from "axios";
 
 
 function Chart() {
+  const API = 'http://localhost:3000'
+
   const colorTemplate = [
     "#FF6633",
     "#FFB399",
@@ -437,7 +439,15 @@ function Chart() {
           className="btns"
           buttonSize="btn--medium"
           buttonStyle="btn--outline"
-          linkUrl={"/note"}
+          onClick={async (e)=>{
+            const response = await axios.get(`${API}/note/getNote/${localStorage.getItem("chartId")}`);
+            if(!response.data){
+              navigate("/createNote")
+            }
+            else{
+              navigate("/editNote")
+            }
+          }}
         >
           Write note
         </Button>

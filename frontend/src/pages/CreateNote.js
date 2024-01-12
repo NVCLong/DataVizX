@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import Sidebar from "../components/Sidebar";
 import TextareaAutosize from "react-textarea-autosize";
 import React, {useEffect, useState} from "react";
@@ -19,10 +20,12 @@ const Note = () => {
     console.log(note)
   }
 
+ 
+
   const handleGetNote= async () => {
     const chartId= localStorage.getItem('chartId')
     try {
-      const response= await axios.get(`${API}/note/getNote/${chartId}`)
+      const response= await axios.post(`${API}/note/createNote/${chartId}`)
       console.log(response.data.note)
 
     }catch (e) {
@@ -85,11 +88,12 @@ const Note = () => {
       const response= await axios.post(`${API}/note/create/${chartId}`,note)
       console.log(`response: ${response}`)
       console.log(response.data)
+      navigate("/editNote")
     }catch (e){
       setError(e)
     }
   }
-
+  
   useEffect(() => {
     handleGetNote()
   }, []);
@@ -127,7 +131,7 @@ const Note = () => {
           className="px-4 py-2 text-base font-medium tracking-wider text-white border-purple-800 rounded-lg focus:z-10 focus:ring-2 dark:bg-purple-600 hover:text-white hover:bg-purple-400 focus:ring-purple-500 focus:text-white"
           onClick={handleSubmit}
         >
-          Update Note
+          Create Note
         </button>
       </div>
     </div>
