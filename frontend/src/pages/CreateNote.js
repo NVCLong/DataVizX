@@ -7,7 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 
-const Note = () => {
+const CreateNote = () => {
   const [note, setNote]= useState([])
 
   const [error, setError]= useState([])
@@ -32,13 +32,6 @@ const Note = () => {
       setError(e);
     }
   };
-  const showNote =()=>{
-    if(eNote){
-      return eNote
-    }
-    else {return ''}
-
-
 
   const handleVerify = async (e) => {
     const userId = localStorage.getItem("userId");
@@ -141,4 +134,5 @@ const Note = () => {
   );
 };
 
-export default Note;
+
+export default CreateNote;

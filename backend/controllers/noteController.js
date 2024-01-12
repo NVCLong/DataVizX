@@ -17,7 +17,6 @@ const noteController = {
                 };
                 const note = new Note(newNote);
                 await note.save();
-
                 res.status(200).json(note);
             }
         } catch (e) {
