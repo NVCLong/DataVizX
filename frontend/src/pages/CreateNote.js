@@ -32,6 +32,13 @@ const CreateNote = () => {
       setError(e);
     }
   };
+  const showNote =()=>{
+    if(note){
+      return note
+    }
+    else {return ''}}
+
+
 
   const handleVerify = async (e) => {
     const userId = localStorage.getItem("userId");
@@ -133,6 +140,5 @@ const CreateNote = () => {
 
   );
 };
-
 
 export default CreateNote;
