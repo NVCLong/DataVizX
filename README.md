@@ -71,7 +71,8 @@ MONGODB_URI=<your MongoDB connection string>
 npm start
 ```
 
-DataVizX will now be running on your local machine at http://localhost:3000.
+DataVizX will now be running on your local machine at http://localhost:300.
+Our demo web application is on : https://data-viz-x-fawn.vercel.app
 
 ## Contributing 🤝
 
