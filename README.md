@@ -35,9 +35,11 @@ The goal of the DataVizX project is to design a modern data visualization applic
 
 ## Tech Stack 💻
 
-### Client: [![My Skills](https://skillicons.dev/icons?i=react,css,tailwind)](https://skillicons.dev)
+### Client:
+[![My Skills](https://skillicons.dev/icons?i=react,css,tailwind)](https://skillicons.dev)
 
-### Server: [![My Skills](https://skillicons.dev/icons?i=nodejs,express,mongodb)](https://skillicons.dev)
+### Server:
+ [![My Skills](https://skillicons.dev/icons?i=nodejs,express,mongodb)](https://skillicons.dev)
 
 ## Authors 👥
 
