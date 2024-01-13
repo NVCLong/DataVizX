@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 function ImageUpload() {
+    const API = "https://datavizx.onrender.com";
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [res, setRes] = useState({});
@@ -17,7 +18,7 @@ function ImageUpload() {
       const data = new FormData();
       data.append("image", file);
       const res = await axios.post(
-        `http://localhost:5000/user/profile/upload/${userId}`,
+        `${API}/user/profile/upload/${userId}`,
         data
       );
       setRes(res.data);

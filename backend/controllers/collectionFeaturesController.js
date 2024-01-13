@@ -95,7 +95,6 @@ const collectionSortingController = {
 
     async performSearch(req, res) {
         try {
-            console.log(req.body);
             await chartList
                 .findOne({ userId: req.params.id })
                 .then(async function (results) {
@@ -123,6 +122,7 @@ const collectionSortingController = {
                             userCollection,
                             req.body.searchString
                         );
+                        console.log(searchResult);
 
                         res.json({
                             success: true,
